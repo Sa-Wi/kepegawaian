@@ -20,6 +20,7 @@ class CreatePendidikansTable extends Migration
             $table->string('nama_instansi');
             $table->string('dari');
             $table->string('hingga');
+            $table->string('jurusan');
             $table->text('keterangan');
             $table->timestamps();
         });

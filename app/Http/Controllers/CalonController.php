@@ -12,9 +12,10 @@ class CalonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        return  view('pendaftaran');
     }
 
     /**
@@ -22,9 +23,9 @@ class CalonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        return dd($request);
     }
 
     /**
@@ -35,7 +36,7 @@ class CalonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return dd($request);
     }
 
     /**

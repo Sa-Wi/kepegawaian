@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CalonController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,4 @@ Route::get('/laravel', function () {
 Route::get('/', function () {
     return view('dashboard');
 });
-Route::get('/recruitment', function () {
-    return view('pendaftaran');
-});
+Route::resource('recruitment', CalonController::class);
