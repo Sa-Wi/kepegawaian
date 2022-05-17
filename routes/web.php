@@ -21,4 +21,4 @@ Route::get('/laravel', function () {
 Route::get('/', function () {
     return view('dashboard');
 });
-Route::resource('recruitment', CalonController::class);
+Route::resource('recruitment', CalonController::class)->except('destroy');

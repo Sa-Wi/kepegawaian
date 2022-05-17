@@ -134,6 +134,10 @@
                     <input type="email" class="form-control" id="email" name="email">
                 </div>
                 <div class="col-md-12">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="phone" name="phone">
+                </div>
+                <div class="col-md-12">
                     <label for="facebook" class="form-label">Facebook (link / email)</label>
                     <input type="text" class="form-control" id="Facebook" name="facebook">
                 </div>
@@ -148,65 +152,127 @@
                 <div class="col-md-12">
                     <label for="formal_education" class="form-label">Formal Education</label>
                     <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-4 mb-1">
+                        <input type="text" hidden name="education[1][jenis]" value="formal">
+                        <div class="col-lg-3 mb-1">
                             <label for="school_name" class="form-label">Name of School</label>
-                            <input type="text" class="form-control" id="school_name" name="nama_sekolah[]">
+                            <input type="text" class="form-control" id="school_name" name="education[1][school_name]">
                         </div>
                         <div class="col-lg-1 mb-1">
                             <label for="from" class="form-label">From</label>
-                            <input type="number" class="form-control" id="from" name="from[]">
+                            <input type="number" class="form-control" id="from" name="education[1][from]">
                         </div>
                         <div class="col-lg-1 mb-1">
                             <label for="to" class="form-label">To</label>
-                            <input type="number" class="form-control" id="to" name="to[]">
+                            <input type="number" class="form-control" id="to" name="education[1][to]">
                         </div>
                         <div class="col-lg-3 mb-1">
                             <label for="subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="subject" name="subject[]">
+                            <input type="text" class="form-control" id="subject" name="education[1][subject]">
                         </div>
                         <div class="col-lg-3 mb-1">
                             <label for="remark_education" class="form-label">Remark</label>
-                            <textarea name="remark_education[]" class="form-control" style="height: 40px ;" id="remark-education"></textarea>
+                            <textarea name="education[1][remark]" class="form-control" style="height: 40px ;" id="remark-education"></textarea>
                         </div>
                     </div>
                     <div id="formal_education">
 
                     </div>
 
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_education" title="Add field">+ Add more</a>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_education" title="Add Education">+ Add more</a>
                 </div>
                 <div class="col-md-12">
                     <label for="other_education" class="form-label">Other Education (Course etc.)</label>
-                    <div class="row text-center bg-secondary rounded">
-                        <div class="col-lg-4 mb-1">
-                            <label for="formal_education" class="form-label">Name of Course</label>
-                            <input type="text" class="form-control" id="linkedin" name="linkedin">
+                    <input type="text" hidden name="course[1][jenis]" value="course">
+                    <div class="row text-center text-white bg-secondary rounded py-1">
+                        <div class="col-lg-3 mb-1">
+                            <label for="course_name" class="form-label">Name of Course</label>
+                            <input type="text" class="form-control" id="course_name" name="course[1][course_name]">
                         </div>
                         <div class="col-lg-1 mb-1">
-                            <label for="formal_education" class="form-label">From</label>
-                            <input type="number" class="form-control" id="linkedin" name="linkedin">
+                            <label for="course_from" class="form-label">From</label>
+                            <input type="number" class="form-control" id="course_from" name="course[1][from]">
                         </div>
                         <div class="col-lg-1 mb-1">
-                            <label for="formal_education" class="form-label">To</label>
-                            <input type="number" class="form-control" id="linkedin" name="linkedin">
+                            <label for="course_to" class="form-label">To</label>
+                            <input type="number" class="form-control" id="course_to" name="course[1][to]">
                         </div>
                         <div class="col-lg-3 mb-1">
-                            <label for="formal_education" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="linkedin" name="linkedin">
+                            <label for="course_subject" class="form-label">Subject</label>
+                            <input type="text" class="form-control" id="course_subject" name="course[1][subject]">
                         </div>
                         <div class="col-lg-3 mb-1">
-                            <label for="formal_education" class="form-label">Remark</label>
-                            <textarea name="formal_education" class="form-control" style="height: 40px ;" id=""></textarea>
+                            <label for="course_remark" class="form-label">Remark</label>
+                            <textarea name="course[1][remark]" class="form-control" style="height: 40px ;" id="course_remark"></textarea>
                         </div>
                     </div>
+                    <div id="other_education">
+
+                    </div>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_course" title="Add Course">+ Add more</a>
                 </div>
                 <div class="col-md-12">
                     <label for="language" class="form-label">Language Proficiency</label>
-                    <input type="text" class="form-control" id="language" name="language">
+                    <div class="row text-center text-white bg-secondary rounded py-1">
+                        <div class="col-lg-3 mb-1">
+                            <label for="language" class="form-label">language</label>
+                            <input type="text" class="form-control" id="course_name" name="language[1][language]">
+                        </div>
+                        <div class="col-lg-2 mb-1">
+                            <label for="oral" class="form-label">Oral</label>
+                            <input type="text" class="form-control" id="oral" name="language[1][oral]">
+                        </div>
+                        <div class="col-lg-2 mb-1">
+                            <label for="written" class="form-label">Written</label>
+                            <input type="text" class="form-control" id="written" name="language[1][written]">
+                        </div>
+                        <div class="col-lg-4 mb-1">
+                            <label for="language_remark" class="form-label">Remark</label>
+                            <textarea name="language[1][remark]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                        </div>
+                    </div>
+                    <div id="language_form">
+
+                    </div>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_language" title="Add Language">+ Add more</a>
+
                 </div>
                 <div class="col-md-12">
                     <label for="experience" class="form-label">Working Experience</label>
-                    <input type="text" class="form-control" id="experience" name="experience">
+                    <div class="row text-center text-white bg-secondary rounded py-1">
+                        <div class="col-lg-2 mb-1">
+                            <label for="company_name" class="form-label">Name of Company</label>
+                            <input type="text" class="form-control" id="company_name" name="experience[1][company]">
+                        </div>
+                        <div class="col-lg-1 mb-1">
+                            <label for="experience_from" class="form-label">From</label>
+                            <input type="number" class="form-control" id="experience_from" name="experience[1][from]">
+                        </div>
+                        <div class="col-lg-1 mb-1">
+                            <label for="experience_to" class="form-label">To</label>
+                            <input type="number" class="form-control" id="experiemce_to" name="experience[1][to]">
+                        </div>
+                        <div class="col-lg-2 mb-1">
+                            <label for="experience_responsibly" class="form-label">Main Responsibility</label>
+                            <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[1][responsibly]"></textarea>
+                        </div>
+                        <div class="col-lg-1 mb-1">
+                            <label for="company_salary" class="form-label">Salary</label>
+                            <input type="text" class="form-control" id="company_salary" name="experience[1][salary]">
+                        </div>
+                        <div class="col-lg-2 mb-1">
+                            <label for="company_resign" class="form-label">Reason of Resignation</label>
+                            <textarea type="text" class="form-control" style="height: 40px ;" id="company_resign" name="experience[1][reason]"></textarea>
+                        </div>
+                        <div class="col-lg-2 mb-1">
+                            <label for="language_remark" class="form-label">Remark</label>
+                            <textarea name="experience[1][company]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                        </div>
+                    </div>
+                    <div id="experience_form">
+
+                    </div>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_experience" title="Add More">+ Add more</a>
+
                 </div>
                 <div class="col-md-6">
                     <label for="salary" class="form-label">Requested Salary</label>
@@ -218,7 +284,7 @@
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="str_weak"></textarea>
+                        <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="career"></textarea>
                         <label for="floatingTextarea">Give a brief description of the career you hope to follow</label>
                     </div>
                 </div>
@@ -286,13 +352,97 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
-        var i = 0;
+        //tambah form education
+        var countEducation = 2;
         $("#add_button_education").click(function() {
-            ++i;
-            $("#formal_education").append('<div class="row education_remove text-center text-white bg-secondary rounded py-1"><div class="col-lg-4 mb-1"><input type="text" class="form-control" id="school_name" name="nama_sekolah[]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="from" name="from[]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="to" name="to[]"></div><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="subject" name="subject[]"></div><div class="col-lg-3 mb-1"><textarea name="remark_education[]" class="form-control" style="height: 40px ;" id="remark-education"></textarea></div><button type="button" class="btn btn-outline-danger remove-input-field">Delete</button></div>');
+            $("#formal_education").append(`<div class="row education_remove text-center text-white bg-secondary rounded py-1"><input type="text" hidden name="education[${countEducation}][jenis]" value="formal"><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="school_name" name="education[${countEducation}][nama_sekolah]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="from" name="education[${countEducation}][from]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="to" name="education[${countEducation}][to]"></div><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="subject" name="education[${countEducation}][subject]"></div><div class="col-lg-3 mb-1"><textarea name="education[${countEducation}][remark]" class="form-control" style="height: 40px ;" id="remark-education"></textarea></div><div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field">Delete</button></div></div>`);
+            ++countEducation;
         });
         $(document).on('click', '.remove-input-field', function() {
             $(this).parents('.education_remove').remove();
+            --countEducation;
+        });
+
+        //tambah form other education
+        var countCourse = 2;
+        $("#add_button_course").click(function() {
+            $("#other_education").append(`<div class="row course_remove text-center text-white bg-secondary rounded py-1"><input type="text" hidden name="course[${countCourse}][jenis]" value="course"><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="course_name" name="course[${countCourse}][course_name]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="course_from" name="course[${countCourse}][from]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="course_to" name="course[${countCourse}][to]"></div><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="course_subject" name="course[${countCourse}][subject]"></div><div class="col-lg-3 mb-1"><textarea name="course[${countCourse}][remark]" class="form-control" style="height: 40px ;" id="course_remark"></textarea></div><div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-course">Delete</button></div></div></div>`);
+            ++countCourse;
+        });
+        $(document).on('click', '.remove-input-field-course', function() {
+            $(this).parents('.course_remove').remove();
+            --countCourse;
+        });
+
+        //tambah form Work experience
+        var countExp = 2;
+        $("#add_button_experience").click(function() {
+            var form = `<div class="row text-center experience_remove text-white bg-secondary rounded py-1">
+                                <div class="col-lg-2 mb-1">
+                                
+                                <input type="text" class="form-control" id="company_name" name="experience[${countExp}][company]">
+                            </div>
+                            <div class="col-lg-1 mb-1">
+                                
+                                <input type="number" class="form-control" id="experience_from" name="experience[${countExp}][from]">
+                            </div>
+                            <div class="col-lg-1 mb-1">
+                                
+                                <input type="number" class="form-control" id="experiemce_to" name="experience[${countExp}][to]">
+                            </div>
+                            <div class="col-lg-2 mb-1">
+                            
+                                <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[${countExp}][responsibly]"></textarea>
+                            </div>
+                            <div class="col-lg-1 mb-1">
+                                
+                                <input type="text" class="form-control" id="company_salary" name="experience[${countExp}][salary]">
+                            </div>
+                            <div class="col-lg-2 mb-1">
+                               
+                                <textarea type="text" class="form-control" style="height: 40px ;" id="company_resign" name="experience[${countExp}][reason]"></textarea>
+                            </div>
+                            <div class="col-lg-2 mb-1">
+                               
+                                <textarea name="experience[${countExp}][company]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                            </div>
+                            <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-experience">Delete</button></div>
+                        </div>`
+            $("#experience_form").append(form);
+            ++countExp;
+        });
+        $(document).on('click', '.remove-input-field-experience', function() {
+            $(this).parents('.experience_remove').remove();
+            --countExp;
+        });
+
+        //tambah form languages
+        var countLanguage = 2;
+        $("#add_button_language").click(function() {
+            var form = `<div class="row text-center language_remove text-white bg-secondary rounded py-1">
+                            <div class="col-lg-3 mb-1">
+                                
+                                <input type="text" class="form-control" id="course_name" name="language[${countLanguage}][language]">
+                            </div>
+                            <div class="col-lg-2 mb-1">
+                                <input type="text" class="form-control" id="oral" name="language[${countLanguage}][oral]">
+                            </div>
+                            <div class="col-lg-2 mb-1">
+                                
+                                <input type="text" class="form-control" id="written" name="language[${countLanguage}][written]">
+                            </div>
+                            <div class="col-lg-4 mb-1">
+                                
+                                <textarea name="language[${countLanguage}][remark]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                            </div>
+                            <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-language">Delete</button></div>
+                        </div>`
+            $("#language_form").append(form);
+            ++countLanguage;
+        });
+        $(document).on('click', '.remove-input-field-language', function() {
+            $(this).parents('.language_remove').remove();
+            --countLanguage;
         });
     </script>
 

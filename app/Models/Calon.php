@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Calon extends Model
 {
+    protected $guarded = ['id'];
+
     public function bahasas()
     {
         return $this->hasMany(Bahasa::class);

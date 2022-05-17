@@ -1,10 +1,7 @@
 revisi front end :
     pake js:
     4. membuat opsi tambah form dan field lain pada:
-        education
-        other education
-        language
-        working experience
+        
         family
         strenght weakness
         organization
@@ -13,4 +10,3 @@ revisi front end :
     7. beri pilihan jawaban pada form other recuitment
 
 	
-<div class="row"><div class="col-lg-4 mb-1"><input type="text" class="form-control" id="school_name" name="nama_sekolah[]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="from" name="from[]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="to" name="to[]"></div><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="subject" name="subject[]"></div><div class="col-lg-3 mb-1"><textarea name="remark_education[]" class="form-control" style="height: 40px ;" id="remark-education"></textarea></div></div>
