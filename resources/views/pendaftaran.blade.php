@@ -249,7 +249,7 @@
                         </div>
                         <div class="col-lg-1 mb-1">
                             <label for="experience_to" class="form-label">To</label>
-                            <input type="number" class="form-control" id="experiemce_to" name="experience[1][to]">
+                            <input type="number" class="form-control" id="experience_to" name="experience[1][to]">
                         </div>
                         <div class="col-lg-2 mb-1">
                             <label for="experience_responsibly" class="form-label">Main Responsibility</label>
@@ -279,8 +279,8 @@
                     <input type="number" class="form-control form-floating" id="salary" name="salary">
                     <input class="form-check-input" type="radio" name="negotiable" id="negotiable" value="1">
                     <label for="negotiable" class="form-label">Negotiable</label>
-                    <input class="form-check-input ms-2" type="radio" name="negotiable" id="negotiable" value="0">
-                    <label for="negotiable" class="form-label">Not Negotiable</label>
+                    <input class="form-check-input ms-2" type="radio" name="negotiable" id="notnegotiable" value="0">
+                    <label for="notnegotiable" class="form-label">Not Negotiable</label>
                 </div>
                 <div class="col-md-12">
                     <div class="form-floating">
@@ -289,14 +289,53 @@
                     </div>
                 </div>
                 <div class="col-md-12">
-                    <label for="family" class="form-label">Family Data</label>
-                    <input type="text" class="form-control" id="family" name="family">
+                    <label class="form-label">Family Data</label>
+                    <div class="row text-center text-white bg-secondary rounded py-1">
+                        <div class="col-lg-2 mb-1">
+                            <label for="relation" class="form-label">Relation</label>
+                            <input name="family[1][relation]" class="form-control" list="relationlist" id="relation">
+                            <datalist id="relationlist" name="family[1][relation]">
+                                <option value="Father">Father</option>
+                                <option value="Mother">Mother</option>
+                                <option value="Brother/Sister">Brother/Sister</option>
+                                <option value="Wife/Husband">Wife/Husband</option>
+                                <option value="Children">Children</option>
+
+                            </datalist>
+                        </div>
+                        <div class="col-lg-3 mb-1">
+                            <label for="family_name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="family_name" name="family[1][name]">
+                        </div>
+                        <div class=" col-lg-3 mb-1">
+                            <label for="birth" class="form-label">Place, Date of Birth/Age</label>
+                            <input type="text" class="form-control" id="birth" name="family[1][birth]">
+                        </div>
+                        <div class=" col-lg-3 mb-1">
+                            <label for="occupation" class="form-label">Occupation/School</label>
+                            <input type="text" class="form-control" id="occupation" name="family[1][occupation]">
+                        </div>
+                    </div>
+                    <div id="family_form">
+
+                    </div>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_family" title="Add More">+ Add more</a>
                 </div>
                 <div class="col-md-12">
-
-                    <div class="form-floating">
-                        <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="str_weak"></textarea>
-                        <label for="floatingTextarea">Strength and Weakness</label>
+                    <label class="form-label">Strength & Weakness</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="strength"></textarea>
+                                <label for="floatingTextarea">Strength</label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-floating">
+                                <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="weakness"></textarea>
+                                <label for="floatingTextarea">Weakness</label>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -310,15 +349,70 @@
                 </div>
                 <div class="col-md-12">
                     <label for="organization" class="form-label">Organization</label>
-                    <input type="text" class="form-control" id="organization">
+                    <div class="row text-center text-white bg-secondary rounded py-1">
+                        <div class="col-lg-3 mb-1">
+                            <label for="organization_name" class="form-label">Name of Company</label>
+                            <input type="text" class="form-control" id="organization_name" name="organization[1][name]">
+                        </div>
+                        <div class="col-lg-3 mb-1">
+                            <label for="experience_from" class="form-label">position Held</label>
+                            <input type="number" class="form-control" id="experience_from" name="organization[1][position]">
+                        </div>
+                        <div class="col-lg-5 mb-1">
+                            <label for="oraganization_remark" class="form-label">Remark</label>
+                            <textarea name="Organization[1][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
+                        </div>
+                    </div>
+                    <div id="organization_form">
+
+                    </div>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_organization" title="Add More">+ Add more</a>
+
                 </div>
                 <div class="col-md-12">
                     <label for="scholarship" class="form-label">Scholarship</label>
-                    <input type="text" class="form-control" id="scholarship" name="scholarship">
+                    <p><i> Please give the institution name and place if you are in process of apply for scholarship</i></p>
+                    <div class="row text-center text-white bg-secondary rounded py-1">
+                        <div class="col-lg-3 mb-1">
+                            <label for="institution_name" class="form-label">Institution</label>
+                            <input type="text" class="form-control" id="institution_name" name="scholarship[1][institution]">
+                        </div>
+                        <div class="col-lg-3 mb-1">
+                            <label for="institution_place" class="form-label">Place</label>
+                            <input type="number" class="form-control" id="institution_place" name="scholarship[1][place]">
+                        </div>
+                        <div class="col-lg-5 mb-1">
+                            <label for="institution_remark" class="form-label">Remark</label>
+                            <textarea name="scholarship[1][remark]" class="form-control" style="height: 40px ;" id="institution_remark"></textarea>
+                        </div>
+                    </div>
+                    <div id="scholarship_form">
+
+                    </div>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_scholarship" title="Add More">+ Add more</a>
+
                 </div>
                 <div class="col-md-12">
                     <label for="other_recruitment" class="form-label">In process of recruitment & selection in other company?</label>
-                    <input type="text" class="form-control" id="other_recruitment" name="other_recruitement">
+                    <div class="row text-center text-white bg-secondary rounded py-1">
+                        <div class="col-lg-3 mb-1">
+                            <label for="recruitment_name" class="form-label">Company</label>
+                            <input type="text" class="form-control" id="recruitment_name" name="recruitment[1][institution]">
+                        </div>
+                        <div class="col-lg-3 mb-1">
+                            <label for="job_recruitment" class="form-label">Job Position</label>
+                            <input type="text" class="form-control" id="job_recruitment" name="recruitment[1][job_position]">
+                        </div>
+                        <div class="col-lg-5 mb-1">
+                            <label for="recruitment_remark" class="form-label">Remark</label>
+                            <textarea name="recruitment[1][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark"></textarea>
+                        </div>
+                    </div>
+                    <div id="recruitment_form">
+
+                    </div>
+                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_recruitment" title="Add More">+ Add more</a>
+
                 </div>
                 <div class="col-md-12">
                     <label for="apply_via" class="form-label">Please mention you apply via</label>
@@ -443,6 +537,123 @@
         $(document).on('click', '.remove-input-field-language', function() {
             $(this).parents('.language_remove').remove();
             --countLanguage;
+        });
+
+        //tambah form family
+        var countFamily = 2;
+        $("#add_button_family").click(function() {
+            var form = `<div class="row family_remove text-center text-white bg-secondary rounded py-1">
+                            <div class="col-lg-2 mb-1">
+                                
+                                <input name="family[${countFamily}][relation]" class="form-control" list="relationlist" id="relation">
+                                <datalist id="relationlist" name="family[${countFamily}][relation]">
+                                    <option value="Father">Father</option>
+                                    <option value="Mother">Mother</option>
+                                    <option value="Brother/Sister">Brother/Sister</option>
+                                    <option value="Wife/Husband">Wife/Husband</option>
+                                    <option value="Children">Children</option>
+
+                                </datalist>
+                            </div>
+                            <div class="col-lg-3 mb-1">
+                                
+                                <input type="text" class="form-control" id="family_name" name="family[${countFamily}][name]">
+                            </div>
+                            <div class=" col-lg-3 mb-1">
+                               
+                                <input type="text" class="form-control" id="birth" name="family[${countFamily}][birth]">
+                            </div>
+                            <div class=" col-lg-3 mb-1">
+                                
+                                <input type="text" class="form-control" id="occupation" name="family[${countFamily}][occupation]">
+                            </div>
+                             <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-family">Delete</button></div>
+                        </div>`
+            $("#family_form").append(form);
+            ++countFamily;
+        });
+        $(document).on('click', '.remove-input-field-family', function() {
+            $(this).parents('.family_remove').remove();
+            --countFamily;
+        });
+
+        //tambah form oraganization
+        var countOrganization = 2;
+        $("#add_button_organization").click(function() {
+            var form = `<div class="row organization_remove text-center text-white bg-secondary rounded py-1">
+                            <div class="col-lg-3 mb-1">
+                                
+                                <input type="text" class="form-control" id="organization_name" name="Organization[${countOrganization}][name]">
+                            </div>
+                            <div class="col-lg-3 mb-1">
+                                
+                                <input type="number" class="form-control" id="experience_from" name="Organization[${countOrganization}][position]">
+                            </div>
+                            <div class="col-lg-5 mb-1">
+                               
+                                <textarea name="Organization[${countOrganization}][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
+                            </div>
+                            <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-organization">Delete</button></div>
+                        
+                        </div>`
+            $("#organization_form").append(form);
+            ++countOrganization;
+        });
+        $(document).on('click', '.remove-input-field-organization', function() {
+            $(this).parents('.organization_remove').remove();
+            --countOrganization;
+        });
+
+        //tambah form Scholar
+        var countScholar = 2;
+        $("#add_button_scholarship").click(function() {
+            var form = `<div class="row scholarship_remove text-center text-white bg-secondary rounded py-1">
+                            <div class="col-lg-3 mb-1">
+                                
+                                <input type="text" class="form-control" id="institution_name" name="scholarship[${countScholar}][institution]">
+                            </div>
+                            <div class="col-lg-3 mb-1">
+                                
+                                <input type="number" class="form-control" id="institution_place" name="scholarship[${countScholar}][place]">
+                            </div>
+                            <div class="col-lg-5 mb-1">
+                               
+                                <textarea name="scholarship[${countScholar}][remark]" class="form-control" style="height: 40px ;" id="institution_remark"></textarea>
+                            </div>
+                            <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-scholarship">Delete</button></div>
+                        </div>`
+            $("#scholarship_form").append(form);
+            ++countScholar;
+        });
+        $(document).on('click', '.remove-input-field-scholarship', function() {
+            $(this).parents('.scholarship_remove').remove();
+            --countScholar;
+        });
+
+        //tambah form Recruitment
+        var countRecruitment = 2;
+        $("#add_button_recruitment").click(function() {
+            var form = `<div class="row recruitment_remove text-center text-white bg-secondary rounded py-1">
+                            <div class="col-lg-3 mb-1">
+                               
+                                <input type="text" class="form-control" id="recruitment_name" name="recruitment[${countRecruitment}][institution]">
+                            </div>
+                            <div class="col-lg-3 mb-1">
+                               
+                                <input type="text" class="form-control" id="job_recruitment" name="recruitment[${countRecruitment}][job_position]">
+                            </div>
+                            <div class="col-lg-5 mb-1">
+                                
+                                <textarea name="recruitment[${countRecruitment}][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark"></textarea>
+                            </div>
+                            <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-recruitment">Delete</button></div>
+                        </div>`
+            $("#recruitment_form").append(form);
+            ++countRecruitment;
+        });
+        $(document).on('click', '.remove-input-field-recruitment', function() {
+            $(this).parents('.recruitment_remove').remove();
+            --countRecruitment;
         });
     </script>
 
