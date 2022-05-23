@@ -1,3 +1,17 @@
 
+controler
+    membuat validasi yang sesuai pada setiap inputan
+    @REM membuat kode untuk insert data multiple input
+    membuat insert data relatives
+    softdelete = full senyum
 
-	
+view:
+    @REM mengatur tinggi dan berat badan menjadi input number
+	menbuat error message di setiap inputan
+    membuat beberapa form menjadi required
+    membuat input data relative
+
+database
+    @REM buat migration agar semua bisa nullable, gak semua sih hehe
+    @REM strength dan weakness digabung di table calon
+    @REM table keluarga diberi field baru

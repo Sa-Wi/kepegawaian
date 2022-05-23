@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calon;
-use App\Models\Pegawai;
+use App\Models\Bahasa;
+use App\Models\Keluarga;
+use App\Models\Beasiswa;
+use App\Models\Pengalaman_Kerja;
 use App\Models\Pendidikan;
+use App\Models\Organisasi;
+use App\Models\Rekrutment_Lain;
 use Illuminate\Http\Request;
 
 class CalonController extends Controller
@@ -14,10 +19,11 @@ class CalonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
+        $calons = Calon::all();
 
-        return  view('pendaftaran');
+        return view('calon', compact('calons'));
     }
 
     /**
@@ -27,7 +33,7 @@ class CalonController extends Controller
      */
     public function create(Request $request)
     {
-        // return dd($request);
+        return view('pendaftaran');
     }
 
     /**
@@ -38,22 +44,19 @@ class CalonController extends Controller
      */
     public function store(Request $request)
     {
-        return dd($request);
+        // return dd($request->all());
         $dataCalon = $request->validate([
-            'applyfor' => 'required',
-            'name' => 'required',
+            'applyfor' => 'required|max:255',
+            'name' => 'required|max:255',
             'dateofbirth' => 'required',
             'sex' => 'required',
             'religion' => 'required',
-            'ktp' => 'required',
-            'email' => 'required',
-            'phone' => 'required'
+            'ktp' => 'required|numeric|digits:16',
+            'email' => 'required|email:rfc,dns',
+            'phone' => 'required|numeric'
         ]);
 
-        $dataEducation = $request->validate([
-            'education.*.jenis' => 'required',
-            'education.*.school_name' => 'required'
-        ]);
+
 
         $calon = new Calon();
         $calon->ktp = $dataCalon['ktp'];
@@ -77,15 +80,123 @@ class CalonController extends Controller
         $calon->request_gaji = $request->salary;
         $calon->status_nego_gaji = $request->negotiable;
         $calon->jenjang_karir = $request->career;
+        $calon->strength = $request->strength;
+        $calon->weakness = $request->weakness;
         $calon->aktivitas = $request->activity;
         $calon->hobi = $request->hobby;
         $calon->apply_via = $request->apply_via;
-        $calon->nama_teman = $request->activity;
+        $calon->nama_teman = $request->activity; //inget ganti
         $calon->keterangan_lain = $request->other_remark;
         $calon->status_data = 1;
         $calon->save();
 
-        dd($calon);
+        if ($request->education[1]['school_name']) {
+            foreach ($request->education as $data) {
+                // if ($data == 2) {
+                // dd($data);
+                //     # code...
+                // }
+                $pendidikan = new Pendidikan();
+                $pendidikan->calon_id = $calon->id;
+                $pendidikan->jenis_pendidikan = $data['jenis'];
+                $pendidikan->nama_instansi = $data['school_name'];
+                $pendidikan->dari = $data['from'];
+                $pendidikan->hingga = $data['to'];
+                $pendidikan->jurusan = $data['subject'];
+                $pendidikan->keterangan = $data['remark'];
+                $pendidikan->save();
+            }
+        }
+
+        if ($request->course[1]['course_name']) {
+            foreach ($request->course as $data) {
+                // if ($data == 2) {
+                // dd($data);
+                //     # code...
+                // }
+                $pendidikan = new Pendidikan();
+                $pendidikan->calon_id = $calon->id;
+                $pendidikan->jenis_pendidikan = $data['jenis'];
+                $pendidikan->nama_instansi = $data['course_name'];
+                $pendidikan->dari = $data['from'];
+                $pendidikan->hingga = $data['to'];
+                $pendidikan->jurusan = $data['subject'];
+                $pendidikan->keterangan = $data['remark'];
+                $pendidikan->save();
+            }
+        }
+
+        if ($request->language[1]['language']) {
+            foreach ($request->language as $data) {
+                $bahasa = new Bahasa();
+                $bahasa->calon_id = $calon->id;
+                $bahasa->bahasa = $data['language'];
+                $bahasa->lisan = $data['oral'];
+                $bahasa->tulis = $data['written'];
+                $bahasa->keterangan = $data['remark'];
+                $bahasa->save();
+            }
+        }
+
+        if ($request->experience[1]['company']) {
+            foreach ($request->experience as $data) {
+                $pengalaman = new Pengalaman_Kerja();
+                $pengalaman->calon_id = $calon->id;
+                $pengalaman->nama_perusahaan = $data['company'];
+                $pengalaman->dari = $data['from'];
+                $pengalaman->hingga = $data['to'];
+                $pengalaman->tanggung_jawab = $data['responsibly'];
+                $pengalaman->gaji = $data['salary'];
+                $pengalaman->alasan_resign = $data['reason'];
+                $pengalaman->save();
+            }
+        }
+
+        if ($request->family[1]['relation']) {
+            foreach ($request->family as $data) {
+                $keluarga = new Keluarga();
+                $keluarga->calon_id = $calon->id;
+                $keluarga->hubungan = $data['relation'];
+                $keluarga->nama = $data['name'];
+                $keluarga->lahir = $data['birth'];
+                $keluarga->pekerjaan = $data['occupation'];
+                $keluarga->save();
+            }
+        }
+
+        if ($request->organization[1]['name']) {
+            foreach ($request->organization as $data) {
+                $organisasi = new Organisasi();
+                $organisasi->calon_id = $calon->id;
+                $organisasi->nama = $data['name'];
+                $organisasi->posisi = $data['position'];
+                $organisasi->keterangan = $data['remark'];
+                $organisasi->save();
+            }
+        }
+
+        if ($request->scholarship[1]['institution']) {
+            foreach ($request->scholarship as $data) {
+                $beasiswa = new Beasiswa();
+                $beasiswa->calon_id = $calon->id;
+                $beasiswa->nama_institusi = $data['institution'];
+                $beasiswa->tempat = $data['place'];
+                $beasiswa->keterangan = $data['remark'];
+                $beasiswa->save();
+            }
+        }
+
+        if ($request->recruitment[1]['institution']) {
+            foreach ($request->recruitment as $data) {
+                $rekrutmen = new Rekrutment_Lain();
+                $rekrutmen->calon_id = $calon->id;
+                $rekrutmen->nama_institusi = $data['institution'];
+                $rekrutmen->tempat = $data['place'];
+                $rekrutmen->keterangan = $data['remark'];
+                $rekrutmen->save();
+            }
+        }
+        return 'data berhasil diinput';
     }
 
     /**
@@ -94,9 +205,9 @@ class CalonController extends Controller
      * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function show(Calon $calon)
+    public function show(Calon $recruitment)
     {
-        //
+        return view('calon.show', ['data' => $recruitment]);
     }
 
     /**
@@ -105,7 +216,7 @@ class CalonController extends Controller
      * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function edit(Calon $calon)
+    public function edit(Calon $recruitment)
     {
         //
     }
@@ -117,7 +228,7 @@ class CalonController extends Controller
      * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Calon $calon)
+    public function update(Request $request, Calon $recruitment)
     {
         //
     }
@@ -128,7 +239,7 @@ class CalonController extends Controller
      * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Calon $calon)
+    public function destroy(Calon $recruitment)
     {
         //
     }

@@ -18,6 +18,8 @@ class CreateKeluargasTable extends Migration
             $table->foreignId('calon_id');
             $table->string('hubungan');
             $table->string('nama');
+            $table->string('lahir');
+            $table->string('pekerjaan');
             $table->timestamps();
         });
     }

@@ -22,7 +22,6 @@ class CreatePengalamanKerjasTable extends Migration
             $table->string('tanggung_jawab');
             $table->string('gaji');
             $table->text('alasan_resign');
-            $table->text('keterangan');
             $table->timestamps();
         });
     }

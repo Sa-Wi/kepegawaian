@@ -14,11 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/laravel', function () {
-    return view('welcome');
-});
-
 Route::get('/', function () {
     return view('dashboard');
 });
-Route::resource('recruitment', CalonController::class)->except('destroy');
+Route::get('recruitment/calon', [CalonController::class, 'create']);
+Route::resource('recruitment', CalonController::class);

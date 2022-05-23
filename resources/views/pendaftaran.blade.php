@@ -44,15 +44,15 @@
                 @csrf
                 <div class="col-md-12">
                     <label for="applyfor" class="form-label">Application for position of</label>
-                    <input type="text" class="form-control" id="applyfor" name="applyfor">
+                    <input type="text" class="form-control" id="applyfor" name="applyfor" required>
                 </div>
                 <div class="col-md-12">
                     <label for="name" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="name" name="name">
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="col-sm-4">
                     <label for="dateofbirth" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="dateofbirth" name="dateofbirth">
+                    <input type="date" class="form-control" id="dateofbirth" name="dateofbirth"  required>
                 </div>
                 <div class="col-sm-8">
                     <label for="placeofbirth" class="form-label">Place of Birth</label>
@@ -60,10 +60,10 @@
                 </div>
                 <div class="col-md-12">
                     <label class="form-label">Sex</label><br>
-                    <input class="form-check-input" type="radio" name="sex" id="sex" value="1">
-                    <label for="sex" class="form-label">Male</label>
-                    <input class="form-check-input" type="radio" name="sex" id="sex" value="0">
-                    <label for="sex" class="form-label">Female</label>
+                    <input class="form-check-input" type="radio" name="sex" id="sex1" value="1"  required>
+                    <label for="sex1" class="form-label">Male</label>
+                    <input class="form-check-input" type="radio" name="sex" id="sex0" value="0"  required>
+                    <label for="sex0" class="form-label">Female</label>
                 </div>
                 <div class="col-md-12">
                     <label for="marital" class="form-label">Marital Status</label>
@@ -97,7 +97,7 @@
                 <div class="col-md-12">
                     <label for="religion" class="form-label">Religion</label>
                     <!-- <input type="text" class="form-control" id="religion" name="religion"> -->
-                    <select class="form-select" id="religion" name="religion" aria-label="Default select example" onchange='CheckReligion(this.value);'>
+                    <select class="form-select" id="religion" name="religion" aria-label="Default select example" required onchange='CheckReligion(this.value);'>
                         <option disabled selected>Select your religion</option>
                         <option value="Islam">Islam</option>
                         <option value="Protestantism">Protestantism</option>
@@ -115,15 +115,15 @@
                 </div>
                 <div class="col-md-12">
                     <label for="ktp" class="form-label">Identify Card No (KTP)</label>
-                    <input type="text" class="form-control" id="ktp" name="ktp">
+                    <input type="text" class="form-control" id="ktp" name="ktp" required>
                 </div>
                 <div class="col-md-2">
                     <label for="tinggi_badan" class="form-label">Height (cm)</label>
-                    <input type="text" class="form-control" id="tinggi_badan" name="tinggi_badan">
+                    <input type="number" class="form-control" id="tinggi_badan" name="tinggi_badan">
                 </div>
                 <div class="col-md-2">
                     <label for="berat_badan" class="form-label">Weight (kg)</label>
-                    <input type="text" class="form-control" id="berat_badan" name="berat_badan">
+                    <input type="number" class="form-control" id="berat_badan" name="berat_badan">
                 </div>
                 <div class="col-md-12">
                     <label for="health" class="form-label">Present Health Condition</label>
@@ -131,11 +131,11 @@
                 </div>
                 <div class="col-md-12">
                     <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="col-md-12">
                     <label for="phone" class="form-label">Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone">
+                    <input type="text" class="form-control" id="phone" name="phone" required>
                 </div>
                 <div class="col-md-12">
                     <label for="facebook" class="form-label">Facebook (link / email)</label>
@@ -156,6 +156,9 @@
                         <div class="col-lg-3 mb-1">
                             <label for="school_name" class="form-label">Name of School</label>
                             <input type="text" class="form-control" id="school_name" name="education[1][school_name]">
+                            @error('education.1.school_name')
+                            <div class="alert alert-danger">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="col-lg-1 mb-1">
                             <label for="from" class="form-label">From</label>
@@ -356,11 +359,11 @@
                         </div>
                         <div class="col-lg-3 mb-1">
                             <label for="experience_from" class="form-label">position Held</label>
-                            <input type="number" class="form-control" id="experience_from" name="organization[1][position]">
+                            <input type="text" class="form-control" id="experience_from" name="organization[1][position]">
                         </div>
                         <div class="col-lg-5 mb-1">
                             <label for="oraganization_remark" class="form-label">Remark</label>
-                            <textarea name="Organization[1][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
+                            <textarea name="organization[1][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
                         </div>
                     </div>
                     <div id="organization_form">
@@ -379,7 +382,7 @@
                         </div>
                         <div class="col-lg-3 mb-1">
                             <label for="institution_place" class="form-label">Place</label>
-                            <input type="number" class="form-control" id="institution_place" name="scholarship[1][place]">
+                            <input type="text" class="form-control" id="institution_place" name="scholarship[1][place]">
                         </div>
                         <div class="col-lg-5 mb-1">
                             <label for="institution_remark" class="form-label">Remark</label>
@@ -449,7 +452,7 @@
         //tambah form education
         var countEducation = 2;
         $("#add_button_education").click(function() {
-            $("#formal_education").append(`<div class="row education_remove text-center text-white bg-secondary rounded py-1"><input type="text" hidden name="education[${countEducation}][jenis]" value="formal"><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="school_name" name="education[${countEducation}][nama_sekolah]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="from" name="education[${countEducation}][from]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="to" name="education[${countEducation}][to]"></div><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="subject" name="education[${countEducation}][subject]"></div><div class="col-lg-3 mb-1"><textarea name="education[${countEducation}][remark]" class="form-control" style="height: 40px ;" id="remark-education"></textarea></div><div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field">Delete</button></div></div>`);
+            $("#formal_education").append(`<div class="row education_remove text-center text-white bg-secondary rounded py-1"><input type="text" hidden name="education[${countEducation}][jenis]" value="formal"><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="school_name" name="education[${countEducation}][school_name]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="from" name="education[${countEducation}][from]"></div><div class="col-lg-1 mb-1"><input type="number" class="form-control" id="to" name="education[${countEducation}][to]"></div><div class="col-lg-3 mb-1"><input type="text" class="form-control" id="subject" name="education[${countEducation}][subject]"></div><div class="col-lg-3 mb-1"><textarea name="education[${countEducation}][remark]" class="form-control" style="height: 40px ;" id="remark-education"></textarea></div><div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field">Delete</button></div></div>`);
             ++countEducation;
         });
         $(document).on('click', '.remove-input-field', function() {
@@ -591,7 +594,7 @@
                             </div>
                             <div class="col-lg-5 mb-1">
                                
-                                <textarea name="Organization[${countOrganization}][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
+                                <textarea name="organization[${countOrganization}][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
                             </div>
                             <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-organization">Delete</button></div>
                         
@@ -614,7 +617,7 @@
                             </div>
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="number" class="form-control" id="institution_place" name="scholarship[${countScholar}][place]">
+                                <input type="text" class="form-control" id="institution_place" name="scholarship[${countScholar}][place]">
                             </div>
                             <div class="col-lg-5 mb-1">
                                
