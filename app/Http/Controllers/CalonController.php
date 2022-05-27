@@ -10,6 +10,7 @@ use App\Models\Pengalaman_Kerja;
 use App\Models\Pendidikan;
 use App\Models\Organisasi;
 use App\Models\Rekrutment_Lain;
+use App\Models\Relative;
 use Illuminate\Http\Request;
 
 class CalonController extends Controller
@@ -44,14 +45,14 @@ class CalonController extends Controller
      */
     public function store(Request $request)
     {
-        // return dd($request->all());
+        return dd($request->all());
         $dataCalon = $request->validate([
             'applyfor' => 'required|max:255',
             'name' => 'required|max:255',
             'dateofbirth' => 'required',
             'sex' => 'required',
             'religion' => 'required',
-            'ktp' => 'required|numeric|digits:16',
+            'ktp' => 'required|numeric', //ini inget isi max digit !!!
             'email' => 'required|email:rfc,dns',
             'phone' => 'required|numeric'
         ]);
@@ -85,7 +86,9 @@ class CalonController extends Controller
         $calon->aktivitas = $request->activity;
         $calon->hobi = $request->hobby;
         $calon->apply_via = $request->apply_via;
-        $calon->nama_teman = $request->activity; //inget ganti
+        if ($request->mention_name) {
+            $calon->nama_teman = $request->mention_name;
+        }
         $calon->keterangan_lain = $request->other_remark;
         $calon->status_data = 1;
         $calon->save();
@@ -194,6 +197,17 @@ class CalonController extends Controller
                 $rekrutmen->tempat = $data['place'];
                 $rekrutmen->keterangan = $data['remark'];
                 $rekrutmen->save();
+            }
+        }
+
+        if ($request->relative[1]['name']) {
+            foreach ($request->relatives as $data) {
+                $relative = new Relative();
+                $relative->calon_id = $calon->id;
+                $relative->nama = $data['name'];
+                $relative->hubungan = $data['relation'];
+                $relative->departement = $data['department'];
+                $relative->save();
             }
         }
         return 'data berhasil diinput';

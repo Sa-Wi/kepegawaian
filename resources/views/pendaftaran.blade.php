@@ -40,397 +40,451 @@
         <!-- form -->
         <div class="container px-5 mb-5" style="position: relative; margin-top: 100px;">
             <h1 class="mb-5">Application Form</h1>
-            <form class="row g-3" action="/recruitment" method="post">
-                @csrf
-                <div class="col-md-12">
-                    <label for="applyfor" class="form-label">Application for position of</label>
-                    <input type="text" class="form-control" id="applyfor" name="applyfor" required>
-                </div>
-                <div class="col-md-12">
-                    <label for="name" class="form-label">Full Name</label>
-                    <input type="text" class="form-control" id="name" name="name" required>
-                </div>
-                <div class="col-sm-4">
-                    <label for="dateofbirth" class="form-label">Date of Birth</label>
-                    <input type="date" class="form-control" id="dateofbirth" name="dateofbirth"  required>
-                </div>
-                <div class="col-sm-8">
-                    <label for="placeofbirth" class="form-label">Place of Birth</label>
-                    <input type="text" class="form-control" id="placeofbirth" name="placeofbirth">
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Sex</label><br>
-                    <input class="form-check-input" type="radio" name="sex" id="sex1" value="1"  required>
-                    <label for="sex1" class="form-label">Male</label>
-                    <input class="form-check-input" type="radio" name="sex" id="sex0" value="0"  required>
-                    <label for="sex0" class="form-label">Female</label>
-                </div>
-                <div class="col-md-12">
-                    <label for="marital" class="form-label">Marital Status</label>
-                    <input type="text" class="form-control" id="marital" name="marital">
-                </div>
-                <!-- <div class="col-md-4">
-                    <label for="inputState" class="form-label"></label>
-                    <select id="inputState" class="form-select">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                    </select>
-                </div> -->
-                <div class="col-md-12">
-                    <label for="nationality" class="form-label">Nationality</label>
-                    <input type="text" class="form-control" id="nationality" name="nationality">
-                </div>
-
-                <!-- fungsi other  -->
-                <script type="text/javascript">
-                    function CheckReligion(val) {
-                        var element = document.getElementById('religion_other');
-                        if (val == 'Other') {
-                            element.classList.remove("d-none");
-                            element.setAttribute("name", "religion");
-                        } else {
-                            element.classList.add("d-none");
-                            element.removeAttribute("name");
-                        }
-                    }
-                </script>
-                <div class="col-md-12">
-                    <label for="religion" class="form-label">Religion</label>
-                    <!-- <input type="text" class="form-control" id="religion" name="religion"> -->
-                    <select class="form-select" id="religion" name="religion" aria-label="Default select example" required onchange='CheckReligion(this.value);'>
-                        <option disabled selected>Select your religion</option>
-                        <option value="Islam">Islam</option>
-                        <option value="Protestantism">Protestantism</option>
-                        <option value="Catholicism">Catholicism</option>
-                        <option value="Hinduism">Hinduism</option>
-                        <option value="Buddhism">Buddhism</option>
-                        <option value="Confucianism">Confucianism</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <input type="text" id="religion_other" name="religion" class="d-none form-control mt-2">
-                </div>
-                <div class="col-md-12">
-                    <label for="address" class="form-label">Present Address</label>
-                    <input type="text" class="form-control" id="address" name="address">
-                </div>
-                <div class="col-md-12">
-                    <label for="ktp" class="form-label">Identify Card No (KTP)</label>
-                    <input type="text" class="form-control" id="ktp" name="ktp" required>
-                </div>
-                <div class="col-md-2">
-                    <label for="tinggi_badan" class="form-label">Height (cm)</label>
-                    <input type="number" class="form-control" id="tinggi_badan" name="tinggi_badan">
-                </div>
-                <div class="col-md-2">
-                    <label for="berat_badan" class="form-label">Weight (kg)</label>
-                    <input type="number" class="form-control" id="berat_badan" name="berat_badan">
-                </div>
-                <div class="col-md-12">
-                    <label for="health" class="form-label">Present Health Condition</label>
-                    <input type="text" class="form-control" id="health" name="health">
-                </div>
-                <div class="col-md-12">
-                    <label for="email" class="form-label">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="col-md-12">
-                    <label for="phone" class="form-label">Phone</label>
-                    <input type="text" class="form-control" id="phone" name="phone" required>
-                </div>
-                <div class="col-md-12">
-                    <label for="facebook" class="form-label">Facebook (link / email)</label>
-                    <input type="text" class="form-control" id="Facebook" name="facebook">
-                </div>
-                <div class="col-md-12">
-                    <label for="instagram" class="form-label">Instagram</label>
-                    <input type="text" class="form-control" id="instagram" name="instagram">
-                </div>
-                <div class="col-md-12">
-                    <label for="linkedin" class="form-label">Linkedin</label>
-                    <input type="text" class="form-control" id="linkedin" name="linkedin">
-                </div>
-                <div class="col-md-12">
-                    <label for="formal_education" class="form-label">Formal Education</label>
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <input type="text" hidden name="education[1][jenis]" value="formal">
-                        <div class="col-lg-3 mb-1">
-                            <label for="school_name" class="form-label">Name of School</label>
-                            <input type="text" class="form-control" id="school_name" name="education[1][school_name]">
-                            @error('education.1.school_name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
+            <div class="card">
+                <div class="card-body">
+                    <form class="row g-3" action="/recruitment" method="post">
+                        @csrf
+                        <div class="col-md-12">
+                            <label for="applyfor" class="form-label">Application for position of</label>
+                            <input type="text" class="form-control" id="applyfor" name="applyfor" required>
                         </div>
-                        <div class="col-lg-1 mb-1">
-                            <label for="from" class="form-label">From</label>
-                            <input type="number" class="form-control" id="from" name="education[1][from]">
+                        <div class="col-md-12">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
                         </div>
-                        <div class="col-lg-1 mb-1">
-                            <label for="to" class="form-label">To</label>
-                            <input type="number" class="form-control" id="to" name="education[1][to]">
+                        <div class="col-sm-4">
+                            <label for="dateofbirth" class="form-label">Date of Birth</label>
+                            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth"  required>
                         </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="subject" name="education[1][subject]">
+                        <div class="col-sm-8">
+                            <label for="placeofbirth" class="form-label">Place of Birth</label>
+                            <input type="text" class="form-control" id="placeofbirth" name="placeofbirth">
                         </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="remark_education" class="form-label">Remark</label>
-                            <textarea name="education[1][remark]" class="form-control" style="height: 40px ;" id="remark-education"></textarea>
+                        <div class="col-md-12">
+                            <label class="form-label">Sex</label><br>
+                            <input class="form-check-input" type="radio" name="sex" id="sex1" value="1"  required>
+                            <label for="sex1" class="form-label">Male</label>
+                            <input class="form-check-input" type="radio" name="sex" id="sex0" value="0"  required>
+                            <label for="sex0" class="form-label">Female</label>
                         </div>
-                    </div>
-                    <div id="formal_education">
-
-                    </div>
-
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_education" title="Add Education">+ Add more</a>
-                </div>
-                <div class="col-md-12">
-                    <label for="other_education" class="form-label">Other Education (Course etc.)</label>
-                    <input type="text" hidden name="course[1][jenis]" value="course">
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-3 mb-1">
-                            <label for="course_name" class="form-label">Name of Course</label>
-                            <input type="text" class="form-control" id="course_name" name="course[1][course_name]">
+                        <div class="col-md-12">
+                            <label for="marital" class="form-label">Marital Status</label>
+                            <input type="text" class="form-control" id="marital" name="marital">
                         </div>
-                        <div class="col-lg-1 mb-1">
-                            <label for="course_from" class="form-label">From</label>
-                            <input type="number" class="form-control" id="course_from" name="course[1][from]">
+                        <!-- <div class="col-md-4">
+                            <label for="inputState" class="form-label"></label>
+                            <select id="inputState" class="form-select">
+                                <option selected>Choose...</option>
+                                <option>...</option>
+                            </select>
+                        </div> -->
+                        <div class="col-md-12">
+                            <label for="nationality" class="form-label">Nationality</label>
+                            <input type="text" class="form-control" id="nationality" name="nationality">
                         </div>
-                        <div class="col-lg-1 mb-1">
-                            <label for="course_to" class="form-label">To</label>
-                            <input type="number" class="form-control" id="course_to" name="course[1][to]">
+        
+                        <!-- fungsi other  -->
+                        <script type="text/javascript">
+                            function CheckReligion(val) {
+                                var element = document.getElementById('religion_other');
+                                if (val == 'Other') {
+                                    element.classList.remove("d-none");
+                                    element.setAttribute("name", "religion");
+                                } else {
+                                    element.classList.add("d-none");
+                                    element.removeAttribute("name");
+                                }
+                            }
+                        </script>
+                        <div class="col-md-12">
+                            <label for="religion" class="form-label">Religion</label>
+                            <!-- <input type="text" class="form-control" id="religion" name="religion"> -->
+                            <select class="form-select" id="religion" name="religion" aria-label="Default select example" required onchange='CheckReligion(this.value);'>
+                                <option disabled selected>Select your religion</option>
+                                <option value="Islam">Islam</option>
+                                <option value="Protestantism">Protestantism</option>
+                                <option value="Catholicism">Catholicism</option>
+                                <option value="Hinduism">Hinduism</option>
+                                <option value="Buddhism">Buddhism</option>
+                                <option value="Confucianism">Confucianism</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="text" id="religion_other" name="religion" class="d-none form-control mt-2">
                         </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="course_subject" class="form-label">Subject</label>
-                            <input type="text" class="form-control" id="course_subject" name="course[1][subject]">
+                        <div class="col-md-12">
+                            <label for="address" class="form-label">Present Address</label>
+                            <input type="text" class="form-control" id="address" name="address">
                         </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="course_remark" class="form-label">Remark</label>
-                            <textarea name="course[1][remark]" class="form-control" style="height: 40px ;" id="course_remark"></textarea>
+                        <div class="col-md-12">
+                            <label for="ktp" class="form-label">Identify Card No (KTP)</label>
+                            <input type="text" class="form-control" id="ktp" name="ktp" required>
                         </div>
-                    </div>
-                    <div id="other_education">
-
-                    </div>
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_course" title="Add Course">+ Add more</a>
-                </div>
-                <div class="col-md-12">
-                    <label for="language" class="form-label">Language Proficiency</label>
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-3 mb-1">
-                            <label for="language" class="form-label">language</label>
-                            <input type="text" class="form-control" id="course_name" name="language[1][language]">
+                        <div class="col-md-2">
+                            <label for="tinggi_badan" class="form-label">Height (cm)</label>
+                            <input type="number" class="form-control" id="tinggi_badan" name="tinggi_badan">
                         </div>
-                        <div class="col-lg-2 mb-1">
-                            <label for="oral" class="form-label">Oral</label>
-                            <input type="text" class="form-control" id="oral" name="language[1][oral]">
+                        <div class="col-md-2">
+                            <label for="berat_badan" class="form-label">Weight (kg)</label>
+                            <input type="number" class="form-control" id="berat_badan" name="berat_badan">
                         </div>
-                        <div class="col-lg-2 mb-1">
-                            <label for="written" class="form-label">Written</label>
-                            <input type="text" class="form-control" id="written" name="language[1][written]">
+                        <div class="col-md-12">
+                            <label for="health" class="form-label">Present Health Condition</label>
+                            <input type="text" class="form-control" id="health" name="health">
                         </div>
-                        <div class="col-lg-4 mb-1">
-                            <label for="language_remark" class="form-label">Remark</label>
-                            <textarea name="language[1][remark]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                        <div class="col-md-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
-                    </div>
-                    <div id="language_form">
-
-                    </div>
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_language" title="Add Language">+ Add more</a>
-
-                </div>
-                <div class="col-md-12">
-                    <label for="experience" class="form-label">Working Experience</label>
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-2 mb-1">
-                            <label for="company_name" class="form-label">Name of Company</label>
-                            <input type="text" class="form-control" id="company_name" name="experience[1][company]">
+                        <div class="col-md-12">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="text" class="form-control" id="phone" name="phone" required>
                         </div>
-                        <div class="col-lg-1 mb-1">
-                            <label for="experience_from" class="form-label">From</label>
-                            <input type="number" class="form-control" id="experience_from" name="experience[1][from]">
+                        <div class="col-md-12">
+                            <label for="facebook" class="form-label">Facebook (link / email)</label>
+                            <input type="text" class="form-control" id="Facebook" name="facebook">
                         </div>
-                        <div class="col-lg-1 mb-1">
-                            <label for="experience_to" class="form-label">To</label>
-                            <input type="number" class="form-control" id="experience_to" name="experience[1][to]">
+                        <div class="col-md-12">
+                            <label for="instagram" class="form-label">Instagram</label>
+                            <input type="text" class="form-control" id="instagram" name="instagram">
                         </div>
-                        <div class="col-lg-2 mb-1">
-                            <label for="experience_responsibly" class="form-label">Main Responsibility</label>
-                            <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[1][responsibly]"></textarea>
+                        <div class="col-md-12">
+                            <label for="linkedin" class="form-label">Linkedin</label>
+                            <input type="text" class="form-control" id="linkedin" name="linkedin">
                         </div>
-                        <div class="col-lg-1 mb-1">
-                            <label for="company_salary" class="form-label">Salary</label>
-                            <input type="text" class="form-control" id="company_salary" name="experience[1][salary]">
+                        <div class="col-md-12">
+                            <label for="formal_education" class="form-label">Formal Education</label>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <input type="text" hidden name="education[1][jenis]" value="formal">
+                                <div class="col-lg-3 mb-1">
+                                    <label for="school_name" class="form-label">Name of School</label>
+                                    <input type="text" class="form-control" id="school_name" name="education[1][school_name]">
+                                    @error('education.1.school_name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <label for="from" class="form-label">From</label>
+                                    <input type="number" class="form-control" id="from" name="education[1][from]">
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <label for="to" class="form-label">To</label>
+                                    <input type="number" class="form-control" id="to" name="education[1][to]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="subject" name="education[1][subject]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="remark_education" class="form-label">Remark</label>
+                                    <textarea name="education[1][remark]" class="form-control" style="height: 40px ;" id="remark-education"></textarea>
+                                </div>
+                            </div>
+                            <div id="formal_education">
+        
+                            </div>
+        
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_education" title="Add Education">+ Add more</a>
                         </div>
-                        <div class="col-lg-2 mb-1">
-                            <label for="company_resign" class="form-label">Reason of Resignation</label>
-                            <textarea type="text" class="form-control" style="height: 40px ;" id="company_resign" name="experience[1][reason]"></textarea>
+                        <div class="col-md-12">
+                            <label for="other_education" class="form-label">Other Education (Course etc.)</label>
+                            <input type="text" hidden name="course[1][jenis]" value="course">
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-3 mb-1">
+                                    <label for="course_name" class="form-label">Name of Course</label>
+                                    <input type="text" class="form-control" id="course_name" name="course[1][course_name]">
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <label for="course_from" class="form-label">From</label>
+                                    <input type="number" class="form-control" id="course_from" name="course[1][from]">
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <label for="course_to" class="form-label">To</label>
+                                    <input type="number" class="form-control" id="course_to" name="course[1][to]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="course_subject" class="form-label">Subject</label>
+                                    <input type="text" class="form-control" id="course_subject" name="course[1][subject]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="course_remark" class="form-label">Remark</label>
+                                    <textarea name="course[1][remark]" class="form-control" style="height: 40px ;" id="course_remark"></textarea>
+                                </div>
+                            </div>
+                            <div id="other_education">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_course" title="Add Course">+ Add more</a>
                         </div>
-                        <div class="col-lg-2 mb-1">
-                            <label for="language_remark" class="form-label">Remark</label>
-                            <textarea name="experience[1][company]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                        <div class="col-md-12">
+                            <label for="language" class="form-label">Language Proficiency</label>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-3 mb-1">
+                                    <label for="language" class="form-label">language</label>
+                                    <input type="text" class="form-control" id="course_name" name="language[1][language]">
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    <label for="oral" class="form-label">Oral</label>
+                                    <input type="text" class="form-control" id="oral" name="language[1][oral]">
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    <label for="written" class="form-label">Written</label>
+                                    <input type="text" class="form-control" id="written" name="language[1][written]">
+                                </div>
+                                <div class="col-lg-4 mb-1">
+                                    <label for="language_remark" class="form-label">Remark</label>
+                                    <textarea name="language[1][remark]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                                </div>
+                            </div>
+                            <div id="language_form">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_language" title="Add Language">+ Add more</a>
+        
                         </div>
-                    </div>
-                    <div id="experience_form">
-
-                    </div>
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_experience" title="Add More">+ Add more</a>
-
-                </div>
-                <div class="col-md-6">
-                    <label for="salary" class="form-label">Requested Salary</label>
-                    <input type="number" class="form-control form-floating" id="salary" name="salary">
-                    <input class="form-check-input" type="radio" name="negotiable" id="negotiable" value="1">
-                    <label for="negotiable" class="form-label">Negotiable</label>
-                    <input class="form-check-input ms-2" type="radio" name="negotiable" id="notnegotiable" value="0">
-                    <label for="notnegotiable" class="form-label">Not Negotiable</label>
-                </div>
-                <div class="col-md-12">
-                    <div class="form-floating">
-                        <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="career"></textarea>
-                        <label for="floatingTextarea">Give a brief description of the career you hope to follow</label>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Family Data</label>
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-2 mb-1">
-                            <label for="relation" class="form-label">Relation</label>
-                            <input name="family[1][relation]" class="form-control" list="relationlist" id="relation">
-                            <datalist id="relationlist" name="family[1][relation]">
-                                <option value="Father">Father</option>
-                                <option value="Mother">Mother</option>
-                                <option value="Brother/Sister">Brother/Sister</option>
-                                <option value="Wife/Husband">Wife/Husband</option>
-                                <option value="Children">Children</option>
-
-                            </datalist>
+                        <div class="col-md-12">
+                            <label for="experience" class="form-label">Working Experience</label>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-2 mb-1">
+                                    <label for="company_name" class="form-label">Name of Company</label>
+                                    <input type="text" class="form-control" id="company_name" name="experience[1][company]">
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <label for="experience_from" class="form-label">From</label>
+                                    <input type="number" class="form-control" id="experience_from" name="experience[1][from]">
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <label for="experience_to" class="form-label">To</label>
+                                    <input type="number" class="form-control" id="experience_to" name="experience[1][to]">
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    <label for="experience_responsibly" class="form-label">Main Responsibility</label>
+                                    <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[1][responsibly]"></textarea>
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <label for="company_salary" class="form-label">Salary</label>
+                                    <input type="text" class="form-control" id="company_salary" name="experience[1][salary]">
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    <label for="company_resign" class="form-label">Reason of Resignation</label>
+                                    <textarea type="text" class="form-control" style="height: 40px ;" id="company_resign" name="experience[1][reason]"></textarea>
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    <label for="language_remark" class="form-label">Remark</label>
+                                    <textarea name="experience[1][company]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                                </div>
+                            </div>
+                            <div id="experience_form">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_experience" title="Add More">+ Add more</a>
+        
                         </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="family_name" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="family_name" name="family[1][name]">
+                        <div class="col-md-6">
+                            <label for="salary" class="form-label">Requested Salary</label>
+                            <input type="number" class="form-control form-floating" id="salary" name="salary">
+                            <input class="form-check-input" type="radio" name="negotiable" id="negotiable" value="1">
+                            <label for="negotiable" class="form-label">Negotiable</label>
+                            <input class="form-check-input ms-2" type="radio" name="negotiable" id="notnegotiable" value="0">
+                            <label for="notnegotiable" class="form-label">Not Negotiable</label>
                         </div>
-                        <div class=" col-lg-3 mb-1">
-                            <label for="birth" class="form-label">Place, Date of Birth/Age</label>
-                            <input type="text" class="form-control" id="birth" name="family[1][birth]">
-                        </div>
-                        <div class=" col-lg-3 mb-1">
-                            <label for="occupation" class="form-label">Occupation/School</label>
-                            <input type="text" class="form-control" id="occupation" name="family[1][occupation]">
-                        </div>
-                    </div>
-                    <div id="family_form">
-
-                    </div>
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_family" title="Add More">+ Add more</a>
-                </div>
-                <div class="col-md-12">
-                    <label class="form-label">Strength & Weakness</label>
-                    <div class="row">
-                        <div class="col">
+                        <div class="col-md-12">
                             <div class="form-floating">
-                                <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="strength"></textarea>
-                                <label for="floatingTextarea">Strength</label>
+                                <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="career"></textarea>
+                                <label for="floatingTextarea">Give a brief description of the career you hope to follow</label>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="form-floating">
-                                <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="weakness"></textarea>
-                                <label for="floatingTextarea">Weakness</label>
+                        <div class="col-md-12">
+                            <label class="form-label">Family Data</label>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-2 mb-1">
+                                    <label for="relation" class="form-label">Relation</label>
+                                    <input name="family[1][relation]" class="form-control" list="relationlist" id="relation">
+                                    <datalist id="relationlist" name="family[1][relation]">
+                                        <option value="Father">Father</option>
+                                        <option value="Mother">Mother</option>
+                                        <option value="Brother/Sister">Brother/Sister</option>
+                                        <option value="Wife/Husband">Wife/Husband</option>
+                                        <option value="Children">Children</option>
+        
+                                    </datalist>
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="family_name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="family_name" name="family[1][name]">
+                                </div>
+                                <div class=" col-lg-3 mb-1">
+                                    <label for="birth" class="form-label">Place, Date of Birth/Age</label>
+                                    <input type="text" class="form-control" id="birth" name="family[1][birth]">
+                                </div>
+                                <div class=" col-lg-3 mb-1">
+                                    <label for="occupation" class="form-label">Occupation/School</label>
+                                    <input type="text" class="form-control" id="occupation" name="family[1][occupation]">
+                                </div>
                             </div>
+                            <div id="family_form">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_family" title="Add More">+ Add more</a>
                         </div>
-                    </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Strength & Weakness</label>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="strength"></textarea>
+                                        <label for="floatingTextarea">Strength</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-floating">
+                                        <textarea class="form-control" style="height: 100px" placeholder="Give a brief description about your strength and weakness" id="floatingTextarea" name="weakness"></textarea>
+                                        <label for="floatingTextarea">Weakness</label>
+                                    </div>
+                                </div>
+                            </div>
+        
+                        </div>
+                        <div class="col-md-12">
+                            <label for="activity" class="form-label">Activities outside the job</label>
+                            <input type="text" class="form-control" id="activity" name="activity">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="hobby" class="form-label">Hobby</label>
+                            <input type="text" class="form-control" id="hobby" name="hobby">
+                        </div>
+                        <div class="col-md-12">
+                            <label for="organization" class="form-label">Organization</label>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-3 mb-1">
+                                    <label for="organization_name" class="form-label">Name of Company</label>
+                                    <input type="text" class="form-control" id="organization_name" name="organization[1][name]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="experience_from" class="form-label">position Held</label>
+                                    <input type="text" class="form-control" id="experience_from" name="organization[1][position]">
+                                </div>
+                                <div class="col-lg-5 mb-1">
+                                    <label for="oraganization_remark" class="form-label">Remark</label>
+                                    <textarea name="organization[1][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
+                                </div>
+                            </div>
+                            <div id="organization_form">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_organization" title="Add More">+ Add more</a>
+        
+                        </div>
+                        <div class="col-md-12">
+                            <label for="scholarship" class="form-label">Scholarship</label>
+                            <p><i> Please give the institution name and place if you are in process of apply for scholarship</i></p>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-3 mb-1">
+                                    <label for="institution_name" class="form-label">Institution</label>
+                                    <input type="text" class="form-control" id="institution_name" name="scholarship[1][institution]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="institution_place" class="form-label">Place</label>
+                                    <input type="text" class="form-control" id="institution_place" name="scholarship[1][place]">
+                                </div>
+                                <div class="col-lg-5 mb-1">
+                                    <label for="institution_remark" class="form-label">Remark</label>
+                                    <textarea name="scholarship[1][remark]" class="form-control" style="height: 40px ;" id="institution_remark"></textarea>
+                                </div>
+                            </div>
+                            <div id="scholarship_form">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_scholarship" title="Add More">+ Add more</a>
+        
+                        </div>
+                        <div class="col-md-12">
+                            <label for="other_recruitment" class="form-label">In process of recruitment & selection in other company?</label>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-3 mb-1">
+                                    <label for="recruitment_name" class="form-label">Company</label>
+                                    <input type="text" class="form-control" id="recruitment_name" name="recruitment[1][institution]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="job_recruitment" class="form-label">Job Position</label>
+                                    <input type="text" class="form-control" id="job_recruitment" name="recruitment[1][job_position]">
+                                </div>
+                                <div class="col-lg-5 mb-1">
+                                    <label for="recruitment_remark" class="form-label">Remark</label>
+                                    <textarea name="recruitment[1][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark"></textarea>
+                                </div>
+                            </div>
+                            <div id="recruitment_form">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_recruitment" title="Add More">+ Add more</a>
+        
+                        </div>
+                        <!-- fungsi other apply via  -->
+                        <script type="text/javascript">
+                            function CheckApply(val) {
+                                var element = document.getElementById('apply_via_other');
+                                if (val == 'Other') {
+                                    element.classList.remove("d-none");
+                                    element.setAttribute("name", "apply_via");
+                                    element.setAttribute("placeholder", "Type your answer here");
+                                } else if(val == 'Friend' || val == 'Family') {
+                                    element.classList.remove("d-none");
+                                    element.setAttribute("name", "mention_name");
+                                    element.setAttribute("placeholder", "Please mention the name");
+                                }else {
+                                    element.classList.add("d-none");
+                                    element.removeAttribute("name");
+                                }
+                            }
+                        </script>
+                        <div class="col-md-12">
+                            <label for="apply_via" class="form-label">Please mention you apply via</label>
+                            <select class="form-select" id="apply_via" name="apply_via" aria-label="Default select example" required onchange='CheckApply(this.value);'>
+                                <option disabled selected>Select your answer</option>
+                                <option value="Advertisement">Advertisement</option>
+                                <option value="Friend">Friend</option>
+                                <option value="Family">Family</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <input type="text" id="apply_via_other" name="apply_via" class="d-none form-control mt-2">
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <label for="relatives" class="form-label">Have relative of friends working in BVR Group Asia?</label>
+                            <div class="row text-center text-white bg-secondary rounded py-1">
+                                <div class="col-lg-4 mb-1">
+                                    <label for="relative_name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="relative_name" name="relatives[1][name]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="job_relatives" class="form-label">Relationship</label>
+                                    <input type="text" class="form-control" id="job_relatives" name="relatives[1][relation]">
+                                </div>
+                                <div class="col-lg-4 mb-1">
+                                    <label for="job_relatives" class="form-label">Name of Department</label>
+                                    <input type="text" class="form-control" id="job_relatives" name="relatives[1][department]">
+                                </div>
+                            </div>
+                            <div id="relative_form">
+        
+                            </div>
+                            <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_relative" title="Add More">+ Add more</a>
+        
+                        </div>
+                        <div class="col-md-12">
+                            <label for="other_remark" class="form-label">Other Remark</label>
+                            <textarea class="form-control" placeholder="Leave a comment here" name="other_remark" style="height: 100px"></textarea>
+                        </div>
 
-                </div>
-                <div class="col-md-12">
-                    <label for="activity" class="form-label">Activities outside the job</label>
-                    <input type="text" class="form-control" id="activity" name="activity">
-                </div>
-                <div class="col-md-12">
-                    <label for="hobby" class="form-label">Hobby</label>
-                    <input type="text" class="form-control" id="hobby" name="hobby">
-                </div>
-                <div class="col-md-12">
-                    <label for="organization" class="form-label">Organization</label>
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-3 mb-1">
-                            <label for="organization_name" class="form-label">Name of Company</label>
-                            <input type="text" class="form-control" id="organization_name" name="organization[1][name]">
-                        </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="experience_from" class="form-label">position Held</label>
-                            <input type="text" class="form-control" id="experience_from" name="organization[1][position]">
-                        </div>
-                        <div class="col-lg-5 mb-1">
-                            <label for="oraganization_remark" class="form-label">Remark</label>
-                            <textarea name="organization[1][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
-                        </div>
-                    </div>
-                    <div id="organization_form">
 
-                    </div>
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_organization" title="Add More">+ Add more</a>
-
-                </div>
-                <div class="col-md-12">
-                    <label for="scholarship" class="form-label">Scholarship</label>
-                    <p><i> Please give the institution name and place if you are in process of apply for scholarship</i></p>
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-3 mb-1">
-                            <label for="institution_name" class="form-label">Institution</label>
-                            <input type="text" class="form-control" id="institution_name" name="scholarship[1][institution]">
+        
+                        <!-- button -->
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Submit Aplication</button>
                         </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="institution_place" class="form-label">Place</label>
-                            <input type="text" class="form-control" id="institution_place" name="scholarship[1][place]">
-                        </div>
-                        <div class="col-lg-5 mb-1">
-                            <label for="institution_remark" class="form-label">Remark</label>
-                            <textarea name="scholarship[1][remark]" class="form-control" style="height: 40px ;" id="institution_remark"></textarea>
-                        </div>
-                    </div>
-                    <div id="scholarship_form">
-
-                    </div>
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_scholarship" title="Add More">+ Add more</a>
-
+                    </form>
                 </div>
-                <div class="col-md-12">
-                    <label for="other_recruitment" class="form-label">In process of recruitment & selection in other company?</label>
-                    <div class="row text-center text-white bg-secondary rounded py-1">
-                        <div class="col-lg-3 mb-1">
-                            <label for="recruitment_name" class="form-label">Company</label>
-                            <input type="text" class="form-control" id="recruitment_name" name="recruitment[1][institution]">
-                        </div>
-                        <div class="col-lg-3 mb-1">
-                            <label for="job_recruitment" class="form-label">Job Position</label>
-                            <input type="text" class="form-control" id="job_recruitment" name="recruitment[1][job_position]">
-                        </div>
-                        <div class="col-lg-5 mb-1">
-                            <label for="recruitment_remark" class="form-label">Remark</label>
-                            <textarea name="recruitment[1][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark"></textarea>
-                        </div>
-                    </div>
-                    <div id="recruitment_form">
-
-                    </div>
-                    <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_recruitment" title="Add More">+ Add more</a>
-
-                </div>
-                <div class="col-md-12">
-                    <label for="apply_via" class="form-label">Please mention you apply via</label>
-                    <input type="text" class="form-control" id="apply_via" name="apply_via">
-                </div>
-                <div class="col-md-12">
-                    <label for="other_remark" class="form-label">Other Remark</label>
-                    <textarea class="form-control" placeholder="Leave a comment here" name="other_remark" style="height: 100px"></textarea>
-                </div>
-
-                <!-- button -->
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Submit Aplication</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 
@@ -657,6 +711,32 @@
         $(document).on('click', '.remove-input-field-recruitment', function() {
             $(this).parents('.recruitment_remove').remove();
             --countRecruitment;
+        });
+
+        //tambah form Recruitment
+        var countRelative = 2;
+        $("#add_button_relative").click(function() {
+            var form = `<div class="row relative_remove text-center text-white bg-secondary rounded py-1">
+                            <div class="col-lg-4 mb-1">
+                                
+                                <input type="text" class="form-control" id="relative_name" name="relatives[${countRelative}][name]">
+                            </div>
+                            <div class="col-lg-3 mb-1">
+                                
+                                <input type="text" class="form-control" id="job_relatives" name="relatives[${countRelative}][relation]">
+                            </div>
+                            <div class="col-lg-4 mb-1">
+                                
+                                <input type="text" class="form-control" id="job_relatives" name="relatives[${countRelative}][department]">
+                            </div>
+                            <div class="col-1"><button type="button" class="btn btn-danger text-white remove-input-field-relative">Delete</button></div>
+                        </div>`
+            $("#relative_form").append(form);
+            ++countRelative;
+        });
+        $(document).on('click', '.remove-input-field-relative', function() {
+            $(this).parents('.relative_remove').remove();
+            --countRelative;
         });
     </script>
 

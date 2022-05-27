@@ -17,5 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
-Route::get('recruitment/calon', [CalonController::class, 'create']);
+Route::get('recruitment/new', [CalonController::class, 'create']);
 Route::resource('recruitment', CalonController::class);
