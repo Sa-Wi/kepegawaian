@@ -17,8 +17,8 @@ class CreateOrganisasisTable extends Migration
             $table->id();
             $table->foreignId('calon_id');
             $table->string('nama');
-            $table->string('posisi');
-            $table->text('keterangan');
+            $table->string('posisi')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

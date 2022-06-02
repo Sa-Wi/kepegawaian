@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\AbsensiImport;
 use App\Models\Absensi;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiController extends Controller
 {
@@ -14,7 +16,13 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        //
+        return view('absen.absen_manage');
+    }
+
+    public function import()
+    {
+        Excel::import(new AbsensiImport, request()->import_absen('file'));
+        return back();
     }
 
     /**

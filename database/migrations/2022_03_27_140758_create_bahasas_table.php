@@ -17,9 +17,9 @@ class CreateBahasasTable extends Migration
             $table->id();
             $table->foreignId('calon_id');
             $table->string('bahasa');
-            $table->string('lisan');
-            $table->string('tulis');
-            $table->text('keterangan');
+            $table->string('lisan')->nullable();
+            $table->string('tulis')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

@@ -54,7 +54,7 @@
                         </div>
                         <div class="col-sm-4">
                             <label for="dateofbirth" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth"  required>
+                            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" required>
                         </div>
                         <div class="col-sm-8">
                             <label for="placeofbirth" class="form-label">Place of Birth</label>
@@ -62,9 +62,9 @@
                         </div>
                         <div class="col-md-12">
                             <label class="form-label">Sex</label><br>
-                            <input class="form-check-input" type="radio" name="sex" id="sex1" value="1"  required>
+                            <input class="form-check-input" type="radio" name="sex" id="sex1" value="1" required>
                             <label for="sex1" class="form-label">Male</label>
-                            <input class="form-check-input" type="radio" name="sex" id="sex0" value="0"  required>
+                            <input class="form-check-input" type="radio" name="sex" id="sex0" value="0" required>
                             <label for="sex0" class="form-label">Female</label>
                         </div>
                         <div class="col-md-12">
@@ -82,7 +82,7 @@
                             <label for="nationality" class="form-label">Nationality</label>
                             <input type="text" class="form-control" id="nationality" name="nationality">
                         </div>
-        
+
                         <!-- fungsi other  -->
                         <script type="text/javascript">
                             function CheckReligion(val) {
@@ -180,9 +180,9 @@
                                 </div>
                             </div>
                             <div id="formal_education">
-        
+
                             </div>
-        
+
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_education" title="Add Education">+ Add more</a>
                         </div>
                         <div class="col-md-12">
@@ -211,7 +211,7 @@
                                 </div>
                             </div>
                             <div id="other_education">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_course" title="Add Course">+ Add more</a>
                         </div>
@@ -236,10 +236,10 @@
                                 </div>
                             </div>
                             <div id="language_form">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_language" title="Add Language">+ Add more</a>
-        
+
                         </div>
                         <div class="col-md-12">
                             <label for="experience" class="form-label">Working Experience</label>
@@ -274,10 +274,10 @@
                                 </div>
                             </div>
                             <div id="experience_form">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_experience" title="Add More">+ Add more</a>
-        
+
                         </div>
                         <div class="col-md-6">
                             <label for="salary" class="form-label">Requested Salary</label>
@@ -305,7 +305,7 @@
                                         <option value="Brother/Sister">Brother/Sister</option>
                                         <option value="Wife/Husband">Wife/Husband</option>
                                         <option value="Children">Children</option>
-        
+
                                     </datalist>
                                 </div>
                                 <div class="col-lg-3 mb-1">
@@ -322,9 +322,32 @@
                                 </div>
                             </div>
                             <div id="family_form">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_family" title="Add More">+ Add more</a>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="emergency_contact">Emergency Contact</label>
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-floating">
+                                        <input type="text" name="emergency_name" class="form-control" id="emergency_name" placeholder="Name">
+                                        <label for="emergency_name">Name</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-floating">
+                                        <input type="text" name="emergency_relation" class="form-control" id="emergency_name" placeholder="Relationship">
+                                        <label for="emergency_relation">Relationship</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-floating">
+                                        <input type="text" name="emergency_phone" class="form-control" id="emergency_phone" placeholder="Phone Number">
+                                        <label for="emergency_phone">Phone Number</label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-12">
                             <label class="form-label">Strength & Weakness</label>
@@ -342,7 +365,7 @@
                                     </div>
                                 </div>
                             </div>
-        
+
                         </div>
                         <div class="col-md-12">
                             <label for="activity" class="form-label">Activities outside the job</label>
@@ -369,10 +392,10 @@
                                 </div>
                             </div>
                             <div id="organization_form">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_organization" title="Add More">+ Add more</a>
-        
+
                         </div>
                         <div class="col-md-12">
                             <label for="scholarship" class="form-label">Scholarship</label>
@@ -392,10 +415,10 @@
                                 </div>
                             </div>
                             <div id="scholarship_form">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_scholarship" title="Add More">+ Add more</a>
-        
+
                         </div>
                         <div class="col-md-12">
                             <label for="other_recruitment" class="form-label">In process of recruitment & selection in other company?</label>
@@ -414,10 +437,10 @@
                                 </div>
                             </div>
                             <div id="recruitment_form">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_recruitment" title="Add More">+ Add more</a>
-        
+
                         </div>
                         <!-- fungsi other apply via  -->
                         <script type="text/javascript">
@@ -427,11 +450,11 @@
                                     element.classList.remove("d-none");
                                     element.setAttribute("name", "apply_via");
                                     element.setAttribute("placeholder", "Type your answer here");
-                                } else if(val == 'Friend' || val == 'Family') {
+                                } else if (val == 'Friend' || val == 'Family') {
                                     element.classList.remove("d-none");
                                     element.setAttribute("name", "mention_name");
                                     element.setAttribute("placeholder", "Please mention the name");
-                                }else {
+                                } else {
                                     element.classList.add("d-none");
                                     element.removeAttribute("name");
                                 }
@@ -448,7 +471,7 @@
                             </select>
                             <input type="text" id="apply_via_other" name="apply_via" class="d-none form-control mt-2">
                         </div>
-                        
+
                         <div class="col-md-12">
                             <label for="relatives" class="form-label">Have relative of friends working in BVR Group Asia?</label>
                             <div class="row text-center text-white bg-secondary rounded py-1">
@@ -466,10 +489,10 @@
                                 </div>
                             </div>
                             <div id="relative_form">
-        
+
                             </div>
                             <a class="btn btn-secondary mt-1" href="javascript:void(0)" id="add_button_relative" title="Add More">+ Add more</a>
-        
+
                         </div>
                         <div class="col-md-12">
                             <label for="other_remark" class="form-label">Other Remark</label>
@@ -477,7 +500,7 @@
                         </div>
 
 
-        
+
                         <!-- button -->
                         <div class="col-12">
                             <button type="submit" class="btn btn-primary">Submit Aplication</button>

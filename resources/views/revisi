@@ -2,17 +2,20 @@
 controler
     membuat validasi yang sesuai pada setiap inputan
     @REM membuat kode untuk insert data multiple input
-    membuat insert data relatives
+    membuat insert data relatives @
     softdelete = full senyum
+    auth untuk view login
+    lanjutin import absensi
 
 view:
-    @REM mengatur tinggi dan berat badan menjadi input number
 	menbuat error message di setiap inputan
     membuat beberapa form menjadi required
-    membuat input data relative
+    view login dirapiin
+    buat view dashboard
 
 database
-    @REM buat migration agar semua bisa nullable, gak semua sih hehe
-    @REM strength dan weakness digabung di table calon
-    @REM table keluarga diberi field baru
-    tambah emergency person setelah family data
+    buat table kosongan untuk import absensi
+
+fitur
+    crud pegawai
+    crud absensi

@@ -18,10 +18,10 @@ class CreatePendidikansTable extends Migration
             $table->foreignId('calon_id');
             $table->string('jenis_pendidikan');
             $table->string('nama_instansi');
-            $table->string('dari');
-            $table->string('hingga');
-            $table->string('jurusan');
-            $table->text('keterangan');
+            $table->string('dari')->nullable();
+            $table->string('hingga')->nullable();
+            $table->string('jurusan')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

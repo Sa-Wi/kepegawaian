@@ -45,7 +45,7 @@ class CalonController extends Controller
      */
     public function store(Request $request)
     {
-        return dd($request->all());
+        // return dd($request->all());
         $dataCalon = $request->validate([
             'applyfor' => 'required|max:255',
             'name' => 'required|max:255',
@@ -90,7 +90,7 @@ class CalonController extends Controller
             $calon->nama_teman = $request->mention_name;
         }
         $calon->keterangan_lain = $request->other_remark;
-        $calon->status_data = 1;
+        // $calon->status_data = 1;
         $calon->save();
 
         if ($request->education[1]['school_name']) {
@@ -200,17 +200,17 @@ class CalonController extends Controller
             }
         }
 
-        if ($request->relative[1]['name']) {
+        if ($request->relatives[1]['name']) {
             foreach ($request->relatives as $data) {
                 $relative = new Relative();
                 $relative->calon_id = $calon->id;
                 $relative->nama = $data['name'];
                 $relative->hubungan = $data['relation'];
-                $relative->departement = $data['department'];
+                $relative->departemen = $data['department'];
                 $relative->save();
             }
         }
-        return 'data berhasil diinput';
+        return view('calon');
     }
 
     /**
@@ -232,7 +232,7 @@ class CalonController extends Controller
      */
     public function edit(Calon $recruitment)
     {
-        //
+        return view('calon.edit', ['data' => $recruitment]);
     }
 
     /**
@@ -255,6 +255,5 @@ class CalonController extends Controller
      */
     public function destroy(Calon $recruitment)
     {
-        //
     }
 }

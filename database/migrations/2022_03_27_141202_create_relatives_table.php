@@ -17,9 +17,9 @@ class CreateRelativesTable extends Migration
             $table->id();
             $table->foreignId('calon_id');
             $table->string('nama');
-            $table->string('hubungann');
-            $table->string('departemen');
-            $table->text('keterangan');
+            $table->string('hubungan')->nullable();
+            $table->string('departemen')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

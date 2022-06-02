@@ -28,7 +28,7 @@
                     <td>
                         <div>
                             <a href="javascript::void(0)" onclick="show('{{ route('recruitment.show',$calon->id) }}','modal-lg')" class="btn btn-sm btn-outline-primary">Show</a>
-                            <button class="btn btn-sm btn-outline-warning">Edit</button>
+                            <a href="javascript::void(0)" onclick="show('{{ route('recruitment.edit',$calon->id) }}','modal-lg' , 'Edit Data {{$calon->id}}')" class="btn btn-sm btn-outline-warning">Edit</a>
                             <button class="btn btn-sm btn-outline-danger">Delete</button>
                         </div>
                     </td>

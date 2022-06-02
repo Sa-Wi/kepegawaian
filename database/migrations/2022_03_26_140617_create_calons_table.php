@@ -36,6 +36,9 @@ class CreateCalonsTable extends Migration
             $table->string('request_gaji')->nullable();
             $table->boolean('status_nego_gaji')->nullable();
             $table->string('jenjang_karir')->nullable();
+            $table->string('nama_kontak_darurat')->nullable();
+            $table->string('relasi_kontak_darurat')->nullable();
+            $table->string('Phone_kontak_darurat')->nullable();
             $table->text('strength')->nullable();
             $table->text('weakness')->nullable();
             $table->string('aktivitas')->nullable();

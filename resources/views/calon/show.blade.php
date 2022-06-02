@@ -214,7 +214,7 @@
       <hr class="m-0">
       {{ $keluarga->nama }} <br>
       {{ $keluarga->lahir }} <br>
-      {{ $keluarga->pekerjaan }} <br>
+      {{ $keluarga->pekerjaan }} <br><br>
       @empty
       -
       @endforelse
@@ -350,8 +350,8 @@
 
           <div id="collapse{{ $relative->id }}relative" class="collapse" aria-labelledby="heading{{ $relative->id }}relative" data-parent="#accordionExample">
             <div class="card-body">
-              {{ $relative->hubugnan }} <br>
-              {{ $relative->departement }}
+              {{ $relative->hubungan }} <br>
+              {{ $relative->departemen }}
               <hr>
               {{ $relative->keterangan }}
             </div>
