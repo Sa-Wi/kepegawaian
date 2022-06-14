@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pegawai;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 
 class PegawaiController extends Controller
@@ -14,7 +15,8 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        //
+        $pegawai = Pegawai::all();
+        return view('dashboard.pegawai', ['pegawais' => $pegawai]);
     }
 
     /**
@@ -24,7 +26,7 @@ class PegawaiController extends Controller
      */
     public function create()
     {
-        //
+        return view('pegawai.index');
     }
 
     /**
@@ -35,7 +37,33 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'nip' => 'required|numeric',
+            'name' => 'required',
+            'position' => 'required',
+            'phone' => 'required|numeric',
+            'address' => 'required',
+        ]);
+        // dd($validatedData);
+
+        // Pegawai::created([
+        //     'nip' => $validatedData['nip'],
+        //     'nama' => $validatedData['name'],
+        //     'posisi' => $validatedData['position'],
+        //     'phone' => $validatedData['phone'],
+        //     'alamat' => $validatedData['address'],
+        //     'status_data' => 1
+        // ]);
+
+        $pegawai = new Pegawai;
+        $pegawai->nip = $validatedData['nip'];
+        $pegawai->nama = $validatedData['name'];
+        $pegawai->posisi = $validatedData['position'];
+        $pegawai->phone = $validatedData['phone'];
+        $pegawai->alamat = $validatedData['address'];
+        $pegawai->save();
+        // dd($pegawai);
+        return redirect()->intended('employee');
     }
 
     /**

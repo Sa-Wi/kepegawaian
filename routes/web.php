@@ -3,6 +3,9 @@
 use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PegawaiController;
+use App\Models\Calon;
+use App\Models\Pegawai;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,18 +19,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//dashboard main
 Route::get('/', function () {
-    return view('dashboard');
-});
+    $pegawai = Pegawai::all();
+    $rekrutmen = Calon::all();
+    $jumlah_pegawai = count($pegawai);
+    $jumlah_rekrutmen = count($rekrutmen);
+    return view('dashboard.dashboard', [
+        'pegawai' => $pegawai,
+        'rekrutmen' => $rekrutmen,
+        'jumlah_rekrutmen' => $jumlah_rekrutmen,
+        'jumlah_pegawai' => $jumlah_pegawai,
+    ]);
+})->middleware('auth');
 
 //rekrutmen
 Route::get('recruitment/new', [CalonController::class, 'create']);
-Route::resource('recruitment', CalonController::class);
+Route::resource('recruitment', CalonController::class)->middleware('auth');
 
 //absensi
-Route::get('/attendance/manage', [AbsensiController::class, 'index']);
-Route::post('/attendance/manage', [AbsensiController::class, 'import']);
+Route::resource('attendance', AbsensiController::class)->middleware('auth');
+Route::post('/attendance/import', [AbsensiController::class, 'import'])->middleware('auth');
+
+//pegawai
+Route::resource('employee', PegawaiController::class);
 
 //login admin
-Route::get('/login', [LoginController::class, 'index']);
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
+Route::get('/logout', [LoginController::class, 'logout']);

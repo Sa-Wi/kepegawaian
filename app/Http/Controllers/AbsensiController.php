@@ -16,12 +16,16 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        return view('absen.absen_manage');
+        $absensi = Absensi::all();
+        return view('dashboard.absen_manage', [
+            'absensis' => $absensi,
+        ]);
     }
 
-    public function import()
+    public function import(Request $request)
     {
-        Excel::import(new AbsensiImport, request()->import_absen('file'));
+        // dd($request);
+        Excel::import(new AbsensiImport, $request->file('import_absen'));
         return back();
     }
 
@@ -54,7 +58,7 @@ class AbsensiController extends Controller
      */
     public function show(Absensi $absensi)
     {
-        //
+        return view('absen.show', ['data' => $absensi]);
     }
 
     /**
@@ -65,7 +69,7 @@ class AbsensiController extends Controller
      */
     public function edit(Absensi $absensi)
     {
-        //
+        return view('absen.edit', ['data' => $absensi]);
     }
 
     /**

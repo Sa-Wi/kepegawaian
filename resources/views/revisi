@@ -4,7 +4,10 @@ controler
     @REM membuat kode untuk insert data multiple input
     membuat insert data relatives @
     softdelete = full senyum
-    auth untuk view login
+        recruitmen @
+        pegawai
+        absensi
+    auth untuk view login @
     lanjutin import absensi
 
 view:
@@ -12,10 +15,15 @@ view:
     membuat beberapa form menjadi required
     view login dirapiin
     buat view dashboard
+        jumlah pegawai
+        jumlah rekrutan baru
+    buat pencarian berdasarkan tanggal pada view absensi
 
 database
     buat table kosongan untuk import absensi
+    implement lazy loading
 
 fitur
     crud pegawai
     crud absensi
+    tong sampah

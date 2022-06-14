@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Absensi;
+use App\Models\ImportAbsensi;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class AbsensiImport implements ToModel
@@ -14,7 +15,7 @@ class AbsensiImport implements ToModel
      */
     public function model(array $row)
     {
-        return new Absensi([
+        return new ImportAbsensi([
             //
         ]);
     }

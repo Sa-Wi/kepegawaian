@@ -24,13 +24,24 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('recruitment'); //inget ganti jadi dashboard kalau udah ada view nya
+            return redirect()->intended('recruitment');
         }
 
-        return 'gagal';
+        // return 'gagal';
 
-        return back()->with([
-            'email', 'The provided credentials do not match our records.',
-        ]);
+        return back()->with(
+            'LoginError',
+            'The provided credentials do not match our records. Please Try Again!',
+        );
+    }
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
     }
 }

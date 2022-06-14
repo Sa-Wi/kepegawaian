@@ -24,7 +24,7 @@ class CalonController extends Controller
     {
         $calons = Calon::all();
 
-        return view('calon', compact('calons'));
+        return view('dashboard.calon', compact('calons'));
     }
 
     /**

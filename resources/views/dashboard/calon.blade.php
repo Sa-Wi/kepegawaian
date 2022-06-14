@@ -1,9 +1,9 @@
-@extends('main')
+@extends('dashboard.main')
 
 @section('content')
 <div class="card">
     <div class="card-header bg-primary text-white">
-        <i class="fa fa-list fa-fw"></i> List
+        <i class="fa fa-list fa-fw"></i> List Recruitment
     </div>
     <div class="card-body table-responsive">
         <table id="table" class="table table-striped table-bordered">

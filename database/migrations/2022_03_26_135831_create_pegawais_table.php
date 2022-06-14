@@ -20,7 +20,8 @@ class CreatePegawaisTable extends Migration
             $table->string('posisi');
             $table->string('phone');
             $table->string('alamat');
-            $table->boolean('status_data');
+            // $table->boolean('status_data');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
