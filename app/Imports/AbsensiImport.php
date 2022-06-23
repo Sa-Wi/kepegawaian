@@ -2,11 +2,12 @@
 
 namespace App\Imports;
 
-use App\Models\Absensi;
 use App\Models\ImportAbsensi;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AbsensiImport implements ToModel
+class AbsensiImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -15,8 +16,10 @@ class AbsensiImport implements ToModel
      */
     public function model(array $row)
     {
+        // dd($row);
         return new ImportAbsensi([
-            //
+            'nip' => $row['nip'],
+            'tgl_scan' => Carbon::parse($row['tanggal_scan'])->toDateTimeString(),
         ]);
     }
 }

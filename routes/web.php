@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
 use App\Models\Calon;
 use App\Models\Pegawai;
+use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,7 +43,10 @@ Route::resource('attendance', AbsensiController::class)->middleware('auth');
 Route::post('/attendance/import', [AbsensiController::class, 'import'])->middleware('auth');
 
 //pegawai
-Route::resource('employee', PegawaiController::class);
+Route::resource('employee', PegawaiController::class)->parameters([
+    'employee' => 'pegawai:nip' // untuk mengubah parameter route dan mengambil nip sebagai acuan data
+]);
+// Route::get('employee/{pegawai:nip}', [PegawaiController::class, 'destroy'])->name('employee.destroy');
 
 //login admin
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');

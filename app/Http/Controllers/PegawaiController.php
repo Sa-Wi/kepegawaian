@@ -85,7 +85,7 @@ class PegawaiController extends Controller
      */
     public function edit(Pegawai $pegawai)
     {
-        //
+        return view('pegawai.edit', ['data' => $pegawai]);
     }
 
     /**
@@ -97,7 +97,27 @@ class PegawaiController extends Controller
      */
     public function update(Request $request, Pegawai $pegawai)
     {
-        //
+        // dd($request);
+        $validatedData = $request->validate([
+            // 'nip' => 'required',
+            'name' => 'required',
+            'position' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+        ]);
+
+        // dd($validatedData);
+
+        $pegawai->update([
+            'nama' => $validatedData['name'],
+            'posisi' => $validatedData['position'],
+            'phone' => $validatedData['phone'],
+            'alamat' => $validatedData['address'],
+        ]);
+
+        // dd($pegawai->where('nip', $request->nip));
+
+        return redirect()->intended('employee');
     }
 
     /**
@@ -108,6 +128,8 @@ class PegawaiController extends Controller
      */
     public function destroy(Pegawai $pegawai)
     {
-        //
+        // dd($pegawai);
+        $pegawai->where('nip', $pegawai->nip)->delete();
+        return redirect()->intended('employee');
     }
 }

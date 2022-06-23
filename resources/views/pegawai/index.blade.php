@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container">
+        <a href="{{ URL::previous() }}" class="text-decoration-none">
+            <button class="btn btn-primary my-3"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+        </a>
         <form action="{{ route('employee.store') }}" method="post">
             @csrf
             <div class="card">

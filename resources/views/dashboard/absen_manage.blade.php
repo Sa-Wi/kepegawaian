@@ -23,6 +23,7 @@
                 <tr>
                     <th>#</th>
                     <th>NIP</th>
+                    <th>Date</th>
                     <th>Name</th>
                     <th>In</th>
                     <th>Out</th>
@@ -35,6 +36,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $absensi->nip }}</td>
+                    <td>{{ $absensi->tanggal }}</td>
                     <td>{{ $absensi->nama }}</td>
                     <td>{{ $absensi->in }}</td>
                     <td>{{ $absensi->out }}</td>
@@ -42,7 +44,7 @@
                     <td>
                         <div>
                             <a href="javascript::void(0)" onclick="show('{{ route('attendance.show', $absensi->id) }}','modal-lg')" class="btn btn-sm btn-outline-primary">Show</a>
-                            <a href="javascript::void(0)" onclick="show('{{ route('attendance.edit', $absensi->id) }}','modal-lg' , 'Edit Data {{$calon->id}}')" class="btn btn-sm btn-outline-warning">Edit</a>
+                            <a href="javascript::void(0)" onclick="show('{{ route('attendance.edit', $absensi->id) }}','modal-lg' , 'Edit Data {{$absensi->id}}')" class="btn btn-sm btn-outline-warning">Edit</a>
                             <button class="btn btn-sm btn-outline-danger">Delete</button>
                         </div>
                     </td>
