@@ -202,7 +202,7 @@
   <tr>
     <th>Expected Career to Follow</th>
     <td>
-      {{ $data->jenjang_karir }}
+      {{ $data->jenjang_karir ?? '-' }}
     </td>
   </tr>
 
@@ -221,29 +221,29 @@
     </td>
   </tr>
   <tr>
-    <th>Strength $ Weakness</th>
+    <th>Strength & Weakness</th>
     <td>
       <strong>Strength</strong>
       <hr class="m-0">
-      {{ $data->strength }} <br><br>
+      {{ $data->strength ?? '-'}} <br><br>
       <strong>Weakness</strong>
       <hr class="m-0">
-      {{ $data->weakness }}
+      {{ $data->weakness ?? '-' }}
     </td>
   </tr>
   <tr>
     <th>Activities outside the job</th>
-    <td>{{ $data->aktivitas }}</td>
+    <td>{{ $data->aktivitas ?? '-' }}</td>
   </tr>
   <tr>
     <th>Hobby</th>
-    <td>{{ $data->hobi }}</td>
+    <td>{{ $data->hobi ?? '-' }}</td>
   </tr>
   <tr>
     <th>Organization</th>
     <td>
       <div class="accordion" id="accordionExample">
-        @foreach($data->organisasis as $organisasi)
+        @forelse($data->organisasis as $organisasi)
         <div class="card">
           <div class="card-header" id="heading{{ $organisasi->id }}organisasi">
             <h2 class="mb-0">
@@ -261,7 +261,9 @@
             </div>
           </div>
         </div>
-        @endforeach
+        @empty
+        -
+        @endforelse
       </div>
     </td>
   </tr>
@@ -327,7 +329,7 @@
   <tr>
     <th>Apply via</th>
     <td>
-      {{ $data->apply_via }}
+      {{ $data->apply_via ?? '-' }}
       @if ($data->apply_via == 'Friend' ||$data->apply_via == 'Family')
       ( {{ $data->mention_name }} )
       @endif

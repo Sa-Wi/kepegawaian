@@ -39,13 +39,15 @@ Route::get('recruitment/new', [CalonController::class, 'create']);
 Route::resource('recruitment', CalonController::class)->middleware('auth');
 
 //absensi
-Route::resource('attendance', AbsensiController::class)->middleware('auth');
+Route::resource('attendance', AbsensiController::class)->parameters([
+    'attendance' => 'absensi:id' // untuk mengubah parameter route dan mengambil id sebagai acuan data
+])->middleware('auth');
 Route::post('/attendance/import', [AbsensiController::class, 'import'])->middleware('auth');
 
 //pegawai
 Route::resource('employee', PegawaiController::class)->parameters([
-    'employee' => 'pegawai:nip' // untuk mengubah parameter route dan mengambil nip sebagai acuan data
-]);
+    'employee' => 'pegawai:id' // untuk mengubah parameter route dan mengambil id sebagai acuan data
+])->middleware('auth');
 // Route::get('employee/{pegawai:nip}', [PegawaiController::class, 'destroy'])->name('employee.destroy');
 
 //login admin

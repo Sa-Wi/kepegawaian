@@ -56,7 +56,7 @@ class PegawaiController extends Controller
         // ]);
 
         $pegawai = new Pegawai;
-        $pegawai->nip = $validatedData['nip'];
+        $pegawai->id = $validatedData['nip'];
         $pegawai->nama = $validatedData['name'];
         $pegawai->posisi = $validatedData['position'];
         $pegawai->phone = $validatedData['phone'];
@@ -129,7 +129,7 @@ class PegawaiController extends Controller
     public function destroy(Pegawai $pegawai)
     {
         // dd($pegawai);
-        $pegawai->where('nip', $pegawai->nip)->delete();
+        $pegawai->where('id', $pegawai->id)->delete();
         return redirect()->intended('employee');
     }
 }

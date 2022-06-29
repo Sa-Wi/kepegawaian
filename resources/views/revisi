@@ -8,22 +8,27 @@ controler
         pegawai
         absensi
     auth untuk view login @
-    lanjutin import absensi
+    lanjutin import absensi @
 
 view:
 	menbuat error message di setiap inputan
     membuat beberapa form menjadi required
     view login dirapiin
     buat view dashboard
-        jumlah pegawai
-        jumlah rekrutan baru
+        jumlah pegawai @
+        jumlah rekrutan baru @
+        jumlah data baru hari ini
     buat pencarian berdasarkan tanggal pada view absensi
 
 database
     buat table kosongan untuk import absensi
     implement lazy loading
+    edit tabel pegawai id dengan nip -> edit di view juga
 
 fitur
+    crud calon
+        update nya belom, gila banyak beut
     crud pegawai
     crud absensi
+        update belom
     tong sampah

@@ -23,7 +23,7 @@
                 @foreach ($pegawais as $pegawai)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $pegawai->nip }}</td>
+                    <td>{{ $pegawai->id }}</td>
                     <td>{{ $pegawai->nama }}</td>
                     <td>{{ $pegawai->posisi }}</td>
                     <td>{{ $pegawai->phone }}</td>
@@ -31,9 +31,9 @@
                     <td>
                         <div>
                             {{-- <a href="javascript::void(0)" onclick="show('{{ route('employee.show',$pegawai->nip) }}','modal-lg')" class="btn btn-sm btn-outline-primary">Show</a> --}}
-                            <a href="javascript::void(0)" onclick="show('{{ route('employee.edit',$pegawai->nip) }}','modal-lg' , 'Edit Data: {{$pegawai->nama}}')" class="btn btn-sm btn-outline-warning">Edit</a>
+                            <a href="javascript::void(0)" onclick="show('{{ route('employee.edit',$pegawai->id) }}','modal-lg' , 'Edit Data: {{$pegawai->nama}}')" class="btn btn-sm btn-outline-warning">Edit</a>
                             {{-- <a class="btn btn-sm btn-outline-danger" href="{{ route('employee.destroy', $pegawai->nip)}}">Delete</a> --}}
-                            <form class="d-inline" action="{{ route('employee.destroy', $pegawai->nip)}}" method="post">
+                            <form class="d-inline" action="{{ route('employee.destroy', $pegawai->id)}}" method="post">
                                 @method('DELETE')
                                 @csrf
                                 <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('sure want to delete?')">Delete</button>

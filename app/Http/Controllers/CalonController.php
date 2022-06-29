@@ -81,6 +81,9 @@ class CalonController extends Controller
         $calon->request_gaji = $request->salary;
         $calon->status_nego_gaji = $request->negotiable;
         $calon->jenjang_karir = $request->career;
+        $calon->nama_kontak_darurat = $request->emergency_name;
+        $calon->relasi_kontak_darurat = $request->emergency_relation;
+        $calon->Phone_kontak_darurat = $request->emergency_phone;
         $calon->strength = $request->strength;
         $calon->weakness = $request->weakness;
         $calon->aktivitas = $request->activity;
@@ -193,8 +196,8 @@ class CalonController extends Controller
             foreach ($request->recruitment as $data) {
                 $rekrutmen = new Rekrutment_Lain();
                 $rekrutmen->calon_id = $calon->id;
-                $rekrutmen->nama_institusi = $data['institution'];
-                $rekrutmen->tempat = $data['place'];
+                $rekrutmen->perusahaan = $data['institution'];
+                $rekrutmen->posisi = $data['job_position'];
                 $rekrutmen->keterangan = $data['remark'];
                 $rekrutmen->save();
             }
@@ -210,7 +213,7 @@ class CalonController extends Controller
                 $relative->save();
             }
         }
-        return view('calon');
+        return view('pendaftaran');
     }
 
     /**

@@ -1,3 +1,4 @@
+
 @extends('dashboard.main')
 
 @section('content')
@@ -34,18 +35,23 @@
             <tbody>
                 @foreach ($absensis as $absensi)
                 <tr>
+                  
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $absensi->nip }}</td>
+                    <td>{{ $absensi->pegawai_id }}</td>
                     <td>{{ $absensi->tanggal }}</td>
-                    <td>{{ $absensi->nama }}</td>
+                    <td>{{ $absensi->pegawai->nama ?? '! name not registered'}}</td>
                     <td>{{ $absensi->in }}</td>
                     <td>{{ $absensi->out }}</td>
                     <td>{{ $absensi->status }}</td>
                     <td>
                         <div>
-                            <a href="javascript::void(0)" onclick="show('{{ route('attendance.show', $absensi->id) }}','modal-lg')" class="btn btn-sm btn-outline-primary">Show</a>
-                            <a href="javascript::void(0)" onclick="show('{{ route('attendance.edit', $absensi->id) }}','modal-lg' , 'Edit Data {{$absensi->id}}')" class="btn btn-sm btn-outline-warning">Edit</a>
-                            <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            <a href="javascript::void(0)" onclick="show('{{ route('attendance.show', $absensi->id) }}','modal-lg', 'Data {{$absensi->pegawai_id}}')" class="btn btn-sm btn-outline-primary">Show</a>
+                            <a href="javascript::void(0)" onclick="show('{{ route('attendance.edit', $absensi->id) }}','modal-lg' , 'Edit Data {{ $absensi->pegawai_id }} : {{$absensi->id}}')" class="btn btn-sm btn-outline-warning">Edit</a>
+                            <form class="d-inline" action="{{ route('attendance.destroy', $absensi->id)}}" method="post">
+                                @method('DELETE')
+                                @csrf
+                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('sure want to delete?')">Delete</button>
+                            </form>   
                         </div>
                     </td>
                 </tr>

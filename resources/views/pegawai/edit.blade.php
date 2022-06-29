@@ -1,11 +1,12 @@
-<form action="{{ route('employee.update', $data->nip) }}" method="post">
+
+<form action="{{ route('employee.update', $data->id) }}" method="post">
 @method('PATCH')
 @csrf
     <table class="table table-bordered">
         <tr>
             <th>NIP</th>
             <td>
-                <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror" disabled value="{{ old('nip' , $data->nip) }}">
+                <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror" disabled value="{{ old('nip' , $data->id) }}">
                 @error('nip')
                     <div class="m-1">
                         {{ $message }}

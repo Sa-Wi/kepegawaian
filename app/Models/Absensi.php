@@ -9,8 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Absensi extends Model
 {
     use SoftDeletes;
-    public function pegawais()
+    protected $guarded = ['id'];
+    public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class);
+        return $this->belongsTo(Pegawai::class, 'pegawai_id');
     }
 }

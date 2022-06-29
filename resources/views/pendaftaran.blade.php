@@ -663,11 +663,11 @@
             var form = `<div class="row organization_remove text-center text-white bg-secondary rounded py-1">
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="organization_name" name="Organization[${countOrganization}][name]">
+                                <input type="text" class="form-control" id="organization_name" name="organization[${countOrganization}][name]">
                             </div>
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="number" class="form-control" id="experience_from" name="Organization[${countOrganization}][position]">
+                                <input type="text" class="form-control" id="experience_from" name="organization[${countOrganization}][position]">
                             </div>
                             <div class="col-lg-5 mb-1">
                                

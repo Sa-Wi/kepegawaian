@@ -115,6 +115,24 @@
                 </div>
             </li>
 
+            <hr class="sidebar-divider">
+
+            {{-- nav item sampah --}}
+            <li class="nav-item active">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSampah" aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-folder"></i>
+                    <span>Deleted Data</span>
+                </a>
+                <div id="collapseSampah" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <!-- <h6 class="collapse-header">Manage</h6> -->
+                        <a class="collapse-item" href="/employee">Emploeyee</a>
+                        <a class="collapse-item" href="/recruitment">Attendance</a>
+                        <a class="collapse-item" href="/recruitment/new" target="_blank">Recruitment</a>
+                    </div>
+                </div>
+            </li>
+
             <!-- Nav Item - Charts -->
             <!-- <li class="nav-item">
                 <a class="nav-link" href="charts.html">

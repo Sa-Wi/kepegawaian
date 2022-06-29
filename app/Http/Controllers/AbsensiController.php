@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\AbsensiImport;
 use App\Models\Absensi;
+use App\Models\Pegawai;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -18,8 +19,10 @@ class AbsensiController extends Controller
     public function index()
     {
         $absensi = Absensi::all();
+        $pegawai = Pegawai::all();
         return view('dashboard.absen_manage', [
             'absensis' => $absensi,
+            'pegawais' => $pegawai,
         ]);
     }
 
@@ -36,12 +39,12 @@ class AbsensiController extends Controller
             if (Carbon::parse($data['tanggal_scan'])->toDateString() != $tanggal) {
                 global $absensi;
                 $absensi = new Absensi;
-                $absensi->nip = $data['pin'];
+                $absensi->pegawai_id = $data['pin'];
                 $absensi->tanggal = Carbon::parse($data['tanggal_scan'])->toDateString();
                 $absensi->in = Carbon::parse($data['tanggal_scan'])->toTimeString();
                 $tanggal = Carbon::parse($data['tanggal_scan'])->toDateString();
                 $absensi->save();
-            } elseif (Carbon::parse($data['tanggal_scan'])->toDateString() == $tanggal && $absensi->nip == $data['nip']) {
+            } elseif (Carbon::parse($data['tanggal_scan'])->toDateString() == $tanggal && $absensi->pegawai_id == $data['pin']) {
                 $absensi->tanggal = Carbon::parse($data['tanggal_scan'])->toDateString();
                 $absensi->out = Carbon::parse($data['tanggal_scan'])->toTimeString();
                 $absensi->save();
@@ -53,11 +56,11 @@ class AbsensiController extends Controller
             // dd(Carbon::parse('17:23')->lessThan('17:30'));
             if (Carbon::parse($absensi->in)->greaterThan('9:00')) {
                 $status = "Late";
-                if (Carbon::parse($absensi->out)->lessThan('17.30'))
+                if (isset($absensi->out) && Carbon::parse($absensi->out)->lessThan('17:30'))
                     $status = $status . ' Early';
                 elseif (!isset($absensi->out))
                     $status = $status . ' Only In';
-            } elseif (Carbon::parse($absensi->out)->lessThan('17.30')) {
+            } elseif (Carbon::parse($absensi->out)->lessThan('17:30')) {
                 $status = "Early";
                 if (!isset($absensi->in))
                     $status = $status . ' Only Out';
@@ -68,6 +71,7 @@ class AbsensiController extends Controller
             } elseif (Carbon::parse($absensi->in)->lessThanOrEqualTo('9:00') && Carbon::parse($absensi->out)->greaterThanOrEqualTo('17:30')) {
                 $status = "OK";
             }
+
             $absensi->status = $status;
             $absensi->save();
         }
@@ -104,6 +108,7 @@ class AbsensiController extends Controller
      */
     public function show(Absensi $absensi)
     {
+        // dd($absensi);
         return view('absen.show', ['data' => $absensi]);
     }
 
@@ -127,7 +132,7 @@ class AbsensiController extends Controller
      */
     public function update(Request $request, Absensi $absensi)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -138,6 +143,7 @@ class AbsensiController extends Controller
      */
     public function destroy(Absensi $absensi)
     {
-        //
+        $absensi->where('id', $absensi->id)->delete();
+        return redirect()->intended('attendance')->with('success', 'Data deleted successfully');
     }
 }
