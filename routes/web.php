@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
 use App\Models\Calon;
 use App\Models\Pegawai;
+use Carbon\Carbon;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
 
@@ -26,11 +27,15 @@ Route::get('/', function () {
     $rekrutmen = Calon::all();
     $jumlah_pegawai = count($pegawai);
     $jumlah_rekrutmen = count($rekrutmen);
+    $jumlah_rekrutmen_baru = Calon::whereDate('created_at', Carbon::today()->toDateString())->count();
+    // dd($jumlah_rekrutmen_baru);
     return view('dashboard.dashboard', [
         'pegawai' => $pegawai,
         'rekrutmen' => $rekrutmen,
         'jumlah_rekrutmen' => $jumlah_rekrutmen,
         'jumlah_pegawai' => $jumlah_pegawai,
+        'jumlah_rekrutmen_baru' => $jumlah_rekrutmen_baru,
+        'title' => 'Dashboard',
     ]);
 })->middleware('auth');
 
@@ -54,3 +59,12 @@ Route::resource('employee', PegawaiController::class)->parameters([
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->middleware('guest');
 Route::get('/logout', [LoginController::class, 'logout']);
+
+//trash data
+Route::get('/trash/employee', [PegawaiController::class, 'trash'])->middleware('auth');
+Route::get('/trash/attendance', [AbsensiController::class, 'trash'])->middleware('auth');
+Route::get('/trash/recruitment', [CalonController::class, 'trash'])->middleware('auth');
+//restore data
+Route::get('/trash/employee/{pegawai}/restore', [PegawaiController::class, 'restore'])->withTrashed()->middleware('auth');
+Route::get('/trash/attendance/{absensi}/restore', [AbsensiController::class, 'restore'])->withTrashed()->middleware('auth');
+Route::get('/trash/recruitment/{calon}/restore', [CalonController::class, 'restore'])->withTrashed()->middleware('auth');

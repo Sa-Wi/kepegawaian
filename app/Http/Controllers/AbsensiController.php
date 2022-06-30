@@ -19,10 +19,9 @@ class AbsensiController extends Controller
     public function index()
     {
         $absensi = Absensi::all();
-        $pegawai = Pegawai::all();
         return view('dashboard.absen_manage', [
             'absensis' => $absensi,
-            'pegawais' => $pegawai,
+            'title' => 'Attendance',
         ]);
     }
 
@@ -60,7 +59,7 @@ class AbsensiController extends Controller
                     $status = $status . ' Early';
                 elseif (!isset($absensi->out))
                     $status = $status . ' Only In';
-            } elseif (Carbon::parse($absensi->out)->lessThan('17:30')) {
+            } elseif (isset($absensi->out) && Carbon::parse($absensi->out)->lessThan('17:30')) {
                 $status = "Early";
                 if (!isset($absensi->in))
                     $status = $status . ' Only Out';
@@ -132,7 +131,21 @@ class AbsensiController extends Controller
      */
     public function update(Request $request, Absensi $absensi)
     {
-        dd($request);
+        // dd($request);
+        $validatedData = $request->validate([
+            'date' => 'required',
+            'status' => 'required',
+        ]);
+
+        $absensi->update([
+            'tanggal' => $validatedData['date'],
+            'in' => $request->in,
+            'out' => $request->out,
+            'status' => $validatedData['status'],
+            'keterangan' => $request->remark,
+        ]);
+
+        return redirect()->intended('attendance');
     }
 
     /**
@@ -145,5 +158,23 @@ class AbsensiController extends Controller
     {
         $absensi->where('id', $absensi->id)->delete();
         return redirect()->intended('attendance')->with('success', 'Data deleted successfully');
+    }
+
+    //tampilan view trash
+    public function trash()
+    {
+        $trashed = Absensi::onlyTrashed()->get();
+        // dd($trashed);
+        return view('trash.absensi', [
+            'absensis' => $trashed,
+            'title' => 'Deleted Attendance',
+        ]);
+    }
+
+    // merestore data
+    public function restore(Absensi $absensi)
+    {
+        $absensi->restore();
+        return redirect('/trash/attendance');
     }
 }

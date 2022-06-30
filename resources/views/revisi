@@ -3,7 +3,7 @@ controler
     membuat validasi yang sesuai pada setiap inputan
     @REM membuat kode untuk insert data multiple input
     membuat insert data relatives @
-    softdelete = full senyum
+    softdelete = full senyum @
         recruitmen @
         pegawai
         absensi
@@ -21,14 +21,14 @@ view:
     buat pencarian berdasarkan tanggal pada view absensi
 
 database
-    buat table kosongan untuk import absensi
-    implement lazy loading
-    edit tabel pegawai id dengan nip -> edit di view juga
+    buat table kosongan untuk import absensi@
+    implement eager loading @
+    edit tabel pegawai id dengan nip -> edit di view juga @
 
 fitur
     crud calon
         update nya belom, gila banyak beut
-    crud pegawai
+    crud pegawai @
     crud absensi
         update belom
-    tong sampah
+    tong sampah @

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>BVR Group Asia</title>
+    <title>{{ $title }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -43,14 +43,14 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item {{ $title == 'Dashboard' ? 'active' : ''  }}">
                 <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider m-0">
 
             <!-- Heading -->
             <!-- <div class="sidebar-heading">
@@ -58,14 +58,14 @@
             </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+            <li class="nav-item {{ $title == 'Attendance' ? ' active' : ''  }}">
                 <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa fa-list"></i>
                     <span>Attendance</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse {{ $title == 'Attendance' ? 'show' : ''  }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="/attendance">Manage</a>
+                        <a class="collapse-item {{ $title == 'Attendance' ? 'active' : ''  }}" href="/attendance">Manage</a>
                         <a class="collapse-item" href="/attendance/add">Add Manual</a>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
             </li> -->
 
             <!-- Divider -->
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider m-0">
 
             <!-- Heading -->
             <!-- <div class="sidebar-heading">
@@ -97,38 +97,38 @@
             </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item active">
+            <li class="nav-item {{ $title == 'Employee' || $title == 'Recruitment' ? ' active' : ''  }}">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Employee</span>
                 </a>
-                <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse {{ $title == 'Employee' || $title == 'Recruitment' ? ' show' : ''  }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Manage</h6> -->
-                        <a class="collapse-item" href="/employee">Manage</a>
+                        <a class="collapse-item {{ $title == 'Employee' ? ' active' : ''  }}" href="/employee">Manage</a>
                         <hr>
                         <!-- <div class="collapse-divider"></div> -->
                         <!-- <h6 class="collapse-header">Recruitment</h6> -->
-                        <a class="collapse-item" href="/recruitment">Recruitment</a>
+                        <a class="collapse-item {{ $title == 'Recruitment' ? ' active' : ''  }}" href="/recruitment">Recruitment</a>
                         <a class="collapse-item" href="/recruitment/new" target="_blank">Aplication Form</a>
                     </div>
                 </div>
             </li>
 
-            <hr class="sidebar-divider">
+            <hr class="sidebar-divider m-0">
 
             {{-- nav item sampah --}}
-            <li class="nav-item active">
+            <li class="nav-item {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Attendance' ? ' active' : ''  }}">
                 <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSampah" aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-folder"></i>
+                    <i class="fas fa-fw fa-trash" aria-hidden="true"></i>
                     <span>Deleted Data</span>
                 </a>
-                <div id="collapseSampah" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseSampah" class="collapse {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Attendance' ? ' show' : ''  }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Manage</h6> -->
-                        <a class="collapse-item" href="/employee">Emploeyee</a>
-                        <a class="collapse-item" href="/recruitment">Attendance</a>
-                        <a class="collapse-item" href="/recruitment/new" target="_blank">Recruitment</a>
+                        <a class="collapse-item {{ $title == 'Deleted Employee' ? ' active' : ''  }}" href="/trash/employee">Employee</a>
+                        <a class="collapse-item {{ $title == 'Deleted Attendance' ? ' active' : ''  }}" href="/trash/attendance">Attendance</a>
+                        <a class="collapse-item {{ $title == 'Deleted Recruitment' ? ' active' : ''  }}" href="/trash/recruitment">Recruitment</a>
                     </div>
                 </div>
             </li>
@@ -214,7 +214,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; SaWi 2022</span>
+                        <span>Copyright &copy; <a class="text-decoration-none text-warning" href="https://www.facebook.com/satria.wiguna.1660/" target="_blank">SaWi</a> 2022</span>
                     </div>
                 </div>
             </footer>
@@ -300,25 +300,29 @@
                     {
                 extend: 'copyHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5 ] // untuk membuat agar file tidak mengandung field 'action'
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ] // untuk membuat agar file tidak mengandung field 'action'
                 }
             },
             {
                 extend: 'excelHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                     // columns: [ 0, 1, 2, 3, 4, 5 ]
                 }
             },
             {
                 extend: 'pdfHtml5',
                 exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
                 }
             },
                 ],
                 "pageLength": 10
             });
+        });
+
+        $(document).ready(function () {
+            $('#tablePolos').DataTable();
         });
         
 

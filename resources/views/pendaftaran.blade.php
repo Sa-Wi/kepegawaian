@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container mb-3">
         <ul class="navbar-nav ">
 
         </ul>
@@ -27,7 +27,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto fixed">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link active" aria-current="page" href="https://bvrgroupasia.com/" target="_blank">Home</a>
                         </li>
                         </li>
                     </ul>
@@ -46,15 +46,15 @@
                         @csrf
                         <div class="col-md-12">
                             <label for="applyfor" class="form-label">Application for position of</label>
-                            <input type="text" class="form-control" id="applyfor" name="applyfor" required>
+                            <input type="text" class="form-control" id="applyfor" name="applyfor" required placeholder="required">
                         </div>
                         <div class="col-md-12">
                             <label for="name" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" id="name" name="name" required>
+                            <input type="text" class="form-control" id="name" name="name" required placeholder="required">
                         </div>
                         <div class="col-sm-4">
                             <label for="dateofbirth" class="form-label">Date of Birth</label>
-                            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" required>
+                            <input type="date" class="form-control" id="dateofbirth" name="dateofbirth" required >
                         </div>
                         <div class="col-sm-8">
                             <label for="placeofbirth" class="form-label">Place of Birth</label>
@@ -117,7 +117,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="ktp" class="form-label">Identify Card No (KTP)</label>
-                            <input type="text" class="form-control" id="ktp" name="ktp" required>
+                            <input type="text" class="form-control" id="ktp" name="ktp" required placeholder="required">
                         </div>
                         <div class="col-md-2">
                             <label for="tinggi_badan" class="form-label">Height (cm)</label>
@@ -133,11 +133,11 @@
                         </div>
                         <div class="col-md-12">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
+                            <input type="email" class="form-control" id="email" name="email" required placeholder="required">
                         </div>
                         <div class="col-md-12">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="text" class="form-control" id="phone" name="phone" required>
+                            <input type="text" class="form-control" id="phone" name="phone" required placeholder="required">
                         </div>
                         <div class="col-md-12">
                             <label for="facebook" class="form-label">Facebook (link / email)</label>
@@ -503,15 +503,24 @@
 
                         <!-- button -->
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">Submit Aplication</button>
+                            <button type="submit" class="btn btn-primary float-end">Submit Aplication</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; <a class="text-decoration-none text-warning" href="https://www.facebook.com/satria.wiguna.1660/" target="_blank">SaWi</a> 2022</span>
+                </div>
+            </div>
+        </footer>
+
     </div>
 
-
+    
 
 
 

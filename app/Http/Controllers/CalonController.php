@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Absensi;
 use App\Models\Calon;
 use App\Models\Bahasa;
 use App\Models\Keluarga;
@@ -22,9 +23,9 @@ class CalonController extends Controller
      */
     public function index()
     {
-        $calons = Calon::all();
+        $calons = Calon::with('bahasas', 'beasiswas', 'keluargas', 'organisasis', 'pendidikans', 'pengalaman__kerjas', 'rekrutment__lains', 'relatives')->get();
 
-        return view('dashboard.calon', compact('calons'));
+        return view('dashboard.calon', compact('calons'), ['title' => 'Recruitment']);
     }
 
     /**
@@ -258,5 +259,26 @@ class CalonController extends Controller
      */
     public function destroy(Calon $recruitment)
     {
+        // dd($pegawai);
+        $recruitment->where('id', $recruitment->id)->delete();
+        return redirect()->intended('recruitment');
+    }
+
+    //tampilan view trash
+    public function trash()
+    {
+        $trashed = Calon::onlyTrashed()->get();
+        // dd($trashed);
+        return view('trash.calon', [
+            'calons' => $trashed,
+            'title' => 'Deleted Recruitment',
+        ]);
+    }
+
+    // merestore data
+    public function restore(Calon $calon)
+    {
+        $calon->restore();
+        return redirect('/trash/recruitment');
     }
 }

@@ -16,7 +16,10 @@ class PegawaiController extends Controller
     public function index()
     {
         $pegawai = Pegawai::all();
-        return view('dashboard.pegawai', ['pegawais' => $pegawai]);
+        return view('dashboard.pegawai', [
+            'pegawais' => $pegawai,
+            'title' => 'Employee'
+        ]);
     }
 
     /**
@@ -131,5 +134,22 @@ class PegawaiController extends Controller
         // dd($pegawai);
         $pegawai->where('id', $pegawai->id)->delete();
         return redirect()->intended('employee');
+    }
+    //tampilan view trash
+    public function trash()
+    {
+        $trashed = Pegawai::onlyTrashed()->get();
+        // dd($trashed);
+        return view('trash.pegawai', [
+            'pegawais' => $trashed,
+            'title' => 'Deleted Employee',
+        ]);
+    }
+
+    // merestore data
+    public function restore(Pegawai $pegawai)
+    {
+        $pegawai->restore();
+        return redirect('/trash/attendance');
     }
 }

@@ -1,4 +1,3 @@
-
 @extends('dashboard.main')
 
 @section('content')
@@ -29,6 +28,7 @@
                     <th>In</th>
                     <th>Out</th>
                     <th>Status</th>
+                    <th>Remark</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -43,6 +43,7 @@
                     <td>{{ $absensi->in }}</td>
                     <td>{{ $absensi->out }}</td>
                     <td>{{ $absensi->status }}</td>
+                    <td>{{ $absensi->keterangan ?? '-' }}</td>
                     <td>
                         <div>
                             <a href="javascript::void(0)" onclick="show('{{ route('attendance.show', $absensi->id) }}','modal-lg', 'Data {{$absensi->pegawai_id}}')" class="btn btn-sm btn-outline-primary">Show</a>

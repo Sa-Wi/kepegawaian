@@ -36,7 +36,8 @@
         <tr>
             <th>Remark</th>
             <td>
-                <textarea name="remark" class="form-control" value="{{ old('remark' , $data->keterangan) }}"></textarea>
+                {{-- <input type="text" name="remark" class="form-control" value="{{ old('remark' , $data->keterangan) }}"> --}}
+                <textarea name="remark" class="form-control">{{ old('remark' , $data->keterangan) }}</textarea>
             </td>
         </tr>
     </table>
