@@ -18,7 +18,7 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        $absensi = Absensi::all();
+        $absensi = Absensi::latest()->get();
         return view('dashboard.absen_manage', [
             'absensis' => $absensi,
             'title' => 'Attendance',
@@ -40,7 +40,11 @@ class AbsensiController extends Controller
                 $absensi = new Absensi;
                 $absensi->pegawai_id = $data['pin'];
                 $absensi->tanggal = Carbon::parse($data['tanggal_scan'])->toDateString();
-                $absensi->in = Carbon::parse($data['tanggal_scan'])->toTimeString();
+                if (Carbon::parse($data['tanggal_scan'])->toTimeString() < '12:00') {
+                    $absensi->in = Carbon::parse($data['tanggal_scan'])->toTimeString();
+                } else {
+                    $absensi->out = Carbon::parse($data['tanggal_scan'])->toTimeString();
+                }
                 $tanggal = Carbon::parse($data['tanggal_scan'])->toDateString();
                 $absensi->save();
             } elseif (Carbon::parse($data['tanggal_scan'])->toDateString() == $tanggal && $absensi->pegawai_id == $data['pin']) {
@@ -52,7 +56,7 @@ class AbsensiController extends Controller
 
             //menentukan status
             $status = '';
-            // dd(Carbon::parse('17:23')->lessThan('17:30'));
+
             if (Carbon::parse($absensi->in)->greaterThan('9:00')) {
                 $status = "Late";
                 if (isset($absensi->out) && Carbon::parse($absensi->out)->lessThan('17:30'))
@@ -70,12 +74,38 @@ class AbsensiController extends Controller
             } elseif (Carbon::parse($absensi->in)->lessThanOrEqualTo('9:00') && Carbon::parse($absensi->out)->greaterThanOrEqualTo('17:30')) {
                 $status = "OK";
             }
+            // dd($pegawai);
+            // if ($pegawai) {
+            //     if (Carbon::parse($absensi->in)->greaterThan('10:00:00')) {
+            //         $status = "Late";
+            //         if (isset($absensi->out) && Carbon::parse($absensi->out)->lessThan('17:30'))
+            //             $status = $status . ' Early';
+            //         elseif (!isset($absensi->out))
+            //             $status = $status . ' Only In';
+            //     } elseif (isset($absensi->out) && Carbon::parse($absensi->out)->lessThan('17:30')) {
+            //         $status = "Early";
+            //         if (!isset($absensi->in))
+            //             $status = $status . ' Only Out';
+            //     } elseif (!isset($absensi->in) && Carbon::parse($absensi->out)->greaterThanOrEqualTo('17:30')) {
+            //         $status = 'Only Out';
+            //     } elseif (!isset($absensi->out) && Carbon::parse($absensi->in)->lessThanOrEqualTo('10:00:00')) {
+            //         $status = 'Only In';
+            //     } elseif (Carbon::parse($absensi->in)->lessThanOrEqualTo('10:00:00') && Carbon::parse($absensi->out)->greaterThanOrEqualTo('17:30')) {
+            //         $status = "OK";
+            //     }
+            // }
+
 
             $absensi->status = $status;
             $absensi->save();
         }
         // dd($imports);
-        return back();
+        return back()->with('success', 'All Data Imported Successfully');
+    }
+
+    public function add(Pegawai $pegawai)
+    {
+        return view('absen.index', ['data' => $pegawai]);
     }
 
     /**
@@ -85,7 +115,8 @@ class AbsensiController extends Controller
      */
     public function create()
     {
-        //
+        $pegawais = Pegawai::all();
+        return view('dashboard.add_absen', compact('pegawais'), ['title' => 'Add Attendance']);
     }
 
     /**
@@ -94,10 +125,61 @@ class AbsensiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Pegawai $pegawai)
     {
-        //
+        // dd($request->all())
+        $validatedData = $request->validate([
+            'date' => 'required',
+        ]);
+
+        $status = $request->status ?? '';
+
+        if (!$status) {
+            if (Carbon::parse($request->in)->greaterThan('9:00')) {
+                $status = "Late";
+                if (isset($request->out) && Carbon::parse($request->out)->lessThan('17:30'))
+                    $status = $status . ' Early';
+                elseif (!isset($request->out))
+                    $status = $status . ' Only In';
+            } elseif (isset($request->out) && Carbon::parse($request->out)->lessThan('17:30')) {
+                $status = "Early";
+                if (!isset($request->in))
+                    $status = $status . ' Only Out';
+            } elseif (!isset($request->in) && Carbon::parse($request->out)->greaterThanOrEqualTo('17:30')) {
+                $status = 'Only Out';
+            } elseif (!isset($request->out) && Carbon::parse($request->in)->lessThanOrEqualTo('9:00')) {
+                $status = 'Only In';
+            } elseif (Carbon::parse($request->in)->lessThanOrEqualTo('9:00') && Carbon::parse($request->out)->greaterThanOrEqualTo('17:30')) {
+                $status = "OK";
+            }
+        }
+
+
+        $absensi = Absensi::create([
+            'pegawai_id' => $pegawai->id,
+            'tanggal' => $validatedData['date'],
+            'in' => $request->in,
+            'out' => $request->out,
+            'status' => $status,
+            'keterangan' => $request->remark,
+        ]);
+
+        return redirect()->intended('attendance')->with('success', 'Attendance for ' . $pegawai->id . ' added successfully');
     }
+
+    public function dateFilter(Request $request)
+    {
+        // dd($request->all());
+        $from = $request->from;
+        $to = $request->to;
+        $absensis = Absensi::whereBetween('tanggal', [$from, $to])->latest()->get();
+        return view('dashboard.absen_manage', compact('absensis'), [
+            'from' => $from,
+            'to' => $to,
+            'title' => 'Attendance'
+        ]);
+    }
+
 
     /**
      * Display the specified resource.
@@ -145,7 +227,7 @@ class AbsensiController extends Controller
             'keterangan' => $request->remark,
         ]);
 
-        return redirect()->intended('attendance');
+        return redirect()->intended('attendance')->with('success', 'Data Edited Successfully');
     }
 
     /**
@@ -175,6 +257,6 @@ class AbsensiController extends Controller
     public function restore(Absensi $absensi)
     {
         $absensi->restore();
-        return redirect('/trash/attendance');
+        return redirect('/trash/attendance')->with('success', 'Data ID ' . $absensi->pegawai->id . ' have been restored');
     }
 }

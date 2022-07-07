@@ -10,6 +10,7 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Status</th>
                     <th>Position</th>
                     <th>Name</th>
                     <th>Email</th>
@@ -22,7 +23,8 @@
                 @foreach ($calons as $calon)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $calon->posisi }}</td>
+                    <td>{{ $calon->status ?? 'not inputed yet' }}</td>
+                    <td>{{ $calon->posisi->nama }}</td>
                     <td>{{ $calon->nama }}</td>
                     <td>{{ $calon->email }}</td>
                     <td>{{ $calon->telepon }}</td>
@@ -30,7 +32,8 @@
                     <td>
                         <div>
                             <a href="javascript::void(0)" onclick="show('{{ route('recruitment.show',$calon->id) }}','modal-lg')" class="btn btn-sm btn-outline-primary">Show</a>
-                            <a href="javascript::void(0)" onclick="show('{{ route('recruitment.edit',$calon->id) }}','modal-lg' , 'Edit Data {{$calon->id}}')" class="btn btn-sm btn-outline-warning">Edit</a>
+                            <a href="{{ route('recruitment.edit', $calon->id) }}" class="btn btn-sm btn-outline-warning">Edit</a>
+                            {{-- <a href="javascript::void(0)" onclick="show('{{ route('recruitment.edit',$calon->id) }}','modal-lg' , 'Edit Data {{$calon->id}}')" class="btn btn-sm btn-outline-warning">Edit</a> --}}
                             <form class="d-inline" action="{{ route('recruitment.destroy', $calon->id)}}" method="post">
                                 @method('DELETE')
                                 @csrf

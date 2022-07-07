@@ -17,6 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css" rel="stylesheet"> --}}
     <link href="https://cdn.datatables.net/1.12.0/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css" rel="stylesheet">
@@ -58,15 +59,15 @@
             </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{ $title == 'Attendance' ? ' active' : ''  }}">
+            <li class="nav-item {{ $title == 'Attendance' || $title == 'Add Attendance' ? ' active' : ''  }}">
                 <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fas fa fa-list"></i>
                     <span>Attendance</span>
                 </a>
-                <div id="collapseTwo" class="collapse {{ $title == 'Attendance' ? 'show' : ''  }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTwo" class="collapse {{ $title == 'Attendance' || $title == 'Add Attendance' ? 'show' : ''  }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item {{ $title == 'Attendance' ? 'active' : ''  }}" href="/attendance">Manage</a>
-                        <a class="collapse-item" href="/attendance/add">Add Manual</a>
+                        <a class="collapse-item {{ $title == 'Add Attendance' ? 'active' : ''  }}" href="/attendance/create">Add Manual</a>
                     </div>
                 </div>
             </li>
@@ -102,15 +103,17 @@
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Employee</span>
                 </a>
-                <div id="collapsePages" class="collapse {{ $title == 'Employee' || $title == 'Recruitment' ? ' show' : ''  }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages" class="collapse {{ $title == 'Employee' || $title == 'Recruitment' || $title == 'Add Employee'  ? ' show' : ''  }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Manage</h6> -->
-                        <a class="collapse-item {{ $title == 'Employee' ? ' active' : ''  }}" href="/employee">Manage</a>
-                        <hr>
+                        <a class="collapse-item {{ $title == 'Employee' || $title == 'Add Employee' ? ' active' : ''  }}" href="/employee">Manage</a>
+                        <hr class="my-1">
                         <!-- <div class="collapse-divider"></div> -->
                         <!-- <h6 class="collapse-header">Recruitment</h6> -->
                         <a class="collapse-item {{ $title == 'Recruitment' ? ' active' : ''  }}" href="/recruitment">Recruitment</a>
                         <a class="collapse-item" href="/recruitment/new" target="_blank">Aplication Form</a>
+                        <hr class="my-1">
+                        <a class="collapse-item" href="/position">Available Position</a>
                     </div>
                 </div>
             </li>
@@ -129,6 +132,7 @@
                         <a class="collapse-item {{ $title == 'Deleted Employee' ? ' active' : ''  }}" href="/trash/employee">Employee</a>
                         <a class="collapse-item {{ $title == 'Deleted Attendance' ? ' active' : ''  }}" href="/trash/attendance">Attendance</a>
                         <a class="collapse-item {{ $title == 'Deleted Recruitment' ? ' active' : ''  }}" href="/trash/recruitment">Recruitment</a>
+                        <a class="collapse-item {{ $title == 'Deleted Position' ? ' active' : ''  }}" href="/trash/position">Position</a>
                     </div>
                 </div>
             </li>
@@ -266,8 +270,32 @@
     </div>
 
     {{-- sweet alert --}}
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="sweetalert2.min.js"></script>
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-start',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+        //flash success laravel
+        @if(session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            })
+        @endif
+    </script>
 
     <!-- Bootstrap core JavaScript-->
     {{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> --}}
@@ -292,6 +320,11 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
     <script>
+
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
 
         $(document).ready(function() {
             $('#table').DataTable({

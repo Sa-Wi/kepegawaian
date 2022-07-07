@@ -6,7 +6,7 @@
         <tr>
             <th>Name</th>
             <td>
-                <input type="text" name="name" class="form-control" disabled value="{{ old('name' , $data->pegawai->nama) }}">
+                <input type="text" name="name" class="form-control" disabled value="{{ old('name' , $data->pegawai->nama ?? '!not registered') }}">
             </td>
         </tr>
         <tr>

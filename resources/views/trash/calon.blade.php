@@ -22,7 +22,7 @@
                 @foreach ($calons as $calon)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $calon->posisi }}</td>
+                    <td>{{ $calon->posisi->nama }}</td>
                     <td>{{ $calon->nama }}</td>
                     <td>{{ $calon->email }}</td>
                     <td>{{ $calon->telepon }}</td>

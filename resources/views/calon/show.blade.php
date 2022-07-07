@@ -1,5 +1,9 @@
 <table class="table table-bordered">
   <tr>
+    <th>Status</th>
+    <td>{{ $data->status ?? 'Not Inputed yet' }}</td>
+  </tr>
+  <tr>
     <th>Name</th>
     <td>{{ $data->nama }}</td>
   </tr>
@@ -34,8 +38,12 @@
     <td>{{ $data->agama }}</td>
   </tr>
   <tr>
-    <th>Address</th>
-    <td>{{ $data->alamat }}</td>
+    <th>Dimicile Address</th>
+    <td>{{ $data->alamat_domisili }}</td>
+  </tr>
+  <tr>
+    <th>Present Address</th>
+    <td>{{ $data->alamat_sekarang }}</td>
   </tr>
   <tr>
     <th>Height</th>
@@ -331,7 +339,7 @@
     <td>
       {{ $data->apply_via ?? '-' }}
       @if ($data->apply_via == 'Friend' ||$data->apply_via == 'Family')
-      ( {{ $data->mention_name }} )
+      ( {{ $data->nama_teman }} )
       @endif
     </td>
   </tr>

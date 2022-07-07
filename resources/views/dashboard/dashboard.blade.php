@@ -60,11 +60,11 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
-                            New Recruitment Data Added</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlah_rekrutmen }} person</div>
+                           Available Position</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlah_posisi }} Position(s)</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-user fa-2x text-gray-300"></i>
+                        <i class="fas fa-briefcase fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>

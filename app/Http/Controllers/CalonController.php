@@ -10,6 +10,7 @@ use App\Models\Beasiswa;
 use App\Models\Pengalaman_Kerja;
 use App\Models\Pendidikan;
 use App\Models\Organisasi;
+use App\Models\Posisi;
 use App\Models\Rekrutment_Lain;
 use App\Models\Relative;
 use Illuminate\Http\Request;
@@ -35,7 +36,8 @@ class CalonController extends Controller
      */
     public function create(Request $request)
     {
-        return view('pendaftaran');
+        $posisi = Posisi::all();
+        return view('pendaftaran', ['positions' => $posisi]);
     }
 
     /**
@@ -46,6 +48,7 @@ class CalonController extends Controller
      */
     public function store(Request $request)
     {
+        $posisi = Posisi::all();
         // return dd($request->all());
         $dataCalon = $request->validate([
             'applyfor' => 'required|max:255',
@@ -63,14 +66,15 @@ class CalonController extends Controller
         $calon = new Calon();
         $calon->ktp = $dataCalon['ktp'];
         $calon->nama = $dataCalon['name'];
-        $calon->posisi = $dataCalon['applyfor'];
+        $calon->posisi_id = $dataCalon['applyfor'];
         $calon->tgl_lahir = $dataCalon['dateofbirth'];
         $calon->tmp_lahir = $request->placeofbirth;
         $calon->jenis__kelamin = $dataCalon['sex'];
         $calon->status_menikah = $request->marital;
         $calon->kewarganegaraan = $request->nationality;
         $calon->agama = $dataCalon['religion'];
-        $calon->alamat = $request->address;
+        $calon->alamat_domisili = $request->domicile;
+        $calon->alamat_sekarang = $request->present_adrs;
         $calon->tinggi_badan = $request->tinggi_badan;
         $calon->berat_badan = $request->berat_badan;
         $calon->kondisi_kesehatan = $request->health;
@@ -150,6 +154,7 @@ class CalonController extends Controller
                 $pengalaman = new Pengalaman_Kerja();
                 $pengalaman->calon_id = $calon->id;
                 $pengalaman->nama_perusahaan = $data['company'];
+                $pengalaman->posisi = $data['position'];
                 $pengalaman->dari = $data['from'];
                 $pengalaman->hingga = $data['to'];
                 $pengalaman->tanggung_jawab = $data['responsibly'];
@@ -214,7 +219,7 @@ class CalonController extends Controller
                 $relative->save();
             }
         }
-        return view('pendaftaran');
+        return view('pendaftaran', ['posisi' => $posisi])->with('success',);
     }
 
     /**
@@ -236,7 +241,13 @@ class CalonController extends Controller
      */
     public function edit(Calon $recruitment)
     {
-        return view('calon.edit', ['data' => $recruitment]);
+        $posisi = Posisi::all();
+        // $recruitment = $recruitment->with('bahasas', 'beasiswas', 'keluargas', 'organisasis', 'pendidikans', 'pengalaman__kerjas', 'rekrutment__lains', 'relatives')->get();
+        // "with" ada di model
+        return view('calon.edit', [
+            'positions' => $posisi,
+            'data' => $recruitment
+        ]);
     }
 
     /**
@@ -248,7 +259,216 @@ class CalonController extends Controller
      */
     public function update(Request $request, Calon $recruitment)
     {
-        //
+        // dd($request);
+        $dataValidate = $request->validate([
+            'applyfor' => 'required|max:255',
+            'name' => 'required|max:255',
+            'dateofbirth' => 'required',
+            'sex' => 'required',
+            'religion' => 'required',
+            'ktp' => 'required|numeric', //ini inget isi max digit !!!
+            'email' => 'required|email:rfc,dns',
+            'phone' => 'required|numeric'
+        ]);
+
+
+        $recruitment->ktp = $dataValidate['ktp'];
+        $recruitment->nama = $dataValidate['name'];
+        $recruitment->status = $request->status;
+        $recruitment->posisi_id = $dataValidate['applyfor'];
+        $recruitment->tgl_lahir = $dataValidate['dateofbirth'];
+        $recruitment->tmp_lahir = $request->placeofbirth;
+        $recruitment->jenis__kelamin = $dataValidate['sex'];
+        $recruitment->status_menikah = $request->marital;
+        $recruitment->kewarganegaraan = $request->nationality;
+        $recruitment->agama = $dataValidate['religion'];
+        $recruitment->alamat_domisili = $request->domicile;
+        $recruitment->alamat_sekarang = $request->present_adrs;
+        $recruitment->tinggi_badan = $request->tinggi_badan;
+        $recruitment->berat_badan = $request->berat_badan;
+        $recruitment->kondisi_kesehatan = $request->health;
+        $recruitment->email = $dataValidate['email'];
+        $recruitment->telepon = $dataValidate['phone'];
+        $recruitment->fb = $request->facebook;
+        $recruitment->ig = $request->instagram;
+        $recruitment->linkedin = $request->linkedin;
+        $recruitment->request_gaji = $request->salary;
+        $recruitment->status_nego_gaji = $request->negotiable;
+        $recruitment->jenjang_karir = $request->career;
+        $recruitment->nama_kontak_darurat = $request->emergency_name;
+        $recruitment->relasi_kontak_darurat = $request->emergency_relation;
+        $recruitment->Phone_kontak_darurat = $request->emergency_phone;
+        $recruitment->strength = $request->strength;
+        $recruitment->weakness = $request->weakness;
+        $recruitment->aktivitas = $request->activity;
+        $recruitment->hobi = $request->hobby;
+        $recruitment->apply_via = $request->apply_via;
+        if ($request->mention_name) {
+            $recruitment->nama_teman = $request->mention_name;
+        }
+        $recruitment->keterangan_lain = $request->other_remark;
+        // $recruitment->status_data = 1;
+        $recruitment->save();
+
+        if ($request->education[1]['school_name']) {
+            foreach ($request->education as $data) {
+                $id = $data['id'] ?? '';
+                // cek apakah data kosong
+                if (!$data['school_name'] && !$data['from'] && !$data['to'] && !$data['subject'] && !$data['remark']) {
+                    break;
+                }
+
+                Pendidikan::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'jenis_pendidikan' => $data['jenis'],
+                    'nama_instansi' => $data['school_name'],
+                    'dari' => $data['from'],
+                    'hingga' => $data['to'],
+                    'jurusan' => $data['subject'],
+                    'keterangan' => $data['remark'],
+                ]);
+            }
+        }
+
+        if ($request->course[1]['course_name']) {
+            foreach ($request->course as $data) {
+                $id = $data['id'] ?? '';
+                // cek apakah data kosong
+                if (!$data['course_name'] && !$data['from'] && !$data['to'] && !$data['subject'] && !$data['remark']) {
+                    break;
+                }
+
+                Pendidikan::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'jenis_pendidikan' => $data['jenis'],
+                    'nama_instansi' => $data['course_name'],
+                    'dari' => $data['from'],
+                    'hingga' => $data['to'],
+                    'jurusan' => $data['subject'],
+                    'keterangan' => $data['remark'],
+                ]);
+            }
+        }
+
+        if ($request->language[1]['language']) {
+            foreach ($request->language as $data) {
+                $id = $data['id'] ?? '';
+                Bahasa::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'bahasa' => $data['language'],
+                    'lisan' => $data['oral'],
+                    'tulis' => $data['written'],
+                    'keterangan' => $data['remark'],
+                ]);
+            }
+        }
+
+        if ($request->experience[1]['company']) {
+            foreach ($request->experience as $data) {
+
+                $id = $data['id'] ?? '';
+                Pengalaman_Kerja::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'nama_perusahaan' => $data['company'],
+                    'posisi' => $data['position'],
+                    'dari' => $data['from'],
+                    'hingga' => $data['to'],
+                    'tanggung_jawab' => $data['responsibly'],
+                    'gaji' => $data['salary'],
+                    'alasan_resign' => $data['reason'],
+                ]);
+            }
+        }
+
+        if ($request->family[1]['relation']) {
+            foreach ($request->family as $data) {
+
+                $id = $data['id'] ?? '';
+                Keluarga::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'hubungan' => $data['relation'],
+                    'nama' => $data['name'],
+                    'lahir' => $data['birth'],
+                    'pekerjaan' => $data['occupation'],
+                ]);
+            }
+        }
+
+        if ($request->organization[1]['name']) {
+            foreach ($request->organization as $data) {
+
+                $id = $data['id'] ?? '';
+                Organisasi::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'nama' => $data['name'],
+                    'posisi' => $data['position'],
+                    'keterangan' => $data['remark'],
+                ]);
+            }
+        }
+
+        if ($request->scholarship[1]['institution']) {
+            foreach ($request->scholarship as $data) {
+
+                $id = $data['id'] ?? '';
+                Beasiswa::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'nama_institusi' => $data['institution'],
+                    'tempat' => $data['place'],
+                    'keterangan' => $data['remark'],
+                ]);
+            }
+        }
+
+        if ($request->recruitment[1]['institution']) {
+            foreach ($request->recruitment as $data) {
+                $id = $data['id'] ?? '';
+                Rekrutment_Lain::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'perusahaan' => $data['institution'],
+                    'posisi' => $data['job_position'],
+                    'keterangan' => $data['remark'],
+                ]);
+            }
+        }
+
+        if ($request->relatives[1]['name']) {
+            foreach ($request->relatives as $data) {
+                // $relative = new Relative();
+                // $relative->calon_id = $calon->id;
+                // $relative->nama = $data['name'];
+                // $relative->hubungan = $data['relation'];
+                // $relative->departemen = $data['department'];
+                // $relative->save();
+
+                $id = $data['id'] ?? '';
+                Relative::updateOrCreate([
+                    'id' => $id
+                ], [
+                    'calon_id' => $recruitment->id,
+                    'nama' => $data['name'],
+                    'hubungan' => $data['relation'],
+                    'departemen' => $data['department'],
+                ]);
+            }
+        }
+        return redirect()->intended('recruitment')->with('success', 'Data ' . $recruitment->nama . ' Edited Successfully');
     }
 
     /**
@@ -261,7 +481,7 @@ class CalonController extends Controller
     {
         // dd($pegawai);
         $recruitment->where('id', $recruitment->id)->delete();
-        return redirect()->intended('recruitment');
+        return redirect()->intended('recruitment')->with('success', 'Data ' . $recruitment->nama . ' Deleted Successfully');
     }
 
     //tampilan view trash
@@ -279,6 +499,6 @@ class CalonController extends Controller
     public function restore(Calon $calon)
     {
         $calon->restore();
-        return redirect('/trash/recruitment');
+        return redirect('/trash/recruitment')->with('success', $calon->nama . ' have been restored');
     }
 }

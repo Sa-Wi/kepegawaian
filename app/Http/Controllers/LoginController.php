@@ -24,7 +24,7 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            return redirect()->intended('recruitment');
+            return redirect()->intended('recruitment')->with('success', 'Logged In');
         }
 
         // return 'gagal';
@@ -42,6 +42,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/login');
+        return redirect('/login')->with('success', 'Logged Out');
     }
 }

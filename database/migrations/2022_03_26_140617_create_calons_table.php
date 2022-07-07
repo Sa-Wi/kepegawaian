@@ -17,14 +17,16 @@ class CreateCalonsTable extends Migration
             $table->id();
             $table->string('ktp');
             $table->string('nama');
-            $table->string('posisi');
+            $table->foreignId('posisi_id');
+            $table->string('status')->nullable();
             $table->string('tgl_lahir');
             $table->string('tmp_lahir')->nullable();
             $table->string('jenis__kelamin')->nullable();
             $table->string('status_menikah')->nullable();
             $table->string('kewarganegaraan')->nullable();
             $table->string('agama');
-            $table->text('alamat')->nullable();
+            $table->text('alamat_sekarang')->nullable();
+            $table->text('alamat_domisili')->nullable();
             $table->integer('tinggi_badan')->nullable();
             $table->integer('berat_badan')->nullable();
             $table->string('kondisi_kesehatan')->nullable();
@@ -38,7 +40,7 @@ class CreateCalonsTable extends Migration
             $table->string('jenjang_karir')->nullable();
             $table->string('nama_kontak_darurat')->nullable();
             $table->string('relasi_kontak_darurat')->nullable();
-            $table->string('Phone_kontak_darurat')->nullable();
+            $table->string('phone_kontak_darurat')->nullable();
             $table->text('strength')->nullable();
             $table->text('weakness')->nullable();
             $table->string('aktivitas')->nullable();

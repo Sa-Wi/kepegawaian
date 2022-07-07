@@ -10,6 +10,12 @@ class Calon extends Model
 {
     use SoftDeletes;
     protected $guarded = ['id'];
+    protected $with = ['bahasas', 'beasiswas', 'keluargas', 'organisasis', 'pendidikans', 'pengalaman__kerjas', 'rekrutment__lains', 'relatives'];
+
+    public function posisi()
+    {
+        return $this->belongsTo(Posisi::class);
+    }
 
     public function bahasas()
     {

@@ -17,6 +17,7 @@ class CreatePengalamanKerjasTable extends Migration
             $table->id();
             $table->foreignId('calon_id');
             $table->string('nama_perusahaan');
+            $table->string('posisi');
             $table->string('dari');
             $table->string('hingga');
             $table->string('tanggung_jawab');

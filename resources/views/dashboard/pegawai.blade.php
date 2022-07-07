@@ -7,7 +7,7 @@
         <i class="fa fa-list fa-fw"></i> List Employee
     </div>
     <div class="card-body table-responsive">
-        <table id="table" class="table table-striped table-bordered">
+        <table id="tablePolos" class="table table-striped table-bordered">
             <thead>
                 <tr>
                     <th>#</th>
@@ -15,7 +15,7 @@
                     <th>Name</th>
                     <th>Position</th>
                     <th>Phone</th>
-                    <th>Address</th>
+                    <th>Email</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -25,18 +25,19 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $pegawai->id }}</td>
                     <td>{{ $pegawai->nama }}</td>
-                    <td>{{ $pegawai->posisi }}</td>
+                    <td>{{ $pegawai->posisi->nama }}</td>
                     <td>{{ $pegawai->phone }}</td>
-                    <td>{{ $pegawai->alamat }}</td>
+                    <td>{{ $pegawai->email }}</td>
                     <td>
                         <div>
-                            {{-- <a href="javascript::void(0)" onclick="show('{{ route('employee.show',$pegawai->nip) }}','modal-lg')" class="btn btn-sm btn-outline-primary">Show</a> --}}
+                            <a href="javascript::void(0)" onclick="show('{{ route('employee.show',$pegawai->id) }}','modal-lg')" class="btn btn-sm btn-outline-primary">Show</a>
                             <a href="javascript::void(0)" onclick="show('{{ route('employee.edit',$pegawai->id) }}','modal-lg' , 'Edit Data: {{$pegawai->nama}}')" class="btn btn-sm btn-outline-warning">Edit</a>
                             {{-- <a class="btn btn-sm btn-outline-danger" href="{{ route('employee.destroy', $pegawai->nip)}}">Delete</a> --}}
                             <form class="d-inline" action="{{ route('employee.destroy', $pegawai->id)}}" method="post">
-                                @method('DELETE')
+                            {{-- <form class="d-inline" action=""> --}}
+                            @method('DELETE')
                                 @csrf
-                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('sure want to delete?')">Delete</button>
+                                <button class="btn btn-sm btn-outline-danger swalDelete" type="submit" onclick="return confirm('sure want to delete?')">Delete</button>
                             </form>                  
                         </div>
                     </td>

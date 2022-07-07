@@ -4,8 +4,10 @@ use App\Http\Controllers\AbsensiController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\PosisiController;
 use App\Models\Calon;
 use App\Models\Pegawai;
+use App\Models\Posisi;
 use Carbon\Carbon;
 use Faker\Guesser\Name;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,7 @@ Route::get('/', function () {
     $jumlah_pegawai = count($pegawai);
     $jumlah_rekrutmen = count($rekrutmen);
     $jumlah_rekrutmen_baru = Calon::whereDate('created_at', Carbon::today()->toDateString())->count();
+    $jumlah_posisi = Posisi::all()->count();
     // dd($jumlah_rekrutmen_baru);
     return view('dashboard.dashboard', [
         'pegawai' => $pegawai,
@@ -35,6 +38,7 @@ Route::get('/', function () {
         'jumlah_rekrutmen' => $jumlah_rekrutmen,
         'jumlah_pegawai' => $jumlah_pegawai,
         'jumlah_rekrutmen_baru' => $jumlah_rekrutmen_baru,
+        'jumlah_posisi' => $jumlah_posisi,
         'title' => 'Dashboard',
     ]);
 })->middleware('auth');
@@ -48,12 +52,18 @@ Route::resource('attendance', AbsensiController::class)->parameters([
     'attendance' => 'absensi:id' // untuk mengubah parameter route dan mengambil id sebagai acuan data
 ])->middleware('auth');
 Route::post('/attendance/import', [AbsensiController::class, 'import'])->middleware('auth');
+Route::get('/attendance/add/{pegawai}', [AbsensiController::class, 'add'])->name('attendance.add')->middleware('auth');
+Route::get('/attendance/store/{pegawai}', [AbsensiController::class, 'store'])->name('attendance.store')->middleware('auth');
+Route::post('/attendance/filtered', [AbsensiController::class, 'dateFilter'])->middleware('auth');
 
 //pegawai
 Route::resource('employee', PegawaiController::class)->parameters([
     'employee' => 'pegawai:id' // untuk mengubah parameter route dan mengambil id sebagai acuan data
 ])->middleware('auth');
 // Route::get('employee/{pegawai:nip}', [PegawaiController::class, 'destroy'])->name('employee.destroy');
+
+//posisi
+Route::resource('position', PosisiController::class)->middleware('auth');
 
 //login admin
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
@@ -64,7 +74,9 @@ Route::get('/logout', [LoginController::class, 'logout']);
 Route::get('/trash/employee', [PegawaiController::class, 'trash'])->middleware('auth');
 Route::get('/trash/attendance', [AbsensiController::class, 'trash'])->middleware('auth');
 Route::get('/trash/recruitment', [CalonController::class, 'trash'])->middleware('auth');
+Route::get('/trash/position', [PosisiController::class, 'trash'])->middleware('auth');
 //restore data
 Route::get('/trash/employee/{pegawai}/restore', [PegawaiController::class, 'restore'])->withTrashed()->middleware('auth');
 Route::get('/trash/attendance/{absensi}/restore', [AbsensiController::class, 'restore'])->withTrashed()->middleware('auth');
 Route::get('/trash/recruitment/{calon}/restore', [CalonController::class, 'restore'])->withTrashed()->middleware('auth');
+Route::get('/trash/position/{posisi}/restore', [PosisiController::class, 'restore'])->withTrashed()->middleware('auth');

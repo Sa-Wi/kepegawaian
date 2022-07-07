@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bahasa extends Model
 {
+    protected $guarded = ['id'];
     public function calons()
     {
         return $this->belongsTo(Calon::class);

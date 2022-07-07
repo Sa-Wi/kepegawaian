@@ -3,7 +3,7 @@
     <tr>
         <th>Nama</th>
         <td>
-            {{ $data->pegawai->nama }}
+            {{ $data->pegawai->nama ?? '!not registered' }}
         </td>
     </tr>
     <tr>

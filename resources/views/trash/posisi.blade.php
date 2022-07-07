@@ -10,26 +10,20 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>NIP</th>
                     <th>Name</th>
-                    <th>Position</th>
-                    <th>Phone</th>
                     <th>Deleted at</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($pegawais as $pegawai)
+                @foreach ($positions as $posisi)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $pegawai->id }}</td>
-                    <td>{{ $pegawai->nama }}</td>
-                    <td>{{ $pegawai->posisi->nama }}</td>
-                    <td>{{ $pegawai->phone }}</td>
-                    <td>{{ $pegawai->deleted_at }}</td>
+                    <td>{{ $posisi->nama }}</td>
+                    <td>{{ $posisi->deleted_at }}</td>
                     <td>
                         <div>
-                            <a href="/trash/employee/{{ $pegawai->id }}/restore" onclick="return confirm('sure want to restore this data?')"  class="btn btn-sm btn-outline-primary">Restore</a>             
+                            <a href="/trash/position/{{ $posisi->id }}/restore" onclick="return confirm('sure want to restore this data?')"  class="btn btn-sm btn-outline-primary">Restore</a>             
                         </div>
                     </td>
                 </tr>

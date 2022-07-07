@@ -6,16 +6,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Pegawai extends Model
+class Posisi extends Model
 {
     use SoftDeletes;
+    use HasFactory;
     protected $guarded = ['id'];
-    public function absensis()
+    public function pegawais()
     {
-        return $this->hasMany(Absensi::class);
+        return $this->hasMany(Pegawai::class);
     }
-    public function posisi()
+    public function calons()
     {
-        return $this->belongsTo(Posisi::class);
+        return $this->hasMany(Calon::class);
     }
 }
