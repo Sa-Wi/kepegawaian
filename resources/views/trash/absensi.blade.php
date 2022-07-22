@@ -33,7 +33,7 @@
                     <td>{{ Carbon\Carbon::parse($absensi->deleted_at)->diffForHumans() }}</td>
                     <td>
                         <div>
-                            <a href="/trash/attendance/{{ $absensi->id }}/restore" onclick="return confirm('sure want to restore this data?')"  class="btn btn-sm btn-outline-primary">Restore</a>
+                            <a href="/trash/attendance/{{ $absensi->id }}/restore"  class="btn btn-sm btn-outline-primary swalRestore" data-alert="{{ $absensi->pegawai->nama }}">Restore</a>
                         </div>
                     </td>
                 </tr>

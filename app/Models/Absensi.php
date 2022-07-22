@@ -10,6 +10,7 @@ class Absensi extends Model
 {
     use SoftDeletes;
     protected $guarded = ['id'];
+    protected $with = ['pegawai'];
     public function pegawai()
     {
         return $this->belongsTo(Pegawai::class, 'pegawai_id');

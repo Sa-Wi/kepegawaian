@@ -37,7 +37,7 @@
                             <form class="d-inline" action="{{ route('recruitment.destroy', $calon->id)}}" method="post">
                                 @method('DELETE')
                                 @csrf
-                                <button class="btn btn-sm btn-outline-danger" type="submit" onclick="return confirm('sure want to delete?')">Delete</button>
+                                <button class="btn btn-sm btn-outline-danger swalDelete" type="submit" data-alert="{{ $calon->nama }}">Delete</button>
                             </form>   
                         </div>
                     </td>

@@ -37,7 +37,7 @@
                             {{-- <form class="d-inline" action=""> --}}
                             @method('DELETE')
                                 @csrf
-                                <button class="btn btn-sm btn-outline-danger swalDelete" type="submit" onclick="return confirm('sure want to delete?')">Delete</button>
+                                <button class="btn btn-sm btn-outline-danger swalDelete" data-alert="{{ $pegawai->nama }}" type="submit">Delete</button>
                             </form>                  
                         </div>
                     </td>

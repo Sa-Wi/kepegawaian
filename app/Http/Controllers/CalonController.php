@@ -58,10 +58,17 @@ class CalonController extends Controller
             'religion' => 'required',
             'ktp' => 'required|numeric', //ini inget isi max digit !!!
             'email' => 'required|email:rfc,dns',
-            'phone' => 'required|numeric'
+            'phone' => 'required|numeric',
+            'file' => 'file|mimes:rar'
         ]);
 
-
+        if ($request->file) {
+            $filenameWithExt = $request->file('file')->getClientOriginalName();
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            $extension = $request->file('file')->getClientOriginalExtension();
+            $filenameSimpan = $filename . '_' . time() . '.' . $extension;
+            $dataCalon['file'] = $request->file('file')->storeAs('berkas', $filenameSimpan);
+        }
 
         $calon = new Calon();
         $calon->ktp = $dataCalon['ktp'];
@@ -94,6 +101,7 @@ class CalonController extends Controller
         $calon->aktivitas = $request->activity;
         $calon->hobi = $request->hobby;
         $calon->apply_via = $request->apply_via;
+        $calon->berkas = $filenameSimpan;
         if ($request->mention_name) {
             $calon->nama_teman = $request->mention_name;
         }
@@ -219,7 +227,7 @@ class CalonController extends Controller
                 $relative->save();
             }
         }
-        return view('pendaftaran', ['posisi' => $posisi])->with('success',);
+        return view('pendaftaran', ['positions' => $posisi])->with('success',);
     }
 
     /**
@@ -500,5 +508,48 @@ class CalonController extends Controller
     {
         $calon->restore();
         return redirect('/trash/recruitment')->with('success', $calon->nama . ' have been restored');
+    }
+
+
+    //menghapus data pada table tertentu pada view edit
+    public function deleteEducation(Pendidikan $pendidikan)
+    {
+        $pendidikan->delete();
+        return back()->with('success', 'Data Education has been deleted');
+    }
+    public function deleteLanguage(Bahasa $bahasa)
+    {
+        $bahasa->delete();
+        return back()->with('success', 'Data Language has been deleted');
+    }
+    public function deleteExperience(Pengalaman_Kerja $pengalaman)
+    {
+        $pengalaman->delete();
+        return back()->with('success', 'Data Work Experience has been deleted');
+    }
+    public function deleteFamily(Keluarga $keluarga)
+    {
+        $keluarga->delete();
+        return back()->with('success', 'Data Family has been deleted');
+    }
+    public function deleteOrganization(Organisasi $organisasi)
+    {
+        $organisasi->delete();
+        return back()->with('success', 'Data Organization has been deleted');
+    }
+    public function deleteScholarship(Beasiswa $beasiswa)
+    {
+        $beasiswa->delete();
+        return back()->with('success', 'Data Scholarship has been deleted');
+    }
+    public function deleteRecruitment(Rekrutment_Lain $rekrut)
+    {
+        $rekrut->delete();
+        return back()->with('success', 'Data Other Recruitment has been deleted');
+    }
+    public function deleteRelative(Relative $relative)
+    {
+        $relative->delete();
+        return back()->with('success', 'Data Relative has been deleted');
     }
 }

@@ -15,7 +15,8 @@ class PosisiController extends Controller
      */
     public function index()
     {
-        $positions = Posisi::all();
+        // $positions = Posisi::withTrashed()->latest()->get();
+        $positions = Posisi::latest()->get();
         return view('dashboard.posisi', [
             'positions' => $positions,
             'title' => 'Available Position'
@@ -41,12 +42,19 @@ class PosisiController extends Controller
     public function store(Request $request)
     {
 
+        $restore = Posisi::onlyTrashed()->where('nama', $request->position)->get();
+        if (!empty($restore[0])) {
+            // dd($restore);
+            $restore[0]->restore();
+            return back()->with('success', $restore[0]->nama . ' Restored Successfully');
+        }
+
         $validatedData = $request->validate([
-            'posisi' => 'required|max:255'
+            'position' => 'required|max:255|unique:posisis,nama'
         ]);
 
         $posisi = Posisi::create([
-            'nama' => $validatedData['posisi']
+            'nama' => $validatedData['position']
         ]);
 
         return back()->with('success', $posisi->nama . ' Created Successfully');
@@ -69,9 +77,12 @@ class PosisiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Posisi $position)
     {
-        //
+        // dd($position);
+        return view('posisi.edit', [
+            'data' => $position
+        ]);
     }
 
     /**
@@ -81,9 +92,23 @@ class PosisiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Posisi $position)
     {
-        //
+        // dd($position);
+        $validatedData = $request->validate([
+            'position' => 'required|max:255|unique:posisis,nama'
+        ]);
+
+        $posisi = Posisi::updateOrCreate([
+            'id' => $position->id
+        ], [
+            'nama' => $validatedData['position']
+        ]);
+
+        if ($posisi) {
+            return back()->with('success', $position->nama . ' Updated Successfully');
+        }
+        return back()->with('error', 'Something wrong, cant update data');
     }
 
     /**
@@ -113,6 +138,6 @@ class PosisiController extends Controller
     public function restore(Posisi $posisi)
     {
         $posisi->restore();
-        return redirect('/trash/position')->with('success', $posisi->nama . ' have been Restored');
+        return redirect('/trash/position')->with('success', $posisi->nama . ' has been Restored');
     }
 }

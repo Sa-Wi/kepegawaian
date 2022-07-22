@@ -23,7 +23,7 @@
                     <td>{{ $posisi->deleted_at }}</td>
                     <td>
                         <div>
-                            <a href="/trash/position/{{ $posisi->id }}/restore" onclick="return confirm('sure want to restore this data?')"  class="btn btn-sm btn-outline-primary">Restore</a>             
+                            <a href="/trash/position/{{ $posisi->id }}/restore"  class="btn btn-sm btn-outline-primary swalRestore" data-alert="{{ $posisi->nama }}">Restore</a>             
                         </div>
                     </td>
                 </tr>

@@ -11,14 +11,16 @@ controler
     lanjutin import absensi @
 
 view:
-	menbuat error message di setiap inputan
-    membuat beberapa form menjadi required
-    view login dirapiin
-    buat view dashboard
+	menbuat flash message di setiap inputan @
+	menbuat confirm message di setiap inputan @
+    membuat beberapa form menjadi required @
+    view login dirapiin @
+    buat view dashboard @
         jumlah pegawai @
         jumlah rekrutan baru @
-        jumlah data baru hari ini
-    buat pencarian berdasarkan tanggal pada view absensi
+        jumlah data baru hari ini @
+    buat pencarian berdasarkan tanggal pada view absensi@
+    view calon kasi flash, sama view edited nya di benerin kalo multiform nya kosong (kasi foresle aja) @
 
 database
     buat table kosongan untuk import absensi@
@@ -26,11 +28,11 @@ database
     edit tabel pegawai id dengan nip -> edit di view juga @
 
 fitur
-    crud calon
-        update nya belom, gila banyak beut
+    crud calon @
+        update nya belom, gila banyak beut @
     crud pegawai @
-    crud absensi
-        update belom
+    crud absensi @
+        update belom @
     tong sampah @
 
 
@@ -46,7 +48,7 @@ scholarship recruitment form isiin jawaban
 
 tambah address domisial @
 
-recruitment tambah data status
+recruitment tambah data status @
  Contacting
  Interview
  LOI

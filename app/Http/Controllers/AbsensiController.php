@@ -27,14 +27,22 @@ class AbsensiController extends Controller
 
     public function import(Request $request) // mengimport ke table ImportAbsensi dan mengambil datanya untuk dimasukan lagi ke dalama table Absensi
     {
+        $validatedData = $request->validate([
+            'import_absen' => 'file|mimes:xls,xlsx'
+        ]);
 
         // dd($request);
         $imports = Excel::toCollection(new AbsensiImport, $request->file('import_absen'));
 
+        // dd($imports[0][0]['pin']);
+        if (!isset($imports[0][0]['pin']) || !isset($imports[0][0]['tanggal_scan'])) {
+            return redirect()->intended('attendance')->with('error', 'Import Failed, please make sure the file you input is an excel file and there are fields "pin" and "tanggal scan"');
+        }
+
         $tanggal = '';
         foreach ($imports[0] as $import => $data) {
             //menentukan waktu in dan out
-            // dd($data['nip']);
+            // dd($data['pin']);
             if (Carbon::parse($data['tanggal_scan'])->toDateString() != $tanggal) {
                 global $absensi;
                 $absensi = new Absensi;
@@ -100,7 +108,7 @@ class AbsensiController extends Controller
             $absensi->save();
         }
         // dd($imports);
-        return back()->with('success', 'All Data Imported Successfully');
+        return redirect()->intended('attendance')->with('success', 'All Data Imported Successfully');
     }
 
     public function add(Pegawai $pegawai)
@@ -129,7 +137,7 @@ class AbsensiController extends Controller
     {
         // dd($request->all())
         $validatedData = $request->validate([
-            'date' => 'required',
+            'date' => 'required|date',
         ]);
 
         $status = $request->status ?? '';
@@ -257,6 +265,6 @@ class AbsensiController extends Controller
     public function restore(Absensi $absensi)
     {
         $absensi->restore();
-        return redirect('/trash/attendance')->with('success', 'Data ID ' . $absensi->pegawai->id . ' have been restored');
+        return redirect('/trash/attendance')->with('success', 'Data ID ' . $absensi->pegawai->id . ' has been restored');
     }
 }

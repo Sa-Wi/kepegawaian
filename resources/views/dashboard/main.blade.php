@@ -13,7 +13,9 @@
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
@@ -44,33 +46,12 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item {{ $title == 'Dashboard' ? 'active' : ''  }}">
+            <li class="nav-item {{ $title == 'Dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="/">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider m-0">
-
-            <!-- Heading -->
-            <!-- <div class="sidebar-heading">
-                Interface
-            </div> -->
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{ $title == 'Attendance' || $title == 'Add Attendance' ? ' active' : ''  }}">
-                <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa fa-list"></i>
-                    <span>Attendance</span>
-                </a>
-                <div id="collapseTwo" class="collapse {{ $title == 'Attendance' || $title == 'Add Attendance' ? 'show' : ''  }}" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item {{ $title == 'Attendance' ? 'active' : ''  }}" href="/attendance">Manage</a>
-                        <a class="collapse-item {{ $title == 'Add Attendance' ? 'active' : ''  }}" href="/attendance/create">Add Manual</a>
-                    </div>
-                </div>
-            </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <!-- <li class="nav-item">
@@ -90,7 +71,7 @@
             </li> -->
 
             <!-- Divider -->
-            <hr class="sidebar-divider m-0">
+            <hr class="sidebar-divider my-0">
 
             <!-- Heading -->
             <!-- <div class="sidebar-heading">
@@ -98,41 +79,81 @@
             </div> -->
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{ $title == 'Employee' || $title == 'Recruitment' ? ' active' : ''  }}">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
+            <li class="nav-item {{ $title == 'Employee' || $title == 'Recruitment' ? ' active' : '' }}">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-folder"></i>
-                    <span>Employee</span>
+                    <span>Manage</span>
                 </a>
-                <div id="collapsePages" class="collapse {{ $title == 'Employee' || $title == 'Recruitment' || $title == 'Add Employee'  ? ' show' : ''  }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapsePages"
+                    class="collapse {{ $title == 'Employee' || $title == 'Recruitment' || $title == 'Add Employee' || $title == 'Attendance' ? ' show' : '' }}"
+                    aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Manage</h6> -->
-                        <a class="collapse-item {{ $title == 'Employee' || $title == 'Add Employee' ? ' active' : ''  }}" href="/employee">Manage</a>
+                        <a class="collapse-item {{ $title == 'Employee' || $title == 'Add Employee' ? ' active' : '' }}"
+                            href="/employee"><i class="fa fa-users" aria-hidden="true"></i> Employee</a>
+                        <hr class="my-1">
+                        <a class="collapse-item {{ $title == 'Attendance' ? 'active' : '' }}" href="/attendance"><i
+                                class="fa fa-calendar" aria-hidden="true"></i> Attendance</a>
                         <hr class="my-1">
                         <!-- <div class="collapse-divider"></div> -->
                         <!-- <h6 class="collapse-header">Recruitment</h6> -->
-                        <a class="collapse-item {{ $title == 'Recruitment' ? ' active' : ''  }}" href="/recruitment">Recruitment</a>
-                        <a class="collapse-item" href="/recruitment/new" target="_blank">Aplication Form</a>
-                        <hr class="my-1">
-                        <a class="collapse-item" href="/position">Available Position</a>
+                        <a class="collapse-item {{ $title == 'Recruitment' ? ' active' : '' }}" href="/recruitment"><i
+                                class="fa fa-briefcase" aria-hidden="true"></i> Recruitment</a>
+                        <a class="collapse-item" href="/recruitment/new" target="_blank"><i class="fa fa-link"
+                                aria-hidden="true"></i> Aplication Form</a>
+
                     </div>
                 </div>
             </li>
 
-            <hr class="sidebar-divider m-0">
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Heading -->
+            <!-- <div class="sidebar-heading">
+                Interface
+            </div> -->
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item {{ $title == 'Available Position' ? ' active' : '' }}">
+                <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa fa-list"></i>
+                    <span>Master Data</span>
+                </a>
+                <div id="collapseTwo" class="collapse {{ $title == 'Available Position' ? 'show' : '' }}"
+                    aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item {{ $title == 'Available Position' ? ' active' : '' }}"
+                            href="/position"><i class="fa fa-sitemap" aria-hidden="true"></i> Available Position</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider my-0">
 
             {{-- nav item sampah --}}
-            <li class="nav-item {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Attendance' ? ' active' : ''  }}">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSampah" aria-expanded="true" aria-controls="collapsePages">
+            <li
+                class="nav-item {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Attendance' ? ' active' : '' }}">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseSampah"
+                    aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-trash" aria-hidden="true"></i>
                     <span>Deleted Data</span>
                 </a>
-                <div id="collapseSampah" class="collapse {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Attendance' ? ' show' : ''  }}" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div id="collapseSampah"
+                    class="collapse {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Attendance' ? ' show' : '' }}"
+                    aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Manage</h6> -->
-                        <a class="collapse-item {{ $title == 'Deleted Employee' ? ' active' : ''  }}" href="/trash/employee">Employee</a>
-                        <a class="collapse-item {{ $title == 'Deleted Attendance' ? ' active' : ''  }}" href="/trash/attendance">Attendance</a>
-                        <a class="collapse-item {{ $title == 'Deleted Recruitment' ? ' active' : ''  }}" href="/trash/recruitment">Recruitment</a>
-                        <a class="collapse-item {{ $title == 'Deleted Position' ? ' active' : ''  }}" href="/trash/position">Position</a>
+                        <a class="collapse-item {{ $title == 'Deleted Employee' ? ' active' : '' }}"
+                            href="/trash/employee">Employee</a>
+                        <a class="collapse-item {{ $title == 'Deleted Attendance' ? ' active' : '' }}"
+                            href="/trash/attendance">Attendance</a>
+                        <a class="collapse-item {{ $title == 'Deleted Recruitment' ? ' active' : '' }}"
+                            href="/trash/recruitment">Recruitment</a>
+                        <a class="collapse-item {{ $title == 'Deleted Position' ? ' active' : '' }}"
+                            href="/trash/position">Position</a>
                     </div>
                 </div>
             </li>
@@ -184,14 +205,19 @@
 
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->nama }}</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ auth()->user()->nama }}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="{{ asset('img/undraw_profile.svg') }}">
                             </a>
                             <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="#" data-toggle="modal"
+                                    data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>
@@ -205,6 +231,15 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                    <div id="overlay" class="text-center row align-items-center ml-auto">
+
+                        <div class="col">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="sr-only">Now Loading...</span>
+                            </div>
+                            Now Loading...
+                        </div>
+                    </div>
 
                     @yield('content')
 
@@ -218,7 +253,10 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; <a class="text-decoration-none text-warning" href="https://www.facebook.com/satria.wiguna.1660/" target="_blank">SaWi</a> 2022</span>
+                        <span>Copyright &copy; <a class="text-decoration-none text-warning"
+                                href="https://www.facebook.com/satria.wiguna.1660/" target="_blank">
+                                {{-- SaWi --}}
+                            </a> 2022</span>
                     </div>
                 </div>
             </footer>
@@ -236,7 +274,8 @@
     </a>
 
     <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -254,7 +293,8 @@
         </div>
     </div>
 
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog" id="modal-size">
             <div class="modal-content">
                 <div class="modal-header">
@@ -271,31 +311,6 @@
 
     {{-- sweet alert --}}
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
-
-    <script>
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-start',
-            iconColor: 'white',
-            customClass: {
-                popup: 'colored-toast'
-            },
-            showConfirmButton: false,
-            timer: 5000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-            })
-        //flash success laravel
-        @if(session('success'))
-            Toast.fire({
-                icon: 'success',
-                title: '{{ session('success') }}'
-            })
-        @endif
-    </script>
 
     <!-- Bootstrap core JavaScript-->
     {{-- <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script> --}}
@@ -320,7 +335,6 @@
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.colVis.min.js"></script>
     <script>
-
         $(".custom-file-input").on("change", function() {
             var fileName = $(this).val().split("\\").pop();
             $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
@@ -329,35 +343,36 @@
         $(document).ready(function() {
             $('#table').DataTable({
                 dom: 'Bfrtip',
-                buttons: [
+                buttons: [{
+                        extend: 'copyHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6,
+                                7
+                            ] // untuk membuat agar file tidak mengandung field 'action'
+                        }
+                    },
                     {
-                extend: 'copyHtml5',
-                exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ] // untuk membuat agar file tidak mengandung field 'action'
-                }
-            },
-            {
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-                    // columns: [ 0, 1, 2, 3, 4, 5 ]
-                }
-            },
-            {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7 ]
-                }
-            },
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            // columns: [ 0, 1, 2, 3, 4, 5 ]
+                        }
+                    },
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                        }
+                    },
                 ],
                 "pageLength": 10
             });
         });
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             $('#tablePolos').DataTable();
         });
-        
+
 
         //show modal calon
         function show(url, size = "md", title = "Detail") {
@@ -378,6 +393,97 @@
                 }
             })
         }
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-start',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+        //flash success laravel
+        @if (session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            })
+        @endif
+
+        //sweet alert tombol delete
+        $('.swalDelete').on('click', function(e) {
+            e.preventDefault();
+            var data = $(this).attr('data-alert')
+            const hapus = $(this).parent('form')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: data + " will be deleted",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    hapus.submit();
+                    // Swal.fire(
+                    // 'Deleted!',
+                    // 'Your file has been deleted.',
+                    // 'success'
+                    // )
+                }
+            })
+        })
+
+        //sweet alert tombol restore
+        $('.swalRestore').on('click', function(e) {
+            e.preventDefault();
+            var data = $(this).attr('data-alert')
+            const href = $(this).attr('href')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: data + " will be restored",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, restore it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = href;
+                    // Swal.fire(
+                    // 'Deleted!',
+                    // 'Your file has been deleted.',
+                    // 'success'
+                    // )
+                }
+            })
+        })
+
+        //tombol import dan loading
+        $('document').ready(function() {
+            $('#formImport').on('submit', function(e) {
+                // e.preventDefault();
+                $('#loadingImport').show();
+                $('#buttonImport').hide();
+            })
+        })
+
+        //loading web page
+        $('document').ready(function() {
+            // PAGE IS FULLY LOADED  
+            // FADE OUT YOUR OVERLAYING DIV
+            $('#overlay').hide();
+        });
+
+        // $('form').attr('autocomplete', 'off')
     </script>
 
 </body>

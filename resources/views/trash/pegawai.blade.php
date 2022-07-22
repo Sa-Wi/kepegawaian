@@ -29,7 +29,7 @@
                     <td>{{ $pegawai->deleted_at }}</td>
                     <td>
                         <div>
-                            <a href="/trash/employee/{{ $pegawai->id }}/restore" onclick="return confirm('sure want to restore this data?')"  class="btn btn-sm btn-outline-primary">Restore</a>             
+                            <a href="/trash/employee/{{ $pegawai->id }}/restore"  class="btn btn-sm btn-outline-primary swalRestore" data-alert="{{ $pegawai->nama }}">Restore</a>             
                         </div>
                     </td>
                 </tr>

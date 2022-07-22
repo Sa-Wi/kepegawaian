@@ -47,7 +47,7 @@ class PegawaiController extends Controller
     {
         // dd($request);
         $validatedData = $request->validate([
-            'nip' => 'required|numeric',
+            'nip' => 'required|numeric|unique:pegawais,id',
             'name' => 'required',
 
             'phone' => 'required|numeric',
@@ -59,9 +59,9 @@ class PegawaiController extends Controller
             'kewarganegaraan' => 'required',
             'domicile' => 'required',
             'current_adrs' => 'required',
-            'ktp' => 'required',
-            'npwp' => 'required',
-            'akun_bank' => 'required',
+            'ktp' => 'required|digits_between:1,16|numeric',
+            'npwp' => 'digits_between:1,16|numeric',
+            // 'akun_bank' => 'required',
             'email' => 'required|email:dns',
         ]);
 
@@ -83,7 +83,8 @@ class PegawaiController extends Controller
         $pegawai->alamat_sekarang = $validatedData['current_adrs'];
         $pegawai->ktp = $validatedData['ktp'];
         $pegawai->npwp = $validatedData['npwp'];
-        $pegawai->akun_bank = $validatedData['akun_bank'];
+        // $pegawai->akun_bank = $validatedData['akun_bank'];
+        $pegawai->akun_bank = $request->akun_bank;
         $pegawai->email = $validatedData['email'];
         $pegawai->nama_kontak_darurat = $request->emergency_name;
         $pegawai->relasi_kontak_darurat = $request->emergency_relasi;
@@ -214,6 +215,6 @@ class PegawaiController extends Controller
     public function restore(Pegawai $pegawai)
     {
         $pegawai->restore();
-        return redirect('/trash/attendance')->with('success', $pegawai->nama . ' have been restored');
+        return redirect('/trash/employee')->with('success', $pegawai->nama . ' has been restored');
     }
 }

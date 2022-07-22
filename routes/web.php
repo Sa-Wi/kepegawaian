@@ -80,3 +80,13 @@ Route::get('/trash/employee/{pegawai}/restore', [PegawaiController::class, 'rest
 Route::get('/trash/attendance/{absensi}/restore', [AbsensiController::class, 'restore'])->withTrashed()->middleware('auth');
 Route::get('/trash/recruitment/{calon}/restore', [CalonController::class, 'restore'])->withTrashed()->middleware('auth');
 Route::get('/trash/position/{posisi}/restore', [PosisiController::class, 'restore'])->withTrashed()->middleware('auth');
+
+//delete related table from calon
+Route::get('/recruitment/education/{pendidikan}/delete', [CalonController::class, 'deleteEducation'])->middleware('auth');
+Route::get('/recruitment/language/{bahasa}/delete', [CalonController::class, 'deleteLanguage'])->middleware('auth');
+Route::get('/recruitment/exp/{pengalaman}/delete', [CalonController::class, 'deleteExperience'])->middleware('auth');
+Route::get('/recruitment/family/{keluarga}/delete', [CalonController::class, 'deleteFamily'])->middleware('auth');
+Route::get('/recruitment/organization/{organisasi}/delete', [CalonController::class, 'deleteOrganization'])->middleware('auth');
+Route::get('/recruitment/scholarship/{beasiswa}/delete', [CalonController::class, 'deleteScholarship'])->middleware('auth');
+Route::get('/recruitment/recruitment/{rekrut}/delete', [CalonController::class, 'deleteRecruitment'])->middleware('auth');
+Route::get('/recruitment/relative/{relative}/delete', [CalonController::class, 'deleteRelative'])->middleware('auth');

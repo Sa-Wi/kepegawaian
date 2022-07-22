@@ -9,6 +9,12 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+    {{-- css --}}
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
+
+    {{-- font awesome --}}
+    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
+
     <title>Application Form</title>
 </head>
 
@@ -20,18 +26,10 @@
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="#">BVR Group Asia</a>
+                <a class="navbar-brand" href="{{ route('recruitment.index') }}"><i class="fa fa-arrow-circle-left" aria-hidden="true"></i> Back</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto fixed">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="https://bvrgroupasia.com/" target="_blank">Home</a>
-                        </li>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </nav>
 
@@ -42,7 +40,7 @@
             <h1 class="mb-5">Application Form Data : {{ $data->nama }}</h1>
             <div class="card">
                 <div class="card-body">
-                    <form class="row g-3" action="{{ route('recruitment.update', $data->id) }}" method="post">
+                    <form class="row g-3" id="mainForm" action="{{ route('recruitment.update', $data->id) }}" method="post">
                         @csrf
                         @method('PATCH')
                         <div class="col-md-12">
@@ -251,7 +249,7 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-12 mb-5">
                             <label for="formal_education" class="form-label">Formal Education</label>
                             <div class="row text-center rounded py-1 bg-light">
                                 
@@ -276,7 +274,7 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->pendidikans->where('jenis_pendidikan', 'formal') as $education)
+                            @forelse ($data->pendidikans->where('jenis_pendidikan', 'formal') as $education)
                                 
                             <input type="text" hidden name="education[{{ $loop->iteration }}][id]" value="{{ $education->id }}">
                             <input type="text" hidden name="education[{{ $loop->iteration }}][jenis]" value="formal">
@@ -305,8 +303,42 @@
                                     
                                     <textarea name="education[{{ $loop->iteration }}][remark]" class="form-control" style="height: 40px ;" id="remark-education">{{ $education->keterangan }}</textarea>
                                 </div>
+
+                                <div class="col-lg-1 mb-1">
+                                    <a href="/recruitment/education/{{ $education->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                </div>
+                                
+                                {{-- <div class="col-lg-1 mb-1">
+                                    <form class="d-inline" action="/recruitment/education/{{ $education->id }}/delete" method="post">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button class="btn btn-outline-danger" type="submit">Delete</button>
+                                    </form>   
+                                </div> --}}
                             </div>
-                            @endforeach
+                            @empty
+                            <div class="row text-center rounded py-1 bg-light" hidden>
+                                <input type="text" hidden name="education[1][jenis]" value="formal">
+                                <div class="col-lg-3 mb-1">
+                                    <input type="text" class="form-control" id="school_name" name="education[1][school_name]">
+                                    @error('education.1.school_name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <input type="number" class="form-control" id="from" name="education[1][from]">
+                                </div>
+                                <div class="col-lg-1 mb-1">
+                                    <input type="number" class="form-control" id="to" name="education[1][to]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <input type="text" class="form-control" id="subject" name="education[1][subject]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <textarea name="education[1][remark]" class="form-control" style="height: 40px ;" id="remark-education"></textarea>
+                                </div>
+                            </div>
+                            @endforelse
                             <div id="formal_education">
 
                             </div>
@@ -338,7 +370,7 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->pendidikans->where('jenis_pendidikan', 'course') as $course)
+                            @forelse ($data->pendidikans->where('jenis_pendidikan', 'course') as $course)
                                 <input type="text" hidden name="course[{{ $loop->iteration }}][id]" value="{{ $course->id }}">
                                 <input type="text" hidden name="course[{{ $loop->iteration }}][jenis]" value="course">
                                 <div class="row text-center rounded py-1 bg-light">
@@ -362,8 +394,35 @@
                                         
                                         <textarea name="course[{{ $loop->iteration }}][remark]" class="form-control" style="height: 40px ;" id="course_remark">{{ $course->keterangan }}</textarea>
                                     </div>
+                                    <div class="col-lg-1 mb-1">
+                                        <a href="/recruitment/education/{{ $course->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                    </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <input type="text" hidden name="course[1][jenis]" value="course">
+                                <div class="row text-center rounded py-1 bg-light" hidden>
+                                    <div class="col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="course_name" name="course[1][course_name]">
+                                    </div>
+                                    <div class="col-lg-1 mb-1">
+                                        
+                                        <input type="number" class="form-control" id="course_from" name="course[1][from]">
+                                    </div>
+                                    <div class="col-lg-1 mb-1">
+                                        
+                                        <input type="number" class="form-control" id="course_to" name="course[1][to]">
+                                    </div>
+                                    <div class="col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="course_subject" name="course[1][subject]">
+                                    </div>
+                                    <div class="col-lg-3 mb-1">
+                                        
+                                        <textarea name="course[1][remark]" class="form-control" style="height: 40px ;" id="course_remark"></textarea>
+                                    </div>
+                                </div>
+                            @endforelse
                             
                             <div id="other_education">
 
@@ -391,7 +450,7 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->bahasas as $bahasa)
+                            @forelse ($data->bahasas as $bahasa)
                                 <div class="row text-center rounded py-1 bg-light">
                                     <input type="text" hidden name="language[{{ $loop->iteration }}][id]" value="{{ $bahasa->id }}">
                                     <div class="col-lg-3 mb-1">
@@ -424,8 +483,45 @@
                                         
                                         <textarea name="language[{{ $loop->iteration }}][remark]" class="form-control" style="height: 40px ;" id="language_remark">{{ $bahasa->keterangan }}</textarea>
                                     </div>
+                                    <div class="col-lg-1 mb-1">
+                                        <a href="/recruitment/language/{{ $bahasa->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                    </div>
+
                                 </div>
-                            @endforeach
+                            @empty
+                            <div class="row text-center rounded py-1 bg-light" hidden>
+                                <div class="col-lg-3 mb-1">
+                                    
+                                    <input type="text" class="form-control" id="course_name" name="language[1][language]">
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    
+                                    <input type="text" class="form-control" list="listOral" id="oral" name="language[1][oral]">
+                                    <datalist id="listOral" name="language[1][oral]">
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Advance">Advance</option>
+                                        <option value="Competent">Competent</option>
+                                        <option value="Proficient">Proficient</option>
+                                        <option value="Expert">Expert</option>
+                                    </datalist>
+                                </div>
+                                <div class="col-lg-2 mb-1">
+                                    
+                                    <input type="text" class="form-control" list="listWritten" id="written" name="language[1][written]">
+                                    <datalist id="listWritten" name="language[1][written]">
+                                        <option value="Beginner">Beginner</option>
+                                        <option value="Advance">Advance</option>
+                                        <option value="Competent">Competent</option>
+                                        <option value="Proficient">Proficient</option>
+                                        <option value="Expert">Expert</option>
+                                    </datalist>
+                                </div>
+                                <div class="col-lg-4 mb-1">
+                                    
+                                    <textarea name="language[1][remark]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                                </div>
+                            </div>
+                            @endforelse
                             
                             <div id="language_form">
 
@@ -469,7 +565,7 @@
                                     <textarea name="experience[1][company]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
                                 </div> --}}
                             </div>
-                            @foreach ($data->pengalaman__kerjas as $exp)
+                            @forelse ($data->pengalaman__kerjas as $exp)
                                 <div class="row text-center rounded py-1 bg-light">
                                     <input type="text" hidden name="experience[{{ $loop->iteration }}][id]" value="{{ $exp->id }}">
                                 <div class="col-lg-2 mb-1">
@@ -490,7 +586,7 @@
                                 </div>
                                 <div class="col-lg-2 mb-1">
                                     
-                                    <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[{{ $loop->iteration }}][responsibly]">v{{ $exp->tanggung_jawab }}</textarea>
+                                    <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[{{ $loop->iteration }}][responsibly]">{{ $exp->tanggung_jawab }}</textarea>
                                 </div>
                                 <div class="col-lg-1 mb-1">
                                     
@@ -504,8 +600,46 @@
                                     <label for="language_remark" class="form-label">Remark</label>
                                     <textarea name="experience[1][company]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
                                 </div> --}}
+                                <div class="col-lg-1 mb-1">
+                                    <a href="/recruitment/exp/{{ $exp->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                </div>
                             </div>
-                            @endforeach
+                            @empty 
+                                <div class="row text-center rounded py-1 bg-light" hidden>
+                                    <div class="col-lg-2 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="company_name" name="experience[1][company]">
+                                    </div>
+                                    <div class="col-lg-2 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="company_position" name="experience[1][position]">
+                                    </div>
+                                    <div class="col-lg-1 mb-1">
+                                        
+                                        <input type="number" class="form-control" id="experience_from" name="experience[1][from]">
+                                    </div>
+                                    <div class="col-lg-1 mb-1">
+                                        
+                                        <input type="number" class="form-control" id="experience_to" name="experience[1][to]">
+                                    </div>
+                                    <div class="col-lg-2 mb-1">
+                                        
+                                        <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[1][responsibly]"></textarea>
+                                    </div>
+                                    <div class="col-lg-1 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="company_salary" name="experience[1][salary]">
+                                    </div>
+                                    <div class="col-lg-2 mb-1">
+                                        
+                                        <textarea type="text" class="form-control" style="height: 40px ;" id="company_resign" name="experience[1][reason]"></textarea>
+                                    </div>
+                                    {{-- <div class="col-lg-2 mb-1">
+                                        <label for="language_remark" class="form-label">Remark</label>
+                                        <textarea name="experience[1][company]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                                    </div> --}}
+                                </div>
+                            @endforelse
                             
                             <div id="experience_form">
 
@@ -547,37 +681,65 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->keluargas as $keluarga)
+                            @forelse ($data->keluargas as $keluarga)
                             
-                            <div class="row text-center rounded py-1 bg-light">
-                                <input type="text" hidden name="family[{{ $loop->iteration }}][id]" value="{{ $keluarga->id }}">
-                                <div class="col-lg-2 mb-1">
-                                    
-                                    <input name="family[{{ $loop->iteration }}][relation]" class="form-control" list="relationlist" id="relation" value="{{ $keluarga->hubungan }}">
-                                    <datalist id="relationlist" name="family[1][relation]">
-                                        <option value="Father">Father</option>
-                                        <option value="Mother">Mother</option>
-                                        <option value="Brother/Sister">Brother/Sister</option>
-                                        <option value="Wife/Husband">Wife/Husband</option>
-                                        <option value="Children">Children</option>
+                                <div class="row text-center rounded py-1 bg-light">
+                                    <input type="text" hidden name="family[{{ $loop->iteration }}][id]" value="{{ $keluarga->id }}">
+                                    <div class="col-lg-2 mb-1">
+                                        
+                                        <input name="family[{{ $loop->iteration }}][relation]" class="form-control" list="relationlist" id="relation" value="{{ $keluarga->hubungan }}">
+                                        <datalist id="relationlist" name="family[1][relation]">
+                                            <option value="Father">Father</option>
+                                            <option value="Mother">Mother</option>
+                                            <option value="Brother/Sister">Brother/Sister</option>
+                                            <option value="Wife/Husband">Wife/Husband</option>
+                                            <option value="Children">Children</option>
 
-                                    </datalist>
-                                </div>
-                                <div class="col-lg-3 mb-1">
-                                   
-                                    <input type="text" class="form-control" id="family_name" name="family[{{ $loop->iteration }}][name]" value="{{ $keluarga->nama }}">
-                                </div>
-                                <div class=" col-lg-3 mb-1">
-                                   
-                                    <input type="text" class="form-control" id="birth" name="family[{{ $loop->iteration }}][birth]" value="{{  $keluarga->lahir }}">
-                                </div>
-                                <div class=" col-lg-3 mb-1">
+                                        </datalist>
+                                    </div>
+                                    <div class="col-lg-3 mb-1">
                                     
-                                    <input type="text" class="form-control" id="occupation" name="family[{{ $loop->iteration }}][occupation]" value="{{  $keluarga->pekerjaan }}">
+                                        <input type="text" class="form-control" id="family_name" name="family[{{ $loop->iteration }}][name]" value="{{ $keluarga->nama }}">
+                                    </div>
+                                    <div class=" col-lg-3 mb-1">
+                                    
+                                        <input type="text" class="form-control" id="birth" name="family[{{ $loop->iteration }}][birth]" value="{{  $keluarga->lahir }}">
+                                    </div>
+                                    <div class=" col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="occupation" name="family[{{ $loop->iteration }}][occupation]" value="{{  $keluarga->pekerjaan }}">
+                                    </div>
+                                    <div class="col-lg-1 mb-1">
+                                        <a href="/recruitment/family/{{ $keluarga->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                    </div>
                                 </div>
-                            </div>
-                                
-                            @endforeach
+                            @empty
+                                <div class="row text-center rounded py-1 bg-light" hidden>
+                                    <div class="col-lg-2 mb-1">
+                                        <input name="family[1][relation]" class="form-control" list="relationlist" id="relation">
+                                        {{-- <datalist id="relationlist" name="family[1][relation]">
+                                            <option value="Father">Father</option>
+                                            <option value="Mother">Mother</option>
+                                            <option value="Brother/Sister">Brother/Sister</option>
+                                            <option value="Wife/Husband">Wife/Husband</option>
+                                            <option value="Children">Children</option>
+
+                                        </datalist> --}}
+                                    </div>
+                                    <div class="col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="family_name" name="family[1][name]">
+                                    </div>
+                                    <div class=" col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="birth" name="family[1][birth]">
+                                    </div>
+                                    <div class=" col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="occupation" name="family[1][occupation]">
+                                    </div>
+                                </div>
+                            @endforelse
                             <div id="family_form">
 
                             </div>
@@ -656,7 +818,7 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->organisasis as $organisasi)
+                            @forelse ($data->organisasis as $organisasi)
                             <input type="text" hidden name="organization[{{ $loop->iteration }}][id]" value="{{ $organisasi->id }}">
                             <div class="row text-center rounded py-1 bg-light">
                                 <div class="col-lg-3 mb-1">
@@ -671,9 +833,26 @@
                                     
                                     <textarea name="organization[{{ $loop->iteration }}][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark">{{ $organisasi->keterangan }}</textarea>
                                 </div>
+                                <div class="col-lg-1 mb-1">
+                                    <a href="/recruitment/organization/{{ $organisasi->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                </div>
                             </div>
-                                
-                            @endforeach
+                            @empty
+                                <div class="row text-center rounded py-1 bg-light" hidden>
+                                    <div class="col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="organization_name" name="organization[1][name]">
+                                    </div>
+                                    <div class="col-lg-3 mb-1">
+                                        
+                                        <input type="text" class="form-control" id="experience_from" name="organization[1][position]">
+                                    </div>
+                                    <div class="col-lg-5 mb-1">
+                                        
+                                        <textarea name="organization[1][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
+                                    </div>
+                                </div>
+                            @endforelse
                             <div id="organization_form">
 
                             </div>
@@ -696,7 +875,7 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->beasiswas as $beasiswa)
+                            @forelse ($data->beasiswas as $beasiswa)
                               <input type="text" hidden name="scholarship[{{ $loop->iteration }}][id]" value="{{ $beasiswa->id }}">
                             <div class="row text-center rounded py-1 bg-light">
                                 <div class="col-lg-3 mb-1">
@@ -711,9 +890,26 @@
                                     
                                     <textarea name="scholarship[{{ $loop->iteration }}][remark]" class="form-control" style="height: 40px ;" id="institution_remark">{{ $beasiswa->keterangan }}</textarea>
                                 </div>
+                                <div class="col-lg-1 mb-1">
+                                    <a href="/recruitment/scholarship/{{ $beasiswa->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                </div>
                             </div>
-                              
-                            @endforeach
+                            @empty
+                                <div class="row text-center rounded py-1 bg-light" hidden>
+                                    <div class="col-lg-3 mb-1">
+                                        <label for="institution_name" class="form-label">Institution</label>
+                                        <input type="text" class="form-control" id="institution_name" name="scholarship[1][institution]">
+                                    </div>
+                                    <div class="col-lg-3 mb-1">
+                                        <label for="institution_place" class="form-label">Place</label>
+                                        <input type="text" class="form-control" id="institution_place" name="scholarship[1][place]">
+                                    </div>
+                                    <div class="col-lg-5 mb-1">
+                                        <label for="institution_remark" class="form-label">Remark</label>
+                                        <textarea name="scholarship[1][remark]" class="form-control" style="height: 40px ;" id="institution_remark"></textarea>
+                                    </div>
+                                </div>
+                            @endforelse
                             <div id="scholarship_form">
 
                             </div>
@@ -736,7 +932,7 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->rekrutment__lains as $rekrut)
+                            @forelse ($data->rekrutment__lains as $rekrut)
                             <input type="text" hidden name="recruitment[{{ $loop->iteration }}][id]" value="{{ $rekrut->id }}">
                             <div class="row text-center rounded py-1 bg-light">
                                 <div class="col-lg-3 mb-1">
@@ -751,9 +947,26 @@
                                     
                                     <textarea name="recruitment[{{ $loop->iteration }}][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark">{{ $rekrut->keterangan }}</textarea>
                                 </div>
+                                <div class="col-lg-1 mb-1">
+                                    <a href="/recruitment/recruitment/{{ $rekrut->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                </div>
                             </div>
-                            
-                            @endforeach
+                            @empty
+                                <div class="row text-center rounded py-1 bg-light" hidden>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="recruitment_name" class="form-label">Company</label>
+                                    <input type="text" class="form-control" id="recruitment_name" name="recruitment[1][institution]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="job_recruitment" class="form-label">Job Position</label>
+                                    <input type="text" class="form-control" id="job_recruitment" name="recruitment[1][job_position]">
+                                </div>
+                                <div class="col-lg-5 mb-1">
+                                    <label for="recruitment_remark" class="form-label">Remark</label>
+                                    <textarea name="recruitment[1][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark"></textarea>
+                                </div>
+                            </div>
+                            @endforelse
                             <div id="recruitment_form">
 
                             </div>
@@ -812,7 +1025,7 @@
                                     
                                 </div>
                             </div>
-                            @foreach ($data->relatives as $relative)
+                            @forelse ($data->relatives as $relative)
                                 
                             <div class="row text-center rounded py-1 bg-light">
                                 <div class="col-lg-4 mb-1">
@@ -831,9 +1044,26 @@
                                     <textarea name="relatives[{{ $loop->iteration }}][remark]" id="remark_relatives" style="height: 40px ;" class="form-control" >{{ $relative->keterangan }}</textarea>
                                     
                                 </div>
+                                <div class="col-lg-1 mb-1">
+                                    <a href="/recruitment/relative/{{ $relative->id }}/delete" class="btn btn-outline-danger swalDelete">Delete</a>
+                                </div>
                             </div>
-                            
-                            @endforeach
+                            @empty
+                                <div class="row text-center rounded py-1 bg-light" hidden>
+                                <div class="col-lg-4 mb-1">
+                                    <label for="relative_name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="relative_name" name="relatives[1][name]">
+                                </div>
+                                <div class="col-lg-3 mb-1">
+                                    <label for="job_relatives" class="form-label">Relationship</label>
+                                    <input type="text" class="form-control" id="job_relatives" name="relatives[1][relation]">
+                                </div>
+                                <div class="col-lg-4 mb-1">
+                                    <label for="job_relatives" class="form-label">Name of Department</label>
+                                    <input type="text" class="form-control" id="job_relatives" name="relatives[1][department]">
+                                </div>
+                            </div>
+                            @endforelse
                             <div id="relative_form">
 
                             </div>
@@ -849,7 +1079,7 @@
 
                         <!-- button -->
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary float-end">Submit Aplication</button>
+                            <button type="submit" class="btn btn-primary float-end" form="mainForm">Submit Aplication</button>
                         </div>
                     </form>
                 </div>
@@ -876,6 +1106,9 @@
 
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+    {{-- sweet alert --}}
+    <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -909,32 +1142,32 @@
             var form = `<div class="row text-center experience_remove rounded py-1 bg-light">
                                 <div class="col-lg-2 mb-1">
                                 
-                                <input type="text" class="form-control" id="company_name" name="experience[${countExp}][company]">
+                                <input required type="text" class="form-control" id="company_name" name="experience[${countExp}][company]">
                             </div>
                             <div class="col-lg-2 mb-1">
                                     
-                                    <input type="text" class="form-control" id="company_position" name="experience[${countExp}][position]">
+                                    <input required type="text" class="form-control" id="company_position" name="experience[${countExp}][position]">
                                 </div>
                             <div class="col-lg-1 mb-1">
                                 
-                                <input type="number" class="form-control" id="experience_from" name="experience[${countExp}][from]">
+                                <input required type="number" class="form-control" id="experience_from" name="experience[${countExp}][from]">
                             </div>
                             <div class="col-lg-1 mb-1">
                                 
-                                <input type="number" class="form-control" id="experiemce_to" name="experience[${countExp}][to]">
+                                <input required type="number" class="form-control" id="experiemce_to" name="experience[${countExp}][to]">
                             </div>
                             <div class="col-lg-2 mb-1">
                             
-                                <textarea type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[${countExp}][responsibly]"></textarea>
+                                <textarea  required type="text" style="height: 40px ;" class="form-control" id="experience_responsibly" name="experience[${countExp}][responsibly]"></textarea>
                             </div>
                             <div class="col-lg-1 mb-1">
                                 
-                                <input type="text" class="form-control" id="company_salary" name="experience[${countExp}][salary]">
+                                <input  required type="text" class="form-control" id="company_salary" name="experience[${countExp}][salary]">
                             </div>
                     
                             <div class="col-lg-2 mb-1">
                                
-                                <textarea name="experience[${countExp}][reason]" class="form-control" style="height: 40px ;"></textarea>
+                                <textarea  required name="experience[${countExp}][reason]" class="form-control" style="height: 40px ;"></textarea>
                             </div>
                             <div class="col-1"><button type="button" class="btn btn-danger remove-input-field-experience">Delete</button></div>
                         </div>`
@@ -952,11 +1185,11 @@
             var form = `<div class="row text-center language_remove rounded py-1 bg-light">
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="course_name" name="language[${countLanguage}][language]">
+                                <input  required type="text" class="form-control" id="course_name" name="language[${countLanguage}][language]">
                             </div>
                             <div class="col-lg-2 mb-1">
                                     
-                                    <input type="text" class="form-control" list="listOral" id="oral" name="language[${countLanguage}][oral]">
+                                    <input  required type="text" class="form-control" list="listOral" id="oral" name="language[${countLanguage}][oral]">
                                     <datalist id="listOral" name="language[${countLanguage}][oral]">
                                         <option value="Beginner">Beginner</option>
                                         <option value="Advance">Advance</option>
@@ -967,7 +1200,7 @@
                                 </div>
                                 <div class="col-lg-2 mb-1">
                                     
-                                    <input type="text" class="form-control" list="listWritten" id="written" name="language[${countLanguage}][written]">
+                                    <input required type="text" class="form-control" list="listWritten" id="written" name="language[${countLanguage}][written]">
                                     <datalist id="listWritten" name="language[${countLanguage}][written]">
                                         <option value="Beginner">Beginner</option>
                                         <option value="Advance">Advance</option>
@@ -978,7 +1211,7 @@
                                 </div>
                             <div class="col-lg-4 mb-1">
                                 
-                                <textarea name="language[${countLanguage}][remark]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
+                                <textarea required name="language[${countLanguage}][remark]" class="form-control" style="height: 40px ;" id="language_remark"></textarea>
                             </div>
                             <div class="col-1"><button type="button" class="btn btn-danger remove-input-field-language">Delete</button></div>
                         </div>`
@@ -996,7 +1229,7 @@
             var form = `<div class="row family_remove text-center rounded py-1 bg-light">
                             <div class="col-lg-2 mb-1">
                                 
-                                <input name="family[${countFamily}][relation]" class="form-control" list="relationlist" id="relation">
+                                <input required name="family[${countFamily}][relation]" class="form-control" list="relationlist" id="relation">
                                 <datalist id="relationlist" name="family[${countFamily}][relation]">
                                     <option value="Father">Father</option>
                                     <option value="Mother">Mother</option>
@@ -1008,15 +1241,15 @@
                             </div>
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="family_name" name="family[${countFamily}][name]">
+                                <input required type="text" class="form-control" id="family_name" name="family[${countFamily}][name]">
                             </div>
                             <div class=" col-lg-3 mb-1">
                                
-                                <input type="text" class="form-control" id="birth" name="family[${countFamily}][birth]">
+                                <input required type="text" class="form-control" id="birth" name="family[${countFamily}][birth]">
                             </div>
                             <div class=" col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="occupation" name="family[${countFamily}][occupation]">
+                                <input required type="text" class="form-control" id="occupation" name="family[${countFamily}][occupation]">
                             </div>
                              <div class="col-1"><button type="button" class="btn btn-danger remove-input-field-family">Delete</button></div>
                         </div>`
@@ -1034,15 +1267,15 @@
             var form = `<div class="row organization_remove text-center rounded py-1 bg-light">
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="organization_name" name="organization[${countOrganization}][name]">
+                                <input required type="text" class="form-control" id="organization_name" name="organization[${countOrganization}][name]">
                             </div>
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="experience_from" name="organization[${countOrganization}][position]">
+                                <input required type="text" class="form-control" id="experience_from" name="organization[${countOrganization}][position]">
                             </div>
                             <div class="col-lg-5 mb-1">
                                
-                                <textarea name="organization[${countOrganization}][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
+                                <textarea required name="organization[${countOrganization}][remark]" class="form-control" style="height: 40px ;" id="oraganization_remark"></textarea>
                             </div>
                             <div class="col-1"><button type="button" class="btn btn-danger remove-input-field-organization">Delete</button></div>
                         
@@ -1061,15 +1294,15 @@
             var form = `<div class="row scholarship_remove text-center rounded py-1 bg-light">
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="institution_name" name="scholarship[${countScholar}][institution]">
+                                <input required type="text" class="form-control" id="institution_name" name="scholarship[${countScholar}][institution]">
                             </div>
                             <div class="col-lg-3 mb-1">
                                 
-                                <input type="text" class="form-control" id="institution_place" name="scholarship[${countScholar}][place]">
+                                <input required type="text" class="form-control" id="institution_place" name="scholarship[${countScholar}][place]">
                             </div>
                             <div class="col-lg-5 mb-1">
                                
-                                <textarea name="scholarship[${countScholar}][remark]" class="form-control" style="height: 40px ;" id="institution_remark"></textarea>
+                                <textarea required name="scholarship[${countScholar}][remark]" class="form-control" style="height: 40px ;" id="institution_remark"></textarea>
                             </div>
                             <div class="col-1"><button type="button" class="btn btn-danger remove-input-field-scholarship">Delete</button></div>
                         </div>`
@@ -1087,15 +1320,15 @@
             var form = `<div class="row recruitment_remove text-center rounded py-1 bg-light">
                             <div class="col-lg-3 mb-1">
                                
-                                <input type="text" class="form-control" id="recruitment_name" name="recruitment[${countRecruitment}][institution]">
+                                <input required type="text" class="form-control" id="recruitment_name" name="recruitment[${countRecruitment}][institution]">
                             </div>
                             <div class="col-lg-3 mb-1">
                                
-                                <input type="text" class="form-control" id="job_recruitment" name="recruitment[${countRecruitment}][job_position]">
+                                <input required type="text" class="form-control" id="job_recruitment" name="recruitment[${countRecruitment}][job_position]">
                             </div>
                             <div class="col-lg-5 mb-1">
                                 
-                                <textarea name="recruitment[${countRecruitment}][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark"></textarea>
+                                <textarea required name="recruitment[${countRecruitment}][remark]" class="form-control" style="height: 40px ;" id="recruitment_remark"></textarea>
                             </div>
                             <div class="col-1"><button type="button" class="btn btn-danger remove-input-field-recruitment">Delete</button></div>
                         </div>`
@@ -1113,18 +1346,18 @@
             var form = `<div class="row relative_remove text-center rounded py-1 bg-light">
                             <div class="col-lg-4 mb-1">
                                 
-                                <input type="text" class="form-control" id="relative_name" name="relatives[${countRelative}][name]">
+                                <input required type="text" class="form-control" id="relative_name" name="relatives[${countRelative}][name]">
                             </div>
                             <div class="col-lg-2 mb-1">
                                 
-                                <input type="text" class="form-control" id="job_relatives" name="relatives[${countRelative}][relation]">
+                                <input required type="text" class="form-control" id="job_relatives" name="relatives[${countRelative}][relation]">
                             </div>
                             <div class="col-lg-2 mb-1">
                                 
-                                <input type="text" class="form-control" id="job_relatives" name="relatives[${countRelative}][department]">
+                                <input required type="text" class="form-control" id="job_relatives" name="relatives[${countRelative}][department]">
                             </div>
                             <div class="col-lg-3 mb-1">
-                                    <textarea name="relatives[${countRelative}][remark]" id="remark_relatives" style="height: 40px ;" class="form-control" ></textarea>
+                                    <textarea required name="relatives[${countRelative}][remark]" id="remark_relatives" style="height: 40px ;" class="form-control" ></textarea>
                                     
                                 </div>
                             <div class="col-1"><button type="button" class="btn btn-danger remove-input-field-relative">Delete</button></div>
@@ -1136,6 +1369,55 @@
             $(this).parents('.relative_remove').remove();
             --countRelative;
         });
+
+
+        //sweet alert
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-start',
+            iconColor: 'white',
+            customClass: {
+                popup: 'colored-toast'
+            },
+            showConfirmButton: false,
+            timer: 5000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+            })
+        //flash success laravel
+        @if(session('success'))
+            Toast.fire({
+                icon: 'success',
+                title: '{{ session('success') }}'
+            })
+        @endif
+
+        //sweet alert tombol delete data yang sudah ada
+        $('.swalDelete').on('click', function(e){
+            e.preventDefault();
+            const href = $(this).attr('href')
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "This data will be deleted from database",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it from database!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.location.href = href;
+                    // Swal.fire(
+                    // 'Deleted!',
+                    // 'Your file has been deleted.',
+                    // 'success'
+                    // )
+                }
+            })
+        })
     </script>
 
 </body>

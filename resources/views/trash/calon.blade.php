@@ -29,7 +29,7 @@
                     <td>{{ Carbon\Carbon::parse($calon->deleted_at)->diffForHumans() }}</td>
                     <td>
                         <div>
-                            <a href="/trash/recruitment/{{ $calon->id }}/restore"  class="btn btn-sm btn-outline-primary">Restore</a>
+                            <a href="/trash/recruitment/{{ $calon->id }}/restore"  class="btn btn-sm btn-outline-primary swalRestore" data-alert="{{ $calon->nama }}">Restore</a>
                         </div>
                     </td>
                 </tr>

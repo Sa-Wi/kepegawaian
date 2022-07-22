@@ -47,6 +47,7 @@ class CreateCalonsTable extends Migration
             $table->string('hobi')->nullable();
             $table->string('apply_via')->nullable();
             $table->string('nama_teman')->nullable();
+            $table->string('berkas')->nullable();
             $table->text('keterangan_lain')->nullable();
             // $table->boolean('status_data');
             $table->softDeletes();
