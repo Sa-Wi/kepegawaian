@@ -16,9 +16,9 @@ class CreateBeasiswasTable extends Migration
         Schema::create('beasiswas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_id');
-            $table->string('nama_institusi');
-            $table->text('tempat');
-            $table->text('keterangan');
+            $table->string('nama_institusi')->nullable();
+            $table->text('tempat')->nullable();
+            $table->text('keterangan')->nullable();
             $table->timestamps();
         });
     }

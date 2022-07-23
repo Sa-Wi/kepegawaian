@@ -101,7 +101,9 @@ class CalonController extends Controller
         $calon->aktivitas = $request->activity;
         $calon->hobi = $request->hobby;
         $calon->apply_via = $request->apply_via;
-        $calon->berkas = $filenameSimpan;
+        if ($request->file) {
+            $calon->berkas = $filenameSimpan;
+        }
         if ($request->mention_name) {
             $calon->nama_teman = $request->mention_name;
         }
@@ -227,7 +229,14 @@ class CalonController extends Controller
                 $relative->save();
             }
         }
-        return view('pendaftaran', ['positions' => $posisi])->with('success',);
+        // return view('pendaftaran_review', ['data' => $calon]);
+        return redirect()->intended(route('recruitment.review'))->with('success', ' Your data has been submitted, please contact the HR department');
+    }
+
+    public function review()
+    {
+        $calon = Calon::latest()->first();
+        return view('pendaftaran_review', ['data' => $calon]);
     }
 
     /**
@@ -274,9 +283,10 @@ class CalonController extends Controller
             'dateofbirth' => 'required',
             'sex' => 'required',
             'religion' => 'required',
-            'ktp' => 'required|numeric', //ini inget isi max digit !!!
+            'nationality' => 'required',
+            'ktp' => 'required|numeric|digits_between:1,16',
             'email' => 'required|email:rfc,dns',
-            'phone' => 'required|numeric'
+            'phone' => 'required|numeric|digits_between:11,13'
         ]);
 
 
@@ -288,7 +298,7 @@ class CalonController extends Controller
         $recruitment->tmp_lahir = $request->placeofbirth;
         $recruitment->jenis__kelamin = $dataValidate['sex'];
         $recruitment->status_menikah = $request->marital;
-        $recruitment->kewarganegaraan = $request->nationality;
+        $recruitment->kewarganegaraan = $dataValidate['nationality'];
         $recruitment->agama = $dataValidate['religion'];
         $recruitment->alamat_domisili = $request->domicile;
         $recruitment->alamat_sekarang = $request->present_adrs;

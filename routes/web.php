@@ -45,6 +45,7 @@ Route::get('/', function () {
 
 //rekrutmen
 Route::get('recruitment/new', [CalonController::class, 'create']);
+Route::get('recruitment/new/success', [CalonController::class, 'review'])->name('recruitment.review');
 Route::resource('recruitment', CalonController::class)->middleware('auth');
 
 //absensi

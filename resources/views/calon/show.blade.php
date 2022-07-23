@@ -194,7 +194,7 @@
                             <div class="card-body">
                                 {{ $pengalaman->dari }} - {{ $pengalaman->hingga }}<br>
                                 Responsibility : {{ $pengalaman->tanggung_jawab }} <br>
-                                Gaji : {{ $pengalaman->gaji }} <br>
+                                Salary : {{ $pengalaman->gaji }} <br>
                                 <hr>
                                 Reason of Resignation : <br>
                                 {{ $pengalaman->alasan_resign }}
@@ -401,8 +401,8 @@
     <tr>
         <th>File</th>
         <td>
-            <a href="{{ asset('storage/berkas/' . $data->berkas) }}"><i class="fa fa-file"
-                    aria-hidden="true"></i> {{ $data->berkas }}</a>
+            <a href="{{ asset('storage/berkas/' . $data->berkas) }}"><i class="fa fa-file" aria-hidden="true"></i>
+                {{ $data->berkas }}</a>
         </td>
     </tr>
     <tr>
