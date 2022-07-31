@@ -28,7 +28,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $pegawai->id }}</td>
                                     <td>{{ $pegawai->nama }}</td>
-                                    <td>{{ $pegawai->posisi->nama }}</td>
+                                    <td>{{ $pegawai->posisi->nama ?? '-' }}</td>
                                     <td>{{ $pegawai->kantor }}</td>
                                     <td>
                                         <div>

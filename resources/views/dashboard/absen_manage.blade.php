@@ -14,8 +14,9 @@
         @endif
 
         <div class="row mx-1">
-            <a href="{{ route('attendance.create') }}" class="btn btn-outline-primary m-2"><i class="fa fa-plus"
-                    aria-hidden="true"></i> Add Attendance</a>
+            {{-- tambah absensi --}}
+            {{-- <a href="{{ route('attendance.create') }}" class="btn btn-outline-primary m-2"><i class="fa fa-plus"
+                    aria-hidden="true"></i> Add Attendance</a> --}}
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#ModalImport">

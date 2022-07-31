@@ -73,11 +73,22 @@
             <td>
                 {{-- <input type="text" name="position" class="form-control @error('position') is-invalid @enderror" value="{{ old('position' , $data->posisi->nama) }}"> --}}
                 <select class="custom-select" id="position" name="posisi" aria-label="Default select example">
-                    <option disabled {{ $data->posisi->id == '' ? 'selected' : '' }}>Select for Position</option>
-                    @foreach ($positions as $posisi)
-                        <option {{ $data->posisi->id == $posisi->id ? 'selected' : '' }}
-                            value="{{ $posisi->id }}">{{ $posisi->nama }}</option>
-                    @endforeach
+                    <option disabled {{ !isset($data->posisi->id) || $data->posisi->id == '' ? 'selected' : '' }}>
+                        Select
+                        for Position</option>
+                    @if (!isset($data->posisi->id))
+                        @foreach ($positions as $posisi)
+                            <option value="{{ $posisi->id }}">
+                                {{ $posisi->nama }}</option>
+                        @endforeach
+                    @else
+                        @foreach ($positions as $posisi)
+                            <option {{ $data->posisi->id == $posisi->id ? 'selected' : '' }}
+                                value="{{ $posisi->id }}">
+                                {{ $posisi->nama }}</option>
+                        @endforeach
+                    @endif
+
                     <option value="">Other</option>
                 </select>
                 @error('position')

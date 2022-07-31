@@ -51,15 +51,15 @@ class CalonController extends Controller
         $posisi = Posisi::all();
         // return dd($request->all());
         $dataCalon = $request->validate([
-            'applyfor' => 'required|max:255',
-            'name' => 'required|max:255',
+            'applyfor' => 'required|max:20',
+            'name' => 'required|max:50',
             'dateofbirth' => 'required',
             'sex' => 'required',
-            'religion' => 'required',
-            'ktp' => 'required|numeric', //ini inget isi max digit !!!
-            'email' => 'required|email:rfc,dns',
-            'phone' => 'required|numeric',
-            'file' => 'file|mimes:rar'
+            'religion' => 'required|max:20',
+            'ktp' => 'required|digits_between:1,16|numeric',
+            'email' => 'required|email:rfc,dns|max:100',
+            'phone' => 'required|digits_between:10,13|numeric',
+            'file' => 'file|mimes:rar|max:4092'
         ]);
 
         if ($request->file) {

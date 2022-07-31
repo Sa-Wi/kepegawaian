@@ -1,4 +1,3 @@
-
 <table class="table table-bordered">
     <tr>
         <th>NIP</th>
@@ -85,7 +84,7 @@
         </td>
     </tr>
     <tr>
-        <th>NPWP</th>
+        <th>Taxpayer Identification Number</th>
         <td>
             {{ $data->npwp }}
         </td>

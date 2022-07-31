@@ -62,6 +62,7 @@ Route::resource('employee', PegawaiController::class)->parameters([
     'employee' => 'pegawai:id' // untuk mengubah parameter route dan mengambil id sebagai acuan data
 ])->middleware('auth');
 // Route::get('employee/{pegawai:nip}', [PegawaiController::class, 'destroy'])->name('employee.destroy');
+// Route::post('employee/import', [PegawaiController::class, 'import'])->name('employee.import');
 
 //posisi
 Route::resource('position', PosisiController::class)->middleware('auth');

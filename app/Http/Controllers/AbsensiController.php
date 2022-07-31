@@ -28,11 +28,12 @@ class AbsensiController extends Controller
     public function import(Request $request) // mengimport ke table ImportAbsensi dan mengambil datanya untuk dimasukan lagi ke dalama table Absensi
     {
         $validatedData = $request->validate([
-            'import_absen' => 'file|mimes:xls,xlsx'
+            'import_absen' => 'file|mimes:xlsx'
         ]);
 
         // dd($request);
         $imports = Excel::toCollection(new AbsensiImport, $request->file('import_absen'));
+        // dd($imports);
 
         // dd($imports[0][0]['pin']);
         if (!isset($imports[0][0]['pin']) || !isset($imports[0][0]['tanggal_scan'])) {

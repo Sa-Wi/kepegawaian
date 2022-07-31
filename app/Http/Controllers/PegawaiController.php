@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\PegawaiImport;
 use App\Models\Pegawai;
 use App\Models\Posisi;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PegawaiController extends Controller
 {
@@ -104,6 +106,12 @@ class PegawaiController extends Controller
         // ]);
         // dd($pegawai);
         return redirect()->intended('employee')->with('success', $pegawai->nama . ' Added Successfully');
+    }
+
+    public function Import(Request $request)
+    {
+        $imports = Excel::import(new PegawaiImport, $request->file('import_pegawai'));
+        // dd($imports);
     }
 
     /**
