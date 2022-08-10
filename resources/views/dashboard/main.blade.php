@@ -153,8 +153,8 @@
                         <!-- <h6 class="collapse-header">Manage</h6> -->
                         <a class="collapse-item {{ $title == 'Deleted Employee' ? ' active' : '' }}"
                             href="/trash/employee">Employee</a>
-                        <a class="collapse-item {{ $title == 'Deleted Attendance' ? ' active' : '' }}"
-                            href="/trash/attendance">Attendance</a>
+                        {{-- <a class="collapse-item {{ $title == 'Deleted Attendance' ? ' active' : '' }}"
+                            href="/trash/attendance">Attendance</a> --}}
                         <a class="collapse-item {{ $title == 'Deleted Recruitment' ? ' active' : '' }}"
                             href="/trash/recruitment">Recruitment</a>
                         <a class="collapse-item {{ $title == 'Deleted Position' ? ' active' : '' }}"
@@ -350,7 +350,7 @@
                 buttons: [{
                         extend: 'copyHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6,
+                            columns: [1, 2, 3, 4, 5, 6,
                                 7
                             ] // untuk membuat agar file tidak mengandung field 'action'
                         }
@@ -358,14 +358,14 @@
                     {
                         extend: 'excelHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            columns: [1, 2, 3, 4, 5, 6, 7]
                             // columns: [ 0, 1, 2, 3, 4, 5 ]
                         }
                     },
                     {
                         extend: 'pdfHtml5',
                         exportOptions: {
-                            columns: [0, 1, 2, 3, 4, 5, 6, 7]
+                            columns: [1, 2, 3, 4, 5, 6, 7]
                         }
                     },
                 ],

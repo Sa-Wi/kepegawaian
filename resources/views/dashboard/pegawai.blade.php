@@ -44,7 +44,7 @@
                         <th>Name</th>
                         <th>Position</th>
                         <th>Phone</th>
-                        <th>Email</th>
+                        <th>Attendance</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -56,7 +56,11 @@
                             <td>{{ $pegawai->nama }}</td>
                             <td>{{ $pegawai->posisi->nama ?? '-' }}</td>
                             <td>{{ $pegawai->phone }}</td>
-                            <td>{{ $pegawai->email }}</td>
+
+                            <td class="text-center"><a href="javascript::void(0)"
+                                    onclick="show('{{ route('employee.attendance', $pegawai->id) }}','modal-lg', 'Attendance')"
+                                    class="btn btn-sm btn-secondary">View</a></td>
+
                             <td>
                                 <div>
                                     <a href="javascript::void(0)"

@@ -346,7 +346,7 @@
 
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/education/{{ $education->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
 
                                     {{-- <div class="col-lg-1 mb-1">
@@ -451,7 +451,7 @@
                                     </div>
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/education/{{ $course->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
                                 </div>
                             @empty
@@ -554,7 +554,7 @@
                                     </div>
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/language/{{ $bahasa->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
 
                                 </div>
@@ -689,7 +689,7 @@
                                 </div> --}}
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/exp/{{ $exp->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
                                 </div>
                             @empty
@@ -819,7 +819,7 @@
                                     </div>
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/family/{{ $keluarga->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
                                 </div>
                             @empty
@@ -965,7 +965,7 @@
                                     </div>
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/organization/{{ $organisasi->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
                                 </div>
                             @empty
@@ -1032,7 +1032,7 @@
                                     </div>
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/scholarship/{{ $beasiswa->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
                                 </div>
                             @empty
@@ -1100,7 +1100,7 @@
                                     </div>
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/recruitment/{{ $rekrut->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
                                 </div>
                             @empty
@@ -1215,7 +1215,7 @@
                                     </div>
                                     <div class="col-lg-1 mb-1">
                                         <a href="/recruitment/relative/{{ $relative->id }}/delete"
-                                            class="btn btn-outline-danger swalDelete">Delete</a>
+                                            class="btn btn-outline-danger swalDelete">Remove</a>
                                     </div>
                                 </div>
                             @empty
@@ -1253,7 +1253,7 @@
 
                         <!-- button -->
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary float-end" form="mainForm">Submit
+                            <button type="submit" class="btn btn-primary float-end" form="mainForm">Update
                                 Aplication</button>
                         </div>
                     </form>

@@ -66,7 +66,7 @@ class AbsensiController extends Controller
             //menentukan status
             $status = '';
 
-            if (Carbon::parse($absensi->in)->greaterThan('9:00')) {
+            if (Carbon::parse($absensi->in)->greaterThan('9:01')) {
                 $status = "Late";
                 if (isset($absensi->out) && Carbon::parse($absensi->out)->lessThan('17:30'))
                     $status = $status . ' Early';
@@ -144,7 +144,7 @@ class AbsensiController extends Controller
         $status = $request->status ?? '';
 
         if (!$status) {
-            if (Carbon::parse($request->in)->greaterThan('9:00')) {
+            if (Carbon::parse($request->in)->greaterThan('9:01')) {
                 $status = "Late";
                 if (isset($request->out) && Carbon::parse($request->out)->lessThan('17:30'))
                     $status = $status . ' Early';
@@ -223,16 +223,16 @@ class AbsensiController extends Controller
     public function update(Request $request, Absensi $absensi)
     {
         // dd($request);
-        $validatedData = $request->validate([
-            'date' => 'required',
-            'status' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //     'date' => 'required',
+        //     'status' => 'required',
+        // ]);
 
         $absensi->update([
-            'tanggal' => $validatedData['date'],
-            'in' => $request->in,
-            'out' => $request->out,
-            'status' => $validatedData['status'],
+            // 'tanggal' => $validatedData['date'],
+            // 'in' => $request->in,
+            // 'out' => $request->out,
+            // 'status' => $validatedData['status'],
             'keterangan' => $request->remark,
         ]);
 

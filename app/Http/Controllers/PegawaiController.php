@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Imports\PegawaiImport;
+use App\Models\Absensi;
 use App\Models\Pegawai;
 use App\Models\Posisi;
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -224,5 +226,33 @@ class PegawaiController extends Controller
     {
         $pegawai->restore();
         return redirect('/trash/employee')->with('success', $pegawai->nama . ' has been restored');
+    }
+
+    public function showAttendance(Pegawai $pegawai)
+    {
+        // $date = [
+        //     'from' => Carbon::now()->subMonths(2),
+        //     'to' => Carbon::now()->subMonth()
+        // ];
+        $lastMonth = Carbon::today()->subMonths(2);
+        $Month = Carbon::today()->subMonth();
+        $date = [
+            'from' => Carbon::create(null, $lastMonth->month, 26),
+            'to' => Carbon::create(null, $Month->month, 26)
+        ];
+        $absensi = [
+            'nama' => $pegawai->nama,
+            'nip' => $pegawai->id,
+            'OK' => $pegawai->absensis->where('status', 'OK')->whereBetween('tanggal', $date)->count(),
+            'Late' => $pegawai->absensis->where('status', 'Late')->whereBetween('tanggal', $date)->count(),
+            'Early' => $pegawai->absensis->where('status', 'Early')->whereBetween('tanggal', $date)->count(),
+            'Late Early' => $pegawai->absensis->where('status', 'Early')->whereBetween('tanggal', $date)->count(),
+            'Only In' => $pegawai->absensis->where('status', 'Only In')->whereBetween('tanggal', $date)->count(),
+            'Only Out' => $pegawai->absensis->where('status', 'Only Out')->whereBetween('tanggal', $date)->count(),
+            'Early Only Out' => $pegawai->absensis->where('status', 'Early Only Out')->whereBetween('tanggal', $date)->count(),
+            'Late Only In' => $pegawai->absensis->where('status', 'Late Only In')->whereBetween('tanggal', $date)->count(),
+        ];
+        // dd($date);
+        return view('pegawai.attendance', ['data' => $absensi, 'date' => $date]);
     }
 }
