@@ -16,9 +16,9 @@ class CreateBahasasTable extends Migration
         Schema::create('bahasas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_id');
-            $table->string('bahasa');
-            $table->string('lisan')->nullable();
-            $table->string('tulis')->nullable();
+            $table->string('bahasa', 50);
+            $table->string('lisan', 20)->nullable();
+            $table->string('tulis', 20)->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

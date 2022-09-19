@@ -13,6 +13,6 @@ class Absensi extends Model
     protected $with = ['pegawai'];
     public function pegawai()
     {
-        return $this->belongsTo(Pegawai::class, 'pegawai_id');
+        return $this->belongsTo(Pegawai::class, 'pegawai_id')->withTrashed();
     }
 }

@@ -16,6 +16,6 @@ class Pegawai extends Model
     }
     public function posisi()
     {
-        return $this->belongsTo(Posisi::class);
+        return $this->belongsTo(Posisi::class)->withTrashed();
     }
 }

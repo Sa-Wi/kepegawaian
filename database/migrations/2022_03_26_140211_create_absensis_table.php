@@ -19,7 +19,7 @@ class CreateAbsensisTable extends Migration
             $table->date('tanggal')->nullable();
             $table->time('in')->nullable();
             $table->time('out')->nullable();
-            $table->string('status')->nullable();
+            $table->string('status', 20)->nullable();
             $table->string('keterangan')->nullable();
             // $table->boolean('status_data');
             $table->softDeletes();

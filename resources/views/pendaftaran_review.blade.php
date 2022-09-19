@@ -21,7 +21,9 @@
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="https://bvrgroupasia.com/">BVR Group Asia</a>
+                <a class="navbar-brand" style="width: 200px;" href="https://bvrgroupasia.com/"><img
+                        src="https://bvrgroupasia.com/wp-content/uploads/2022/03/BVR-Group-Asia-Vert-1.png"
+                        alt="BVR" class="img-fluid"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

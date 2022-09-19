@@ -16,11 +16,11 @@ class CreatePendidikansTable extends Migration
         Schema::create('pendidikans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_id');
-            $table->string('jenis_pendidikan');
-            $table->string('nama_instansi');
-            $table->string('dari')->nullable();
-            $table->string('hingga')->nullable();
-            $table->string('jurusan')->nullable();
+            $table->string('jenis_pendidikan', 10);
+            $table->string('nama_instansi', 50);
+            $table->string('dari', 4)->nullable();
+            $table->string('hingga', 4)->nullable();
+            $table->string('jurusan', 50)->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

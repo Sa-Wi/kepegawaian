@@ -412,3 +412,5 @@
         </td>
     </tr>
 </table>
+<a href="{{ route('recruitment.pdf', $data->id) }}" target="_blank" class="btn btn-danger float-right"><i
+        class="fa fa-download" aria-hidden="true"></i> PDF</a>

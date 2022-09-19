@@ -46,7 +46,9 @@ Route::get('/', function () {
 //rekrutmen
 Route::get('recruitment/new', [CalonController::class, 'create']);
 Route::get('recruitment/new/success', [CalonController::class, 'review'])->name('recruitment.review');
-Route::resource('recruitment', CalonController::class)->middleware('auth');
+// Route::resource('recruitment', CalonController::class)->middleware('auth');
+Route::post('recruitment/store', [CalonController::class, 'store'])->name('recruitment.store');
+Route::resource('recruitment', CalonController::class)->except('store');
 
 //absensi
 Route::resource('attendance', AbsensiController::class)->parameters([
@@ -93,3 +95,6 @@ Route::get('/recruitment/organization/{organisasi}/delete', [CalonController::cl
 Route::get('/recruitment/scholarship/{beasiswa}/delete', [CalonController::class, 'deleteScholarship'])->middleware('auth');
 Route::get('/recruitment/recruitment/{rekrut}/delete', [CalonController::class, 'deleteRecruitment'])->middleware('auth');
 Route::get('/recruitment/relative/{relative}/delete', [CalonController::class, 'deleteRelative'])->middleware('auth');
+
+//cetak pdf
+Route::get('/recruitment/{calon}/download', [CalonController::class, 'generatePDF'])->name('recruitment.pdf');

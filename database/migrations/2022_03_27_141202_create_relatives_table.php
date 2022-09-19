@@ -16,9 +16,9 @@ class CreateRelativesTable extends Migration
         Schema::create('relatives', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_id');
-            $table->string('nama');
-            $table->string('hubungan')->nullable();
-            $table->string('departemen')->nullable();
+            $table->string('nama', 50);
+            $table->string('hubungan', 10)->nullable();
+            $table->string('departemen', 25)->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });

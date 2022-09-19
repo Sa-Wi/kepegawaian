@@ -21,7 +21,11 @@
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
             <div class="container">
-                <a class="navbar-brand" href="https://bvrgroupasia.com/">BVR Group Asia</a>
+                <div class="navbar-brand" style="width: 200px;">
+                    <a href="https://bvrgroupasia.com/" target="_blank"><img
+                            src="https://bvrgroupasia.com/wp-content/uploads/2022/03/BVR-Group-Asia-Vert-1.png"
+                            alt="BVR" class="img-fluid"></a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -53,7 +57,8 @@
             <h1 class="mb-5">Application Form</h1>
             <div class="card">
                 <div class="card-body">
-                    <form class="row g-3" action="/recruitment" method="post" enctype="multipart/form-data">
+                    <form class="row g-3" action="{{ route('recruitment.store') }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="col-md-12">
                             <label for="applyfor" class="form-label">Application for position of *</label>

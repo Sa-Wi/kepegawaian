@@ -16,10 +16,10 @@ class CreateKeluargasTable extends Migration
         Schema::create('keluargas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_id');
-            $table->string('hubungan')->nullable();
-            $table->string('nama')->nullable();
-            $table->string('lahir')->nullable();
-            $table->string('pekerjaan')->nullable();
+            $table->string('hubungan', 10)->nullable();
+            $table->string('nama', 50)->nullable();
+            $table->string('lahir', 50)->nullable();
+            $table->string('pekerjaan', 25)->nullable();
             $table->timestamps();
         });
     }

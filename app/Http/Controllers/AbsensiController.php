@@ -179,8 +179,8 @@ class AbsensiController extends Controller
     public function dateFilter(Request $request)
     {
         // dd($request->all());
-        $from = $request->from;
-        $to = $request->to;
+        $from = $request->from ?? '0000-00-00';
+        $to = $request->to ?? Carbon::now();
         $absensis = Absensi::whereBetween('tanggal', [$from, $to])->latest()->get();
         return view('dashboard.absen_manage', compact('absensis'), [
             'from' => $from,
