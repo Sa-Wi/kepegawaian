@@ -16,12 +16,12 @@ class CreatePengalamanKerjasTable extends Migration
         Schema::create('pengalaman__kerjas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_id');
-            $table->string('nama_perusahaan')->nullable();
-            $table->string('posisi')->nullable();
-            $table->string('dari')->nullable();
-            $table->string('hingga')->nullable();
-            $table->string('tanggung_jawab')->nullable();
-            $table->string('gaji')->nullable();
+            $table->string('nama_perusahaan', 50)->nullable();
+            $table->string('posisi', 20)->nullable();
+            $table->string('dari', 4)->nullable();
+            $table->string('hingga', 4)->nullable();
+            $table->string('tanggung_jawab', 100)->nullable();
+            $table->string('gaji', 10)->nullable();
             $table->text('alasan_resign')->nullable();
             $table->timestamps();
         });

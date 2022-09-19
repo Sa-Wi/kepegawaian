@@ -63,7 +63,7 @@ class PegawaiController extends Controller
             'kewarganegaraan' => 'required',
             'domicile' => 'required',
             'current_adrs' => 'required',
-            'ktp' => 'required|digits_between:1,16|numeric',
+            'ktp' => 'required|digits_between:1,16|numeric|unique:pegawais,ktp',
             'npwp' => 'digits_between:1,16|numeric',
             // 'akun_bank' => 'required',
             'email' => 'required|email:dns',

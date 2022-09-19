@@ -147,7 +147,7 @@
                     <span>Deleted Data</span>
                 </a>
                 <div id="collapseSampah"
-                    class="collapse {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Attendance' ? ' show' : '' }}"
+                    class="collapse {{ $title == 'Deleted Employee' || $title == 'Deleted Recruitment' || $title == 'Deleted Position' ? ' show' : '' }}"
                     aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <!-- <h6 class="collapse-header">Manage</h6> -->

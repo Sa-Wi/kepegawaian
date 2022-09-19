@@ -16,8 +16,8 @@ class CreateRekrutmentLainsTable extends Migration
         Schema::create('rekrutment__lains', function (Blueprint $table) {
             $table->id();
             $table->foreignId('calon_id');
-            $table->string('perusahaan')->nullable();
-            $table->string('posisi')->nullable();
+            $table->string('perusahaan', 100)->nullable();
+            $table->string('posisi', 50)->nullable();
             $table->text('keterangan')->nullable();
             $table->timestamps();
         });
